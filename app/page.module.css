@@ -1,0 +1,82 @@
+.hero {
+  position: relative;
+  padding: 72px 0 90px;
+  overflow: hidden;
+}
+
+.heroGlow {
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 480px;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(480px 320px at 18% 20%, var(--accent-soft), transparent 70%),
+    radial-gradient(420px 300px at 82% 8%, var(--accent-2-soft), transparent 70%);
+  filter: blur(6px);
+}
+
+.hero > .wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin: 6px 0 4px;
+  text-shadow: 0 0 42px var(--accent-soft);
+}
+
+.flourish {
+  display: block;
+  width: 200px;
+  height: 18px;
+  margin: 0 0 28px;
+}
+
+.tagline {
+  font-size: 1.15rem;
+  color: var(--text-dim);
+  max-width: 640px;
+  line-height: 1.6;
+  margin-bottom: 48px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cardTitle {
+  font-size: 1.15rem;
+  color: var(--text);
+}
+
+.cardDesc {
+  font-size: 13.5px;
+  color: var(--text-dim);
+  line-height: 1.55;
+  flex: 1;
+}
+
+.cardLink {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--accent);
+  transition: color 0.2s ease;
+}
+
+.card:hover .cardLink {
+  color: var(--accent-2);
+}
