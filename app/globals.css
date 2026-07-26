@@ -46,6 +46,57 @@
   }
 }
 
+/* Per-class accents. Dark values are the default; light theme overrides below.
+   Carried over from the character sheet's data-covenant palette. */
+[data-class="deathknight"] {
+  --class-accent: #d9536a;
+  --class-strong: #a32639;
+  --class-soft: rgba(217, 83, 106, 0.16);
+}
+[data-class="sovereign"] {
+  --class-accent: #e0a153;
+  --class-strong: #9a561f;
+  --class-soft: rgba(224, 161, 83, 0.16);
+}
+[data-class="mirrorwarden"] {
+  --class-accent: #6ed3d9;
+  --class-strong: #3f95a0;
+  --class-soft: rgba(110, 211, 217, 0.16);
+}
+[data-class="devourer"] {
+  --class-accent: #9b8cf0;
+  --class-strong: #6650c9;
+  --class-soft: rgba(155, 140, 240, 0.16);
+}
+[data-class="fablekeeper"] {
+  --class-accent: #e8b74d;
+  --class-strong: #b3821f;
+  --class-soft: rgba(232, 183, 77, 0.16);
+}
+
+@media (prefers-color-scheme: light) {
+  [data-class="deathknight"] {
+    --class-accent: #7e1d2c;
+    --class-soft: rgba(163, 38, 57, 0.13);
+  }
+  [data-class="sovereign"] {
+    --class-accent: #6d3d17;
+    --class-soft: rgba(154, 86, 31, 0.13);
+  }
+  [data-class="mirrorwarden"] {
+    --class-accent: #2f6e73;
+    --class-soft: rgba(63, 149, 160, 0.13);
+  }
+  [data-class="devourer"] {
+    --class-accent: #4a3aa0;
+    --class-soft: rgba(102, 80, 201, 0.13);
+  }
+  [data-class="fablekeeper"] {
+    --class-accent: #8a6215;
+    --class-soft: rgba(179, 130, 31, 0.13);
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
