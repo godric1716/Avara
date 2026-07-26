@@ -35,6 +35,7 @@ export default function ClassesPage() {
             <div className={styles.plateBody}>
               <span className={styles.plateEyebrow}>{c.eyebrow}</span>
               <h2 className={styles.plateName}>{c.name}</h2>
+              <p className={styles.plateQuote}>&ldquo;{c.quote}&rdquo;</p>
               <dl className={styles.plateStats}>
                 <div>
                   <dt>Resource</dt>

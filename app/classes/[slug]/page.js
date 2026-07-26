@@ -16,7 +16,7 @@ export async function generateMetadata({ params }) {
   if (!cls) return {};
   return {
     title: `${cls.name} · Avara`,
-    description: cls.intro,
+    description: cls.quote,
   };
 }
 
@@ -41,30 +41,57 @@ export default async function ClassChapter({ params }) {
           <span className={styles.eyebrow}>{cls.eyebrow}</span>
           <h1 className={styles.title}>{cls.name}</h1>
           <Flourish className={styles.flourish} />
-          <p className={styles.intro}>{cls.intro}</p>
 
-          <dl className={styles.statStrip}>
-            <div>
-              <dt>Resource</dt>
-              <dd>{cls.resource}</dd>
-            </div>
-            <div>
-              <dt>Primary Ability</dt>
-              <dd>{cls.primaryAbility}</dd>
-            </div>
-            <div>
-              <dt>Recovery</dt>
-              <dd>{cls.recovery}</dd>
-            </div>
-            <div>
-              <dt>{cls.subclassLabel}</dt>
-              <dd>{cls.subclasses.length} paths</dd>
-            </div>
-          </dl>
+          <blockquote className={styles.epigraph}>
+            <p>&ldquo;{cls.quote}&rdquo;</p>
+          </blockquote>
+
+          <div className={styles.intro}>
+            {cls.intro.map((para, i) => (
+              <p key={i} className={i === 0 ? styles.introLead : undefined}>
+                {para}
+              </p>
+            ))}
+          </div>
         </div>
       </header>
 
       <div className={`wrap ${styles.body}`}>
+        <dl className={styles.statStrip}>
+          <div>
+            <dt>Hit Die</dt>
+            <dd className="num">{cls.hitDie}</dd>
+          </div>
+          <div>
+            <dt>Primary Ability</dt>
+            <dd>{cls.primaryAbility}</dd>
+          </div>
+          <div>
+            <dt>Saving Throws</dt>
+            <dd>{cls.saves}</dd>
+          </div>
+          <div>
+            <dt>Armor</dt>
+            <dd>{cls.armor}</dd>
+          </div>
+        </dl>
+
+        <section className={styles.block}>
+          <h2 className={styles.blockTitle}>
+            <span className={styles.blockRule} aria-hidden="true" />
+            {cls.resource}
+          </h2>
+          <p className={styles.resourceNote}>{cls.resourceNote}</p>
+          <span className={styles.resourceMeta}>{cls.recovery}</span>
+        </section>
+
+        {cls.detail && (
+          <aside className={styles.detail}>
+            <span className={styles.detailLabel}>{cls.detail.label}</span>
+            <p className={styles.detailText}>{cls.detail.text}</p>
+          </aside>
+        )}
+
         <section className={styles.block}>
           <h2 className={styles.blockTitle}>
             <span className={styles.blockRule} aria-hidden="true" />
@@ -75,6 +102,9 @@ export default async function ClassChapter({ params }) {
               <div key={s.name} className={styles.path}>
                 <h3 className={styles.pathName}>{s.name}</h3>
                 <span className={styles.pathTitle}>{s.title}</span>
+                {s.quote && (
+                  <p className={styles.pathQuote}>&ldquo;{s.quote}&rdquo;</p>
+                )}
                 <p className={styles.pathBlurb}>{s.blurb}</p>
               </div>
             ))}
@@ -101,6 +131,10 @@ export default async function ClassChapter({ params }) {
             ))}
           </ul>
         </section>
+
+        {cls.closer && (
+          <p className={styles.closer}>&ldquo;{cls.closer}&rdquo;</p>
+        )}
 
         <div className={styles.cta}>
           <Link href="/sheet" className={styles.ctaLink}>
