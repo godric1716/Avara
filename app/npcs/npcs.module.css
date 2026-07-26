@@ -1,0 +1,259 @@
+.page {
+  max-width: 900px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Each entry sits in its class's world, the way the chapter pages do. */
+.npc {
+  position: relative;
+  overflow: hidden;
+  padding: 26px 26px 24px;
+  background: var(--class-bg, var(--surface));
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--class-accent, var(--accent));
+  border-radius: 0 var(--radius) var(--radius) 0;
+  box-shadow: var(--shadow);
+}
+
+.glow {
+  position: absolute;
+  inset: -50% -20% auto -20%;
+  height: 300px;
+  pointer-events: none;
+  background: radial-gradient(
+    420px 220px at 15% 20%,
+    var(--class-soft, var(--accent-soft)),
+    transparent 70%
+  );
+}
+
+.head {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.sigil {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  margin-top: 4px;
+  color: var(--class-accent, var(--accent));
+  filter: drop-shadow(0 0 14px var(--class-soft, var(--accent-soft)));
+}
+
+.headMain {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+.affiliation {
+  display: block;
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--class-accent, var(--accent));
+  margin-bottom: 3px;
+}
+
+.name {
+  font-family: var(--class-font, var(--font-display));
+  font-size: 1.9rem;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: var(--class-tracking, 0.02em);
+  color: var(--text);
+}
+
+.epithet {
+  display: block;
+  font-size: 12.5px;
+  font-style: italic;
+  color: var(--text-faint);
+  margin-top: 4px;
+}
+
+.status {
+  font-size: 9px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 4px 11px;
+  white-space: nowrap;
+  border: 1px solid currentColor;
+}
+
+.statusEstablished {
+  color: var(--class-accent, var(--accent));
+}
+
+.statusFragmentary {
+  color: var(--warn, #d9a441);
+}
+
+.statusUnnamed {
+  color: var(--text-faint);
+}
+
+.quote {
+  position: relative;
+  font-family: var(--class-font, var(--font-display));
+  font-size: clamp(1rem, 2vw, 1.18rem);
+  line-height: 1.55;
+  color: var(--class-accent, var(--accent));
+  border-left: 2px solid var(--class-accent, var(--accent));
+  padding-left: 18px;
+  margin-bottom: 18px;
+  text-wrap: balance;
+}
+
+.summary {
+  position: relative;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-dim);
+  margin-bottom: 22px;
+}
+
+.columns {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 22px;
+  margin-bottom: 20px;
+}
+
+.blockTitle {
+  font-family: var(--font-body);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-faint);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.facts {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.facts li {
+  position: relative;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--text-dim);
+  padding-left: 15px;
+}
+
+.facts li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--class-accent, var(--accent));
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail dt {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--class-accent, var(--accent));
+  margin-bottom: 2px;
+}
+
+.detail dd {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+/* Gaps the master document still needs to fill. */
+.open {
+  position: relative;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.open summary {
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-faint);
+  cursor: pointer;
+}
+
+.open summary:hover {
+  color: var(--class-accent, var(--accent));
+}
+
+.open ul {
+  list-style: none;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.open li {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  padding-left: 15px;
+  position: relative;
+}
+
+.open li::before {
+  content: "?";
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  color: var(--class-accent, var(--accent));
+}
+
+.openNote {
+  font-size: 11px;
+  font-style: italic;
+  color: var(--text-faint);
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+.classLink {
+  position: relative;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--class-accent, var(--accent));
+}
+
+.classLink:hover {
+  text-decoration: underline;
+}
