@@ -10,10 +10,12 @@ const SIGILS = {
     </>
   ),
   devourer: <path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4Z" />,
+  // Open book: two page leaves curving away from a central spine.
   fablekeeper: (
     <>
-      <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H12v18H6.5A2.5 2.5 0 0 0 4 23V5.5Z" />
-      <path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H12v18h5.5a2.5 2.5 0 0 1 2.5 2V5.5Z" />
+      <path d="M12 6.9C9.6 5.2 6.6 4.6 3.6 4.9V17.9C6.6 17.6 9.6 18.2 12 19.9" />
+      <path d="M12 6.9C14.4 5.2 17.4 4.6 20.4 4.9V17.9C17.4 17.6 14.4 18.2 12 19.9" />
+      <path d="M12 6.9V19.9" />
     </>
   ),
 };

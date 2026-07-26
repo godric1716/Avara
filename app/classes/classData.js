@@ -213,7 +213,7 @@ export const CLASSES = [
     slug: "devourer",
     id: "devourer",
     name: "Devourer",
-    eyebrow: "Voidreaper · Annihilator · Void-Scarred",
+    eyebrow: "A Road That Walks Beside Death",
     quote:
       "They turned from the fel fire and looked into the dark between stars. The void was hungry. So were they.",
     intro: [
