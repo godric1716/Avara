@@ -1,5 +1,9 @@
 :root {
-  --bg: #140e1b;
+  /* Aged parchment fibre — a single tiled noise texture, tinted per theme by
+     the layers in `body` below. */
+  --parchment: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23p)' opacity='0.55'/%3E%3C/svg%3E");
+
+  --bg: #1a1222;
   --surface: #1e1526;
   --surface-2: #271a30;
   --border: #3c2b49;
@@ -25,7 +29,7 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --bg: #ece6f0;
+    --bg: #e9e0cb;
     --surface: #f7f1f8;
     --surface-2: #ffffff;
     --border: #dbc9de;
@@ -219,8 +223,10 @@ body {
   height: 100%;
 }
 
+/* The far background is aged parchment: a fibre texture over uneven tinting,
+   so the page reads as a surface the content sits on rather than flat fill. */
 body {
-  background: var(--bg);
+  background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
   font-size: 16px;
@@ -229,6 +235,31 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--parchment),
+    radial-gradient(80vw 60vh at 12% 0%, var(--accent-soft), transparent 60%),
+    radial-gradient(70vw 55vh at 88% 15%, var(--accent-2-soft), transparent 62%),
+    radial-gradient(60vw 50vh at 50% 100%, var(--bloom-soft), transparent 65%);
+  background-size: 220px 220px, cover, cover, cover;
+  /* The noise multiplies into the tint so it darkens the grain rather than
+     laying grey dust over everything. */
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+@media (prefers-color-scheme: dark) {
+  body::before {
+    /* Multiply would crush an already-dark ground, so lift the grain instead. */
+    mix-blend-mode: soft-light;
+    opacity: 0.75;
+  }
 }
 
 a {
