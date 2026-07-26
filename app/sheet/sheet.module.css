@@ -1093,6 +1093,107 @@
   padding-left: 11px;
 }
 
+/* ---------- Reference tables ---------- */
+
+.refTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  margin-bottom: 10px;
+}
+
+.refTable th {
+  text-align: left;
+  font-size: 9px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  font-weight: 700;
+  padding: 0 8px 7px;
+  border-bottom: 1px solid var(--border);
+}
+
+.refTable td {
+  padding: 6px 8px;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+}
+
+.refTable tr:last-child td {
+  border-bottom: none;
+}
+
+.refRowActive td {
+  color: var(--class-accent);
+  font-weight: 700;
+  background: var(--class-soft);
+}
+
+.slotRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.slotChip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  min-width: 52px;
+  padding: 8px 10px;
+  background: var(--class-soft);
+  border: 1px solid var(--class-accent);
+  border-radius: 9px;
+}
+
+.slotChipLabel {
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-faint);
+}
+
+.slotChipCount {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--class-accent);
+}
+
+.spellGroup {
+  margin-top: 14px;
+}
+
+.spellGroupTitle {
+  font-family: var(--font-body);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-faint);
+  margin-bottom: 7px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--border);
+}
+
+.spellNames {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.spellName {
+  font-size: 12px;
+  color: var(--text-dim);
+  background: color-mix(in srgb, var(--surface-2) 70%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px 11px;
+}
+
 /* ---------- Notes ---------- */
 
 .notesCard {

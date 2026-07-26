@@ -20,6 +20,7 @@ import CheckList from "./CheckList";
 import Companions from "./Companions";
 import CommonTurn from "./CommonTurn";
 import SecondaryTracker from "./SecondaryTracker";
+import ReferenceExtras from "./ReferenceExtras";
 
 const TABS = [
   { key: "turn", label: "Common Turn" },
@@ -304,6 +305,7 @@ export default function CharacterSheet() {
             checked={character.items}
             onToggle={(name) => toggleIn("items", name)}
           />
+          <ReferenceExtras classId={character.classId} level={level} />
         </div>
       )}
 
