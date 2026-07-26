@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import styles from "./sheet.module.css";
 import {
   POKEDEX_ALL,
@@ -54,6 +55,9 @@ export default function Companions({
 
   return (
     <div className={styles.companions}>
+      <Link href="/classes/fablekeeper/bestiary" className={styles.bestiaryLink}>
+        Browse the full Bestiary &rarr;
+      </Link>
       {FK_SLOTS.map((slot) => {
         const state = slots[slot.key] || { line: null, hpCur: "", mega: false };
         const locked = level < slot.unlock;

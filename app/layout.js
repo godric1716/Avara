@@ -58,6 +58,9 @@ export const metadata = {
   title: "Avara",
   description:
     "A homebrew D&D world: classes, compendium, lore, and character sheets for Avara.",
+  // The strongest signal browsers check before deciding to auto-dark-mode a
+  // page that already implements its own theme — see the note in globals.css.
+  other: { "color-scheme": "light dark" },
 };
 
 export default function RootLayout({ children }) {

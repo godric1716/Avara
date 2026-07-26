@@ -1,7 +1,14 @@
 :root {
+  /* Tells the browser this page implements its own light/dark theme. Without
+     it, Chrome's automatic dark-mode heuristic can decide to algorithmically
+     invert/desaturate the page regardless of our media queries — the exact
+     symptom of a flat, textureless, muddy background with washed-out icons. */
+  color-scheme: light dark;
+
   /* Aged parchment fibre — a single tiled noise texture, tinted per theme by
-     the layers in `body` below. */
-  --parchment: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23p)' opacity='0.55'/%3E%3C/svg%3E");
+     the layers in `body` below. Base64 rather than percent-encoded: avoids
+     any ambiguity in how `#`/quotes inside the SVG are parsed as a URI. */
+  --parchment: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMjAiIGhlaWdodD0iMjIwIj48ZmlsdGVyIGlkPSJwIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC44NSIgbnVtT2N0YXZlcz0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjxmZUNvbG9yTWF0cml4IHR5cGU9InNhdHVyYXRlIiB2YWx1ZXM9IjAiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMjIwIiBoZWlnaHQ9IjIyMCIgZmlsdGVyPSJ1cmwoI3ApIiBvcGFjaXR5PSIwLjU1Ii8+PC9zdmc+");
 
   --bg: #1a1222;
   --surface: #1e1526;

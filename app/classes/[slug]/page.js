@@ -160,6 +160,29 @@ export default async function ClassChapter({ params }) {
             </Link>
           )}
 
+          {slug === "fablekeeper" && (
+            <Link href="/classes/fablekeeper/bestiary" className={styles.docLink}>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H12v18H6.5A2.5 2.5 0 0 0 4 20.5Z" />
+                <path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H12v18h5.5a2.5 2.5 0 0 1 2.5 2V5.5Z" />
+              </svg>
+              <span>
+                Browse the Bestiary
+                <span className={styles.docSize}>
+                  24 companion lines · searchable
+                </span>
+              </span>
+            </Link>
+          )}
+
           {documents.map((doc) => (
             <a
               key={doc.file}
