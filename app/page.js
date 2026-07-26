@@ -1,6 +1,8 @@
 import Link from "next/link";
 import styles from "./page.module.css";
 import Flourish from "./components/Flourish";
+import VineCorner from "./components/VineCorner";
+import Sparkles from "./components/Sparkles";
 
 const SECTIONS = [
   {
@@ -34,6 +36,11 @@ export default function Home() {
   return (
     <div className={styles.hero}>
       <div className={styles.heroGlow} aria-hidden="true" />
+      <Sparkles className={styles.sparkles} />
+      <VineCorner corner="tl" className={`${styles.cornerVine} ${styles.cornerVinePrimary} ${styles.cornerVineTL}`} />
+      <VineCorner corner="br" className={`${styles.cornerVine} ${styles.cornerVinePrimary} ${styles.cornerVineBR}`} />
+      <VineCorner corner="tr" className={`${styles.cornerVine} ${styles.cornerVineSecondary} ${styles.cornerVineTR}`} />
+      <VineCorner corner="bl" className={`${styles.cornerVine} ${styles.cornerVineSecondary} ${styles.cornerVineBL}`} />
       <div className="wrap">
         <span className="eyebrow">A Homebrew World</span>
         <h1 className={styles.title}>AVARA</h1>

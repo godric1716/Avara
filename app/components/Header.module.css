@@ -29,6 +29,18 @@
   font-weight: 700;
 }
 
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sigil {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
 .title {
   font-family: var(--font-display);
   font-size: 1.4rem;

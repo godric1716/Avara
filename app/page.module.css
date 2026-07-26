@@ -1,18 +1,65 @@
 .hero {
   position: relative;
-  padding: 72px 0 90px;
+  padding: 88px 0 100px;
   overflow: hidden;
 }
 
 .heroGlow {
   position: absolute;
   inset: -20% -10% auto -10%;
-  height: 480px;
+  height: 560px;
   pointer-events: none;
   z-index: 0;
-  background: radial-gradient(480px 320px at 18% 20%, var(--accent-soft), transparent 70%),
-    radial-gradient(420px 300px at 82% 8%, var(--accent-2-soft), transparent 70%);
+  background: radial-gradient(520px 340px at 16% 22%, var(--accent-soft), transparent 70%),
+    radial-gradient(480px 360px at 86% 10%, var(--accent-2-soft), transparent 68%),
+    radial-gradient(360px 260px at 55% 45%, var(--bloom-soft), transparent 72%);
   filter: blur(6px);
+}
+
+.sparkles {
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 560px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cornerVine {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cornerVinePrimary {
+  width: 340px;
+  height: 340px;
+  opacity: 0.7;
+}
+
+.cornerVineSecondary {
+  width: 190px;
+  height: 190px;
+  opacity: 0.4;
+}
+
+.cornerVineTL {
+  top: -30px;
+  left: -50px;
+}
+
+.cornerVineBR {
+  bottom: -30px;
+  right: -50px;
+}
+
+.cornerVineTR {
+  top: -20px;
+  right: -30px;
+}
+
+.cornerVineBL {
+  bottom: -20px;
+  left: -30px;
 }
 
 .hero > .wrap {
@@ -21,19 +68,19 @@
 }
 
 .title {
-  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-size: clamp(3.2rem, 9vw, 6.2rem);
   font-weight: 900;
   letter-spacing: 0.05em;
   color: var(--accent);
   margin: 6px 0 4px;
-  text-shadow: 0 0 42px var(--accent-soft);
+  text-shadow: 0 0 48px var(--accent-soft);
 }
 
 .flourish {
   display: block;
-  width: 200px;
-  height: 18px;
-  margin: 0 0 28px;
+  width: 280px;
+  height: 26px;
+  margin: 0 0 32px;
 }
 
 .tagline {
@@ -78,5 +125,5 @@
 }
 
 .card:hover .cardLink {
-  color: var(--accent-2);
+  color: var(--bloom);
 }

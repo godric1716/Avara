@@ -1,10 +1,12 @@
 import styles from "../section.module.css";
+import Flourish from "../components/Flourish";
 
 export default function SheetPage() {
   return (
     <div className={`wrap ${styles.section}`}>
       <span className="eyebrow">Section</span>
       <h1 className={styles.title}>Character Sheet</h1>
+      <Flourish className={styles.flourish} />
       <p className={styles.lead}>
         The interactive class tracker — Grave Seals, Malice, Mirror Points, Soul
         Fragments, Ink, whichever class you&rsquo;re playing — moving over from the

@@ -1,9 +1,11 @@
 import styles from "./Footer.module.css";
+import Flourish from "./Flourish";
 
 export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={`wrap ${styles.inner}`}>
+        <Flourish className={styles.flourish} />
         <span>Avara &middot; a homebrew world, built one session at a time</span>
       </div>
     </footer>

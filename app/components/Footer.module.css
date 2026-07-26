@@ -1,11 +1,21 @@
 .footer {
-  border-top: 1px dashed var(--border);
+  border-top: 1px solid var(--border);
   margin-top: 60px;
 }
 
 .inner {
-  padding: 20px 24px;
+  padding: 22px 24px 20px;
   font-size: 12px;
   color: var(--text-faint);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.flourish {
+  width: 190px;
+  height: 20px;
+  opacity: 0.8;
 }
