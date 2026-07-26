@@ -353,6 +353,115 @@
   color: var(--class-accent);
 }
 
+/* ---------- Secondary trackers ---------- */
+
+.tracker {
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px dashed var(--border);
+}
+
+.tracker:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.trackerHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.trackerLabel {
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+
+.trackerCount {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--class-accent);
+}
+
+.trackerForm {
+  display: flex;
+  gap: 7px;
+}
+
+.trackerForm input {
+  flex: 1;
+  min-width: 0;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-family: inherit;
+  font-size: 12.5px;
+  color: var(--text);
+}
+
+.trackerForm input:focus {
+  outline: none;
+  border-color: var(--class-accent);
+}
+
+.trackerForm input:disabled {
+  opacity: 0.5;
+}
+
+.trackerForm button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.tagList {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 9px;
+}
+
+.tagList li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--class-soft);
+  border: 1px solid var(--class-accent);
+  border-radius: 999px;
+  padding: 3px 4px 3px 11px;
+  font-size: 12px;
+  color: var(--text);
+}
+
+.tagList button {
+  background: none;
+  border: none;
+  color: var(--class-accent);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 5px;
+}
+
+.tagList button:hover {
+  color: var(--text);
+}
+
+.trackerNote {
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--text-faint);
+  font-style: italic;
+  margin-top: 8px;
+}
+
 /* ---------- Loadout ---------- */
 
 .loadoutList {
@@ -578,6 +687,194 @@
   font-size: 12.5px;
   line-height: 1.6;
   color: var(--text-dim);
+}
+
+/* ---------- Common Turn (damage-report layout) ---------- */
+
+.report {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.reportHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 18px 22px;
+  background: var(--class-soft);
+  border-bottom: 2px solid var(--class-accent);
+}
+
+.reportEyebrow {
+  display: block;
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--class-accent);
+  margin-bottom: 3px;
+}
+
+.reportTitle {
+  font-size: 1.25rem;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.reportStats {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.reportStats dt {
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-faint);
+  margin-bottom: 1px;
+}
+
+.reportStats dd {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--class-accent);
+}
+
+/* Each action-economy slot is a labelled band down the left. */
+.reportRow {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  border-bottom: 1px solid var(--border);
+}
+
+.reportRow:last-of-type {
+  border-bottom: none;
+}
+
+.reportSlot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 16px 14px 16px 22px;
+  background: color-mix(in srgb, var(--surface-2) 60%, transparent);
+  border-right: 1px solid var(--border);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+
+.reportCount {
+  color: var(--class-accent);
+  font-size: 11px;
+}
+
+.reportEntries {
+  padding: 6px 22px 6px 18px;
+}
+
+.reportEntry {
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.reportEntry:last-child {
+  border-bottom: none;
+}
+
+.reportEntryHead {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+
+.reportName {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.reportCost {
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--class-accent);
+  background: var(--class-soft);
+  border-radius: 999px;
+  padding: 2px 9px;
+}
+
+.reportLvl {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-faint);
+}
+
+.reportDice {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.die {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--class-bg);
+  background: var(--class-accent);
+  border-radius: 5px;
+  padding: 3px 8px;
+  letter-spacing: 0.02em;
+}
+
+.reportDesc {
+  font-size: 12.5px;
+  line-height: 1.62;
+  color: var(--text-dim);
+}
+
+.reportFoot {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  border-top: 2px solid var(--class-accent);
+  background: color-mix(in srgb, var(--class-soft) 50%, transparent);
+}
+
+.reportFoot .reportDesc {
+  padding: 16px 22px 16px 18px;
+}
+
+@media (max-width: 640px) {
+  .reportRow,
+  .reportFoot {
+    grid-template-columns: 1fr;
+  }
+
+  .reportSlot {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 11px 18px;
+  }
+
+  .reportEntries,
+  .reportFoot .reportDesc {
+    padding: 6px 18px;
+  }
 }
 
 /* ---------- Companions ---------- */

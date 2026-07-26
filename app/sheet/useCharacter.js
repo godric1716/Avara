@@ -19,6 +19,7 @@ export function defaultCharacter() {
     speed: "",
     resource: 0,
     tags: {},
+    counters: {},
     feats: {},
     items: {},
     notes: "",
@@ -54,6 +55,7 @@ function sanitize(raw) {
     abilities,
     resource: clampInt(raw.resource, 0, 999, 0),
     tags: isPlainObject(raw.tags) ? raw.tags : {},
+    counters: isPlainObject(raw.counters) ? raw.counters : {},
     feats: isPlainObject(raw.feats) ? raw.feats : {},
     items: isPlainObject(raw.items) ? raw.items : {},
     notes: typeof raw.notes === "string" ? raw.notes : "",
@@ -120,6 +122,7 @@ export function useCharacter() {
       subclass: firstSubclassKey(classId),
       resource: 0,
       tags: {},
+      counters: {},
     }));
   }, []);
 

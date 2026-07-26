@@ -18,8 +18,11 @@ import ResourceTracker from "./ResourceTracker";
 import FeatureColumn from "./FeatureColumn";
 import CheckList from "./CheckList";
 import Companions from "./Companions";
+import CommonTurn from "./CommonTurn";
+import SecondaryTracker from "./SecondaryTracker";
 
 const TABS = [
+  { key: "turn", label: "Common Turn" },
   { key: "actions", label: "Actions" },
   { key: "companions", label: "Companions", classId: "fablekeeper" },
   { key: "reference", label: "Reference" },
@@ -29,7 +32,7 @@ const TABS = [
 export default function CharacterSheet() {
   const { character, loaded, update, setAbility, setClass, toggleIn, reset } =
     useCharacter();
-  const [tab, setTab] = useState("actions");
+  const [tab, setTab] = useState("turn");
 
   const cls = CLASS_DATA[character.classId];
   const sub = cls.subclasses?.[character.subclass] || null;
@@ -60,7 +63,7 @@ export default function CharacterSheet() {
   const visibleTabs = TABS.filter(
     (t) => !t.classId || t.classId === character.classId
   );
-  const activeTab = visibleTabs.some((t) => t.key === tab) ? tab : "actions";
+  const activeTab = visibleTabs.some((t) => t.key === tab) ? tab : "turn";
 
   return (
     <div data-class={character.classId} className={styles.sheet}>
@@ -197,6 +200,16 @@ export default function CharacterSheet() {
           onChange={(v) => update({ resource: v })}
         />
 
+        <SecondaryTracker
+          classId={character.classId}
+          subclass={character.subclass}
+          level={level}
+          lists={character.tags}
+          counters={character.counters}
+          onLists={(tags) => update({ tags })}
+          onCounters={(counters) => update({ counters })}
+        />
+
         <section className={`${styles.card} ${styles.loadoutCard}`}>
           <h2 className={styles.cardTitle}>Loadout</h2>
           {loadout.length === 0 ? (
@@ -235,6 +248,19 @@ export default function CharacterSheet() {
           Reset sheet
         </button>
       </nav>
+
+      {activeTab === "turn" && (
+        <CommonTurn
+          cls={cls}
+          sub={sub}
+          level={level}
+          resourceLabel={cls.resourceLabel}
+          resourceMax={resourceMax}
+          primaryAbil={cls.primaryAbil}
+          abilityMods={abilityMods}
+          profBonus={pb}
+        />
+      )}
 
       {activeTab === "actions" && (
         <div className={styles.columns}>
