@@ -2,8 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import styles from "./chapter.module.css";
 import ClassSigil from "../../components/ClassSigil";
-import Flourish from "../../components/Flourish";
-import VineCorner from "../../components/VineCorner";
+import ClassOrnament from "../../components/ClassOrnament";
 import { CLASSES, getClass } from "../classData";
 
 export function generateStaticParams() {
@@ -29,8 +28,6 @@ export default async function ClassChapter({ params }) {
     <article data-class={cls.id} className={styles.chapter}>
       <header className={styles.hero}>
         <div className={styles.heroGlow} aria-hidden="true" />
-        <VineCorner corner="tl" className={`${styles.heroVine} ${styles.heroVineTL}`} />
-        <VineCorner corner="br" className={`${styles.heroVine} ${styles.heroVineBR}`} />
         <ClassSigil id={cls.id} className={styles.watermark} />
 
         <div className={`wrap ${styles.heroInner}`}>
@@ -40,7 +37,7 @@ export default async function ClassChapter({ params }) {
           <ClassSigil id={cls.id} className={styles.heroSigil} />
           <span className={styles.eyebrow}>{cls.eyebrow}</span>
           <h1 className={styles.title}>{cls.name}</h1>
-          <Flourish className={styles.flourish} />
+          <ClassOrnament id={cls.id} className={styles.flourish} />
 
           <blockquote className={styles.epigraph}>
             <p>&ldquo;{cls.quote}&rdquo;</p>

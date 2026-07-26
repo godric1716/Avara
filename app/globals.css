@@ -46,54 +46,162 @@
   }
 }
 
-/* Per-class accents. Dark values are the default; light theme overrides below.
-   Carried over from the character sheet's data-covenant palette. */
+/* ===========================================================================
+   Per-class environments.
+
+   Each class owns a full palette and a display face, not just an accent —
+   otherwise every chapter reads as the same page with a different highlight.
+   Inside a [data-class] scope the generic tokens (--surface, --border, --text
+   …) are re-pointed at the class values, so every component nested within
+   picks up that class's world without needing class-specific rules.
+
+   Dark values are the default; light overrides follow.
+   =========================================================================== */
+
+[data-class] {
+  --surface: var(--class-surface);
+  --surface-2: var(--class-surface-2);
+  --border: var(--class-border);
+  --text: var(--class-text);
+  --text-dim: var(--class-text-dim);
+  --text-faint: var(--class-text-faint);
+}
+
+/* Death Knight — oxblood and cold stone. Blackletter. */
 [data-class="deathknight"] {
-  --class-accent: #d9536a;
+  --class-accent: #e05a6f;
   --class-strong: #a32639;
-  --class-soft: rgba(217, 83, 106, 0.16);
+  --class-soft: rgba(224, 90, 111, 0.16);
+  --class-bg: #130a0d;
+  --class-surface: #1d1014;
+  --class-surface-2: #281620;
+  --class-border: #43232c;
+  --class-text: #f6e9ec;
+  --class-text-dim: #c8a5ad;
+  --class-text-faint: #8f6b74;
+  --class-font: var(--font-deathknight), var(--font-cinzel), serif;
+  --class-tracking: 0.02em;
 }
+
+/* Undying Sovereign — tomb gold and dark amber. Imperial Roman. */
 [data-class="sovereign"] {
-  --class-accent: #e0a153;
+  --class-accent: #e8ab5c;
   --class-strong: #9a561f;
-  --class-soft: rgba(224, 161, 83, 0.16);
+  --class-soft: rgba(232, 171, 92, 0.16);
+  --class-bg: #150f07;
+  --class-surface: #1f180d;
+  --class-surface-2: #2b2213;
+  --class-border: #453620;
+  --class-text: #f7f0e3;
+  --class-text-dim: #cbb794;
+  --class-text-faint: #93815f;
+  --class-font: var(--font-sovereign), var(--font-cinzel), serif;
+  --class-tracking: 0.06em;
 }
+
+/* Mirrorwarden — silvered glass and cold teal. Thin geometric. */
 [data-class="mirrorwarden"] {
   --class-accent: #6ed3d9;
   --class-strong: #3f95a0;
   --class-soft: rgba(110, 211, 217, 0.16);
+  --class-bg: #091416;
+  --class-surface: #0f1e21;
+  --class-surface-2: #14292e;
+  --class-border: #224046;
+  --class-text: #e7f4f5;
+  --class-text-dim: #a2c6ca;
+  --class-text-faint: #6d8f93;
+  --class-font: var(--font-mirrorwarden), var(--font-cinzel), sans-serif;
+  --class-tracking: 0.12em;
 }
+
+/* Devourer — the dark between stars. Thin, wide, weightless. */
 [data-class="devourer"] {
   --class-accent: #9b8cf0;
   --class-strong: #6650c9;
   --class-soft: rgba(155, 140, 240, 0.16);
+  --class-bg: #0c0a1a;
+  --class-surface: #140f26;
+  --class-surface-2: #1c1533;
+  --class-border: #2e2450;
+  --class-text: #ece8fa;
+  --class-text-dim: #b2a8d6;
+  --class-text-faint: #7d7199;
+  --class-font: var(--font-devourer), var(--font-cinzel), serif;
+  --class-tracking: 0.14em;
 }
+
+/* Fablekeeper — parchment and ink. Old printing press. */
 [data-class="fablekeeper"] {
   --class-accent: #e8b74d;
   --class-strong: #b3821f;
   --class-soft: rgba(232, 183, 77, 0.16);
+  --class-bg: #13110a;
+  --class-surface: #1d1a0f;
+  --class-surface-2: #272315;
+  --class-border: #413a22;
+  --class-text: #f7f2e4;
+  --class-text-dim: #cbc097;
+  --class-text-faint: #928963;
+  --class-font: var(--font-fablekeeper), var(--font-cinzel), serif;
+  --class-tracking: 0.01em;
 }
 
 @media (prefers-color-scheme: light) {
   [data-class="deathknight"] {
-    --class-accent: #7e1d2c;
-    --class-soft: rgba(163, 38, 57, 0.13);
+    --class-accent: #8e1f30;
+    --class-soft: rgba(142, 31, 48, 0.13);
+    --class-bg: #f1e8e9;
+    --class-surface: #fbf4f5;
+    --class-surface-2: #ffffff;
+    --class-border: #ddc6ca;
+    --class-text: #261216;
+    --class-text-dim: #6a4a51;
+    --class-text-faint: #997c83;
   }
   [data-class="sovereign"] {
     --class-accent: #6d3d17;
-    --class-soft: rgba(154, 86, 31, 0.13);
+    --class-soft: rgba(109, 61, 23, 0.13);
+    --class-bg: #f2ece1;
+    --class-surface: #fcf7ee;
+    --class-surface-2: #ffffff;
+    --class-border: #ded1ba;
+    --class-text: #241a0c;
+    --class-text-dim: #665338;
+    --class-text-faint: #94805f;
   }
   [data-class="mirrorwarden"] {
-    --class-accent: #2f6e73;
-    --class-soft: rgba(63, 149, 160, 0.13);
+    --class-accent: #23666c;
+    --class-soft: rgba(35, 102, 108, 0.13);
+    --class-bg: #e6eff1;
+    --class-surface: #f4f9fa;
+    --class-surface-2: #ffffff;
+    --class-border: #c3d9dd;
+    --class-text: #0d2225;
+    --class-text-dim: #3f6065;
+    --class-text-faint: #6d898d;
   }
   [data-class="devourer"] {
     --class-accent: #4a3aa0;
-    --class-soft: rgba(102, 80, 201, 0.13);
+    --class-soft: rgba(74, 58, 160, 0.13);
+    --class-bg: #e9e7f4;
+    --class-surface: #f4f2fb;
+    --class-surface-2: #ffffff;
+    --class-border: #ccc5e2;
+    --class-text: #16112b;
+    --class-text-dim: #4d4370;
+    --class-text-faint: #7d74a0;
   }
   [data-class="fablekeeper"] {
-    --class-accent: #8a6215;
-    --class-soft: rgba(179, 130, 31, 0.13);
+    --class-accent: #7d5810;
+    --class-soft: rgba(125, 88, 16, 0.13);
+    --class-bg: #f3efe3;
+    --class-surface: #fcf9f0;
+    --class-surface-2: #ffffff;
+    --class-border: #ded6bc;
+    --class-text: #211c0d;
+    --class-text-dim: #5f563a;
+    --class-text-faint: #8d8464;
   }
 }
 

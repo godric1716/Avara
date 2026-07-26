@@ -1,6 +1,19 @@
+/* The sheet sits in its class's world, same as that class's chapter page. */
 .sheet {
   position: relative;
-  padding-bottom: 90px;
+  padding: 26px 26px 60px;
+  margin-bottom: 60px;
+  background: var(--class-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.sheet h1,
+.sheet h2,
+.sheet h3 {
+  font-family: var(--class-font);
 }
 
 .glow {
@@ -10,7 +23,7 @@
   pointer-events: none;
   z-index: 0;
   background: radial-gradient(520px 240px at 20% 20%, var(--class-soft), transparent 70%),
-    radial-gradient(420px 220px at 80% 0%, var(--accent-2-soft), transparent 72%);
+    radial-gradient(420px 220px at 80% 0%, var(--class-soft), transparent 72%);
 }
 
 .card {
@@ -22,7 +35,10 @@
   padding: 20px;
 }
 
+/* Small uppercase labels stay in the body face — a display face at 12px
+   with wide tracking is unreadable, blackletter especially. */
 .cardTitle {
+  font-family: var(--font-body);
   font-size: 0.78rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -72,7 +88,7 @@
   background: transparent;
   border: none;
   border-bottom: 1px dashed var(--border);
-  font-family: var(--font-display);
+  font-family: var(--class-font);
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--text);

@@ -1,5 +1,17 @@
+/* The chapter paints its own ground, so the class palette — not the site's
+   plum — is what the reader is standing in. */
 .chapter {
   padding-bottom: 100px;
+  background: var(--class-bg);
+  color: var(--text);
+  margin-top: -1px;
+}
+
+/* Headings speak in the class's own display face. */
+.chapter h1,
+.chapter h2,
+.chapter h3 {
+  font-family: var(--class-font);
 }
 
 /* ---------- Hero plate ---------- */
@@ -92,11 +104,12 @@
 
 .title {
   font-size: clamp(2.6rem, 6.5vw, 4.2rem);
-  font-weight: 900;
-  letter-spacing: 0.03em;
+  font-weight: 400;
+  letter-spacing: var(--class-tracking, 0.03em);
   color: var(--text);
   margin: 6px 0 2px;
   text-shadow: 0 0 46px var(--class-soft);
+  line-height: 1.05;
 }
 
 .flourish {
@@ -115,11 +128,13 @@
   border-left: 2px solid var(--class-accent);
 }
 
+/* No italic here — these display faces either lack one or synthesize a poor
+   slant. The face itself carries the voice. */
 .epigraph p {
-  font-family: var(--font-display);
-  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
-  line-height: 1.55;
-  font-style: italic;
+  font-family: var(--class-font);
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  line-height: 1.5;
+  letter-spacing: var(--class-tracking, 0.02em);
   color: var(--class-accent);
   text-wrap: balance;
 }
@@ -141,7 +156,7 @@
 /* First paragraph gets a drop-cap, like a real chapter opening */
 .introLead::first-letter {
   float: left;
-  font-family: var(--font-display);
+  font-family: var(--class-font);
   font-size: 3.4rem;
   line-height: 0.82;
   font-weight: 900;
@@ -180,7 +195,7 @@
 }
 
 .statStrip dd {
-  font-family: var(--font-display);
+  font-family: var(--class-font);
   font-size: 1.02rem;
   font-weight: 700;
   color: var(--class-accent);
@@ -196,10 +211,12 @@
   margin-bottom: 52px;
 }
 
+/* Small uppercase labels stay in the body face — see sheet.module.css. */
 .blockTitle {
   display: flex;
   align-items: center;
   gap: 14px;
+  font-family: var(--font-body);
   font-size: 0.82rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -253,7 +270,7 @@
 
 .detailLabel {
   display: block;
-  font-family: var(--font-display);
+  font-family: var(--class-font);
   font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -302,9 +319,8 @@
 }
 
 .pathQuote {
-  font-family: var(--font-display);
-  font-size: 13.5px;
-  font-style: italic;
+  font-family: var(--class-font);
+  font-size: 15px;
   line-height: 1.5;
   color: var(--class-accent);
   margin-bottom: 10px;
@@ -380,9 +396,9 @@
 
 /* Closing epigraph — centered, the last word of the chapter */
 .closer {
-  font-family: var(--font-display);
-  font-size: clamp(1rem, 2vw, 1.22rem);
-  font-style: italic;
+  font-family: var(--class-font);
+  font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+  letter-spacing: var(--class-tracking, 0.02em);
   line-height: 1.6;
   text-align: center;
   text-wrap: balance;
