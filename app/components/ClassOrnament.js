@@ -94,22 +94,39 @@ const ORNAMENTS = {
     </>
   ),
 
-  // A pen-stroke flourish with a leaf, in the storybook hand.
+  // A quill nib on a growing stem — book and living thing at once. The nib
+  // keeps it from reading as the site's fae vine now that it is green.
   fablekeeper: (
     <>
       <path
-        d="M16 16c26-10 46 6 62 2s22-10 38-10 26 8 42 10 40-6 62-4"
+        d="M14 15c24-8 44 5 60 2s20-7 36-7"
         stroke={A}
         strokeWidth="1.5"
         strokeLinecap="round"
         fill="none"
       />
       <path
-        d="M130 4c3 4 3 8 0 12-3-4-3-8 0-12Z"
-        fill={A}
+        d="M150 10c16 0 20 7 36 10s36-9 60-5"
+        stroke={A}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        fill="none"
       />
-      <path d="M62 18c3-5 9-5 12 0-3 5-9 5-12 0Z" fill={S} />
-      <path d="M186 12c3-5 9-5 12 0-3 5-9 5-12 0Z" fill={S} />
+      {/* nib */}
+      <path
+        d="M130 3c4.5 5 5.5 11 0 21-5.5-10-4.5-16 0-21Z"
+        fill="none"
+        stroke={A}
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <path d="M130 12.5V21" stroke={A} strokeWidth="1.3" strokeLinecap="round" />
+      <circle cx="130" cy="10.5" r="1.5" fill={A} />
+      {/* leaves */}
+      <path d="M60 17c4-6 11-6 15 0-4 6-11 6-15 0Z" fill={S} />
+      <path d="M196 13c4-6 11-6 15 0-4 6-11 6-15 0Z" fill={S} />
+      <circle cx="14" cy="15" r="2" fill={S} />
+      <circle cx="246" cy="5" r="2" fill={S} />
     </>
   ),
 };

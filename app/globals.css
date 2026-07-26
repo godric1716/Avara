@@ -131,18 +131,21 @@
   --class-tracking: 0.14em;
 }
 
-/* Fablekeeper — parchment and ink. Old printing press. */
+/* Fablekeeper — living green and ink. Old printing press.
+   Deliberately the greenest thing in the world's palette: it kept drifting
+   into the Sovereign's gold, and a naturalist who keeps living creatures
+   belongs nearer the fae emerald than the tomb. */
 [data-class="fablekeeper"] {
-  --class-accent: #e8b74d;
-  --class-strong: #b3821f;
-  --class-soft: rgba(232, 183, 77, 0.16);
-  --class-bg: #13110a;
-  --class-surface: #1d1a0f;
-  --class-surface-2: #272315;
-  --class-border: #413a22;
-  --class-text: #f7f2e4;
-  --class-text-dim: #cbc097;
-  --class-text-faint: #928963;
+  --class-accent: #57d69a;
+  --class-strong: #2a9d68;
+  --class-soft: rgba(87, 214, 154, 0.16);
+  --class-bg: #061a11;
+  --class-surface: #0c2418;
+  --class-surface-2: #113020;
+  --class-border: #1f4a32;
+  --class-text: #e8f5ec;
+  --class-text-dim: #a4c9b1;
+  --class-text-faint: #6f9280;
   --class-font: var(--font-fablekeeper), var(--font-cinzel), serif;
   --class-tracking: 0.01em;
 }
@@ -193,15 +196,15 @@
     --class-text-faint: #7d74a0;
   }
   [data-class="fablekeeper"] {
-    --class-accent: #7d5810;
-    --class-soft: rgba(125, 88, 16, 0.13);
-    --class-bg: #f3efe3;
-    --class-surface: #fcf9f0;
+    --class-accent: #1a6b4a;
+    --class-soft: rgba(26, 107, 74, 0.13);
+    --class-bg: #e5f0e8;
+    --class-surface: #f2faf4;
     --class-surface-2: #ffffff;
-    --class-border: #ded6bc;
-    --class-text: #211c0d;
-    --class-text-dim: #5f563a;
-    --class-text-faint: #8d8464;
+    --class-border: #c2dccb;
+    --class-text: #0c2116;
+    --class-text-dim: #3d6350;
+    --class-text-faint: #6b8f7b;
   }
 }
 
