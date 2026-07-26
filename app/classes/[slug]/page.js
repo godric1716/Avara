@@ -4,6 +4,7 @@ import styles from "./chapter.module.css";
 import ClassSigil from "../../components/ClassSigil";
 import ClassOrnament from "../../components/ClassOrnament";
 import { CLASSES, getClass, getDocuments } from "../classData";
+import { getDocument } from "./document/documentData";
 
 export function generateStaticParams() {
   return CLASSES.map((c) => ({ slug: c.slug }));
@@ -24,6 +25,7 @@ export default async function ClassChapter({ params }) {
   const cls = getClass(slug);
   if (!cls) notFound();
   const documents = getDocuments(slug);
+  const hasDocument = !!getDocument(slug);
 
   return (
     <article data-class={cls.id} className={styles.chapter}>
@@ -135,6 +137,29 @@ export default async function ClassChapter({ params }) {
         )}
 
         <div className={styles.cta}>
+          {hasDocument && (
+            <Link href={`/classes/${slug}/document`} className={styles.docLink}>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5Z" />
+                <path d="M8 7.5h8M8 11h8M8 14.5h5" />
+              </svg>
+              <span>
+                Read the full class document
+                <span className={styles.docSize}>
+                  Complete rules · on this site
+                </span>
+              </span>
+            </Link>
+          )}
+
           {documents.map((doc) => (
             <a
               key={doc.file}
