@@ -351,6 +351,24 @@ export const CLASSES = [
   },
 ];
 
+/* Source documents hosted under /public/documents. `size` is shown on the
+   download so nobody opens a 1 MB file on phone data by accident. */
+export const CLASS_DOCUMENTS = {
+  "death-knight": [{ label: "Death Knight class document", file: "death-knight.pdf", size: "77 KB" }],
+  "undying-sovereign": [
+    { label: "Undying Sovereign class document", file: "undying-sovereign.pdf", size: "31 KB" },
+  ],
+  mirrorwarden: [{ label: "Mirrorwarden class document", file: "mirrorwarden.pdf", size: "155 KB" }],
+  devourer: [{ label: "Devourer class document", file: "devourer.pdf", size: "55 KB" }],
+  fablekeeper: [
+    { label: "Fablekeeper Pokédex", file: "fablekeeper-pokedex.pdf", size: "1.0 MB" },
+  ],
+};
+
 export function getClass(slug) {
   return CLASSES.find((c) => c.slug === slug);
+}
+
+export function getDocuments(slug) {
+  return CLASS_DOCUMENTS[slug] || [];
 }

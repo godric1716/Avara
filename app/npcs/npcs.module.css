@@ -2,10 +2,69 @@
   max-width: 900px;
 }
 
+.era {
+  margin-bottom: 46px;
+}
+
+.eraTitle {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 20px;
+}
+
+.eraRule {
+  width: 26px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  flex: none;
+}
+
+.eraCount {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--accent);
+}
+
 .list {
   display: flex;
   flex-direction: column;
   gap: 22px;
+}
+
+/* Where two documents describe the same figure differently. */
+.conflict {
+  position: relative;
+  border: 1px dashed var(--warn, #d9a441);
+  border-radius: var(--radius);
+  padding: 13px 16px;
+  margin-bottom: 20px;
+}
+
+.conflictLabel {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--warn, #d9a441);
+  margin-bottom: 5px;
+}
+
+.conflict p {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text-dim);
+}
+
+.statusConflicted {
+  color: var(--warn, #d9a441);
 }
 
 /* Each entry sits in its class's world, the way the chapter pages do. */

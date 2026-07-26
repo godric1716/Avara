@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import styles from "./chapter.module.css";
 import ClassSigil from "../../components/ClassSigil";
 import ClassOrnament from "../../components/ClassOrnament";
-import { CLASSES, getClass } from "../classData";
+import { CLASSES, getClass, getDocuments } from "../classData";
 
 export function generateStaticParams() {
   return CLASSES.map((c) => ({ slug: c.slug }));
@@ -23,6 +23,7 @@ export default async function ClassChapter({ params }) {
   const { slug } = await params;
   const cls = getClass(slug);
   if (!cls) notFound();
+  const documents = getDocuments(slug);
 
   return (
     <article data-class={cls.id} className={styles.chapter}>
@@ -134,6 +135,34 @@ export default async function ClassChapter({ params }) {
         )}
 
         <div className={styles.cta}>
+          {documents.map((doc) => (
+            <a
+              key={doc.file}
+              href={`/documents/${doc.file}`}
+              className={styles.docLink}
+              target="_blank"
+              rel="noopener"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 3v12" />
+                <path d="M7.5 11 12 15.5 16.5 11" />
+                <path d="M4.5 19.5h15" />
+              </svg>
+              <span>
+                {doc.label}
+                <span className={styles.docSize}>PDF · {doc.size}</span>
+              </span>
+            </a>
+          ))}
+
           <Link href="/sheet" className={styles.ctaLink}>
             Play this class on the character sheet &rarr;
           </Link>

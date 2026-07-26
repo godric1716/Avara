@@ -410,8 +410,49 @@
 
 .cta {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
   padding-top: 8px;
+}
+
+/* Source document download, sitting above the sheet call-to-action. */
+.docLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 22px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--class-accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  color: var(--text);
+  font-size: 13.5px;
+  font-weight: 700;
+  transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+}
+
+.docLink svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--class-accent);
+}
+
+.docLink:hover {
+  border-color: var(--class-accent);
+  background: var(--class-soft);
+  transform: translateY(-1px);
+}
+
+.docSize {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-faint);
+  margin-top: 2px;
 }
 
 .ctaLink {
