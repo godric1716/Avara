@@ -1,5 +1,21 @@
 import { CLASS_DATA, CLASS_ORDER, CLASS_SLUGS } from "../../sheet/data";
 import srd from "./srd.json";
+import personal from "./personal.json";
+
+/* Personal entries are table reference typed in by hand — published material
+   that is not ours to redistribute. They are included by default for local
+   use and excluded from any build that sets the flag to "false", so a public
+   deploy can never carry them. */
+const INCLUDE_PERSONAL = process.env.NEXT_PUBLIC_INCLUDE_PERSONAL !== "false";
+
+const PERSONAL = INCLUDE_PERSONAL
+  ? (personal.entries || []).map((e) => ({
+      ...e,
+      source: "Personal",
+      desc: e.desc || "",
+      meta: e.meta || "",
+    }))
+  : [];
 
 /* Homebrew entries are derived from the same data the character sheet uses,
    so the compendium can never fall out of step with the sheet. */
@@ -58,11 +74,18 @@ export const SRD_META = {
   attribution: srd.attribution,
 };
 
-export const ENTRIES = [...HOMEBREW, ...srd.entries].sort((a, b) =>
+export const ENTRIES = [...HOMEBREW, ...PERSONAL, ...srd.entries].sort((a, b) =>
   a.name.localeCompare(b.name)
 );
 
-export const SOURCES = ["Homebrew", "SRD 5.2", "SRD 5.1"];
+export const PERSONAL_COUNT = PERSONAL.length;
+
+export const SOURCES = [
+  "Homebrew",
+  ...(PERSONAL.length ? ["Personal"] : []),
+  "SRD 5.2",
+  "SRD 5.1",
+];
 export const KINDS = [
   { key: "feat", label: "Feats" },
   { key: "item", label: "Items" },

@@ -216,6 +216,13 @@
   border: 1px solid var(--border);
 }
 
+/* Private table reference — marked so it is obvious at a glance what would
+   have to come out before this is shared. */
+.tagPersonal {
+  color: var(--warn, #d9a441);
+  border-color: currentColor;
+}
+
 .tagClass {
   color: var(--class-accent, var(--accent));
   background: var(--class-soft, var(--accent-soft));

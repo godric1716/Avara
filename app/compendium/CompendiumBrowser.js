@@ -134,7 +134,13 @@ export default function CompendiumBrowser() {
                     <span className={`${styles.tag} ${styles[e.kind]}`}>
                       {e.kind}
                     </span>
-                    <span className={styles.tagSource}>{e.source}</span>
+                    <span
+                      className={`${styles.tagSource} ${
+                        e.source === "Personal" ? styles.tagPersonal : ""
+                      }`}
+                    >
+                      {e.source}
+                    </span>
                     {e.className && (
                       <span className={styles.tagClass}>{e.className}</span>
                     )}

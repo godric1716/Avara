@@ -1,0 +1,12 @@
+{
+  "note": "Private table reference. Entries here are NOT redistributable — they are excluded from any build where NEXT_PUBLIC_INCLUDE_PERSONAL is 'false'. Prefer describing what an option does mechanically over pasting published wording verbatim.",
+  "entries": [
+    {
+      "id": "personal-feat-example",
+      "name": "Example Feat",
+      "kind": "feat",
+      "meta": "4th level · Half-feat",
+      "desc": "Delete this entry and add your own. Mechanics only: what it grants, what it costs, when it triggers. Use \\n\\n between paragraphs."
+    }
+  ]
+}
