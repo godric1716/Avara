@@ -1,16 +1,26 @@
+import { cookies } from "next/headers";
 import Link from "next/link";
 import styles from "./Header.module.css";
 import { Leaf, Bloom } from "./faeMotifs";
+import { verifyRoleToken } from "../../lib/siteAuth";
 
 const NAV_LINKS = [
   { href: "/classes", label: "Classes" },
   { href: "/compendium", label: "Compendium" },
-  { href: "/world", label: "World of Avara" },
-  { href: "/npcs", label: "NPCs" },
+  { href: "/world", label: "World of Avara", dmOnly: true },
+  { href: "/npcs", label: "NPCs", dmOnly: true },
   { href: "/sheet", label: "Character Sheet" },
 ];
 
-export default function Header() {
+export default async function Header() {
+  const secret = process.env.AVARA_AUTH_SECRET;
+  // No secret configured means the gate itself is off (see proxy.js), so show
+  // every link — there's no player/DM split to enforce yet.
+  const role = secret
+    ? await verifyRoleToken((await cookies()).get("avara_role")?.value, secret)
+    : "dm";
+  const links = NAV_LINKS.filter((l) => !l.dmOnly || role === "dm");
+
   return (
     <header className={styles.header}>
       <div className={`wrap ${styles.inner}`}>
@@ -25,7 +35,7 @@ export default function Header() {
           </span>
         </Link>
         <nav className={styles.nav}>
-          {NAV_LINKS.map((link) => (
+          {links.map((link) => (
             <Link key={link.href} href={link.href} className={styles.navLink}>
               {link.label}
             </Link>
