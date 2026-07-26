@@ -17,9 +17,11 @@ import {
 import ResourceTracker from "./ResourceTracker";
 import FeatureColumn from "./FeatureColumn";
 import CheckList from "./CheckList";
+import Companions from "./Companions";
 
 const TABS = [
   { key: "actions", label: "Actions" },
+  { key: "companions", label: "Companions", classId: "fablekeeper" },
   { key: "reference", label: "Reference" },
   { key: "notes", label: "Notes" },
 ];
@@ -52,6 +54,13 @@ export default function CharacterSheet() {
     () => collectLoadout(cls, sub, character),
     [cls, sub, character]
   );
+
+  // Companions only exist for the Fablekeeper. If the class changes while that
+  // tab is open, fall back rather than rendering an empty panel.
+  const visibleTabs = TABS.filter(
+    (t) => !t.classId || t.classId === character.classId
+  );
+  const activeTab = visibleTabs.some((t) => t.key === tab) ? tab : "actions";
 
   return (
     <div data-class={character.classId} className={styles.sheet}>
@@ -211,13 +220,13 @@ export default function CharacterSheet() {
 
       {/* ---------- Tabs ---------- */}
       <nav className={styles.tabbar}>
-        {TABS.map((t) => (
+        {visibleTabs.map((t) => (
           <button
             key={t.key}
             type="button"
             onClick={() => setTab(t.key)}
-            className={`${styles.tabbtn} ${tab === t.key ? styles.tabActive : ""}`}
-            aria-pressed={tab === t.key}
+            className={`${styles.tabbtn} ${activeTab === t.key ? styles.tabActive : ""}`}
+            aria-pressed={activeTab === t.key}
           >
             {t.label}
           </button>
@@ -227,7 +236,7 @@ export default function CharacterSheet() {
         </button>
       </nav>
 
-      {tab === "actions" && (
+      {activeTab === "actions" && (
         <div className={styles.columns}>
           <FeatureColumn
             title={`${cls.label} Features`}
@@ -244,7 +253,18 @@ export default function CharacterSheet() {
         </div>
       )}
 
-      {tab === "reference" && (
+      {activeTab === "companions" && (
+        <Companions
+          level={level}
+          subclass={character.subclass}
+          slots={character.fkSlots}
+          activeSlot={character.fkActive}
+          onSlotsChange={(fkSlots) => update({ fkSlots })}
+          onActiveChange={(fkActive) => update({ fkActive })}
+        />
+      )}
+
+      {activeTab === "reference" && (
         <div className={styles.columns}>
           <CheckList
             title="Feats"
@@ -261,7 +281,7 @@ export default function CharacterSheet() {
         </div>
       )}
 
-      {tab === "notes" && (
+      {activeTab === "notes" && (
         <section className={`${styles.card} ${styles.notesCard}`}>
           <h2 className={styles.cardTitle}>Notes</h2>
           <textarea

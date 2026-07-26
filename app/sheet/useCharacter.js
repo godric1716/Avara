@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CLASS_DATA, firstSubclassKey } from "./data";
+import { defaultSlots } from "./Companions";
 
 const STORAGE_KEY = "avara-character-v1";
 
@@ -21,6 +22,8 @@ export function defaultCharacter() {
     feats: {},
     items: {},
     notes: "",
+    fkSlots: defaultSlots(),
+    fkActive: null,
   };
 }
 
@@ -55,6 +58,9 @@ function sanitize(raw) {
     items: isPlainObject(raw.items) ? raw.items : {},
     notes: typeof raw.notes === "string" ? raw.notes : "",
     name: typeof raw.name === "string" ? raw.name : "",
+    // Merge onto defaults so a slot added later doesn't come back undefined.
+    fkSlots: { ...base.fkSlots, ...(isPlainObject(raw.fkSlots) ? raw.fkSlots : {}) },
+    fkActive: typeof raw.fkActive === "string" ? raw.fkActive : null,
   };
 }
 
