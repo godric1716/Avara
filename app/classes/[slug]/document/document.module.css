@@ -369,6 +369,14 @@
   background: color-mix(in srgb, var(--surface) 55%, transparent);
 }
 
+.tableNote {
+  font-size: 12px;
+  line-height: 1.65;
+  font-style: italic;
+  color: var(--text-faint);
+  margin-top: 10px;
+}
+
 /* ---------- Features ---------- */
 
 .features {

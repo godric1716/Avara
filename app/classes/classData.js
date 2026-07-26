@@ -361,6 +361,7 @@ export const CLASS_DOCUMENTS = {
   mirrorwarden: [{ label: "Mirrorwarden class document", file: "mirrorwarden.pdf", size: "155 KB" }],
   devourer: [{ label: "Devourer class document", file: "devourer.pdf", size: "55 KB" }],
   fablekeeper: [
+    { label: "Fablekeeper class document", file: "fablekeeper.docx", size: "58 KB", kind: "DOCX" },
     { label: "Fablekeeper Pokédex", file: "fablekeeper-pokedex.pdf", size: "1.0 MB" },
   ],
 };

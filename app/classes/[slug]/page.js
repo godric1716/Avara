@@ -183,7 +183,7 @@ export default async function ClassChapter({ params }) {
               </svg>
               <span>
                 {doc.label}
-                <span className={styles.docSize}>PDF · {doc.size}</span>
+                <span className={styles.docSize}>{doc.kind || "PDF"} · {doc.size}</span>
               </span>
             </a>
           ))}

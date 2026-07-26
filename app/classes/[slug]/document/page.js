@@ -74,7 +74,7 @@ export default async function ClassDocument({ params }) {
           </ol>
           {pdf && (
             <a className={styles.pdf} href={`/documents/${pdf.file}`} target="_blank" rel="noopener">
-              Original PDF · {pdf.size}
+              Original {pdf.kind || "PDF"} · {pdf.size}
             </a>
           )}
         </nav>
@@ -137,12 +137,16 @@ export default async function ClassDocument({ params }) {
                 </tbody>
               </table>
             </div>
+            {doc.note && <p className={styles.tableNote}>{doc.note}</p>}
           </section>
 
           {/* ---------- Base features ---------- */}
           <section id="features" className={styles.section}>
             <h2 className={styles.h2}>Class Features</h2>
             <FeatureList features={sheet.generalFeatures} />
+            {doc.asidesGeneral?.map((a) => (
+              <Aside key={a.title} aside={a} />
+            ))}
           </section>
 
           {/* ---------- Each subclass ---------- */}
@@ -156,13 +160,7 @@ export default async function ClassDocument({ params }) {
               <FeatureList features={sub.features} />
 
               {doc.roleplay?.[key]?.map((rp) => (
-                <aside key={rp.title} className={styles.roleplay}>
-                  <span className={styles.roleplayLabel}>Roleplay</span>
-                  <h4 className={styles.roleplayTitle}>{rp.title}</h4>
-                  {rp.text.split("\n\n").map((p, i) => (
-                    <p key={i}>{p}</p>
-                  ))}
-                </aside>
+                <Aside key={rp.title} aside={rp} />
               ))}
             </section>
           ))}
@@ -212,6 +210,21 @@ export default async function ClassDocument({ params }) {
         </div>
       </div>
     </article>
+  );
+}
+
+/* Sidebars differ by source: the Death Knight and Mirrorwarden documents carry
+   in-world roleplay notes, the Fablekeeper and Sovereign carry designer's
+   commentary. Both render the same way, labelled by kind. */
+function Aside({ aside }) {
+  return (
+    <aside className={styles.roleplay}>
+      <span className={styles.roleplayLabel}>{aside.kind || "Roleplay"}</span>
+      <h4 className={styles.roleplayTitle}>{aside.title}</h4>
+      {aside.text.split("\n\n").map((p, i) => (
+        <p key={i}>{p}</p>
+      ))}
+    </aside>
   );
 }
 
