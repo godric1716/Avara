@@ -234,19 +234,21 @@ export default function CharacterSheet() {
 
       {/* ---------- Tabs ---------- */}
       <nav className={styles.tabbar}>
-        {visibleTabs.map((t) => (
-          <button
-            key={t.key}
-            type="button"
-            onClick={() => setTab(t.key)}
-            className={`${styles.tabbtn} ${activeTab === t.key ? styles.tabActive : ""}`}
-            aria-pressed={activeTab === t.key}
-          >
-            {t.label}
-          </button>
-        ))}
+        <div className={styles.tabScroll}>
+          {visibleTabs.map((t) => (
+            <button
+              key={t.key}
+              type="button"
+              onClick={() => setTab(t.key)}
+              className={`${styles.tabbtn} ${activeTab === t.key ? styles.tabActive : ""}`}
+              aria-pressed={activeTab === t.key}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
         <button type="button" className={styles.resetBtn} onClick={reset}>
-          Reset sheet
+          Reset
         </button>
       </nav>
 
