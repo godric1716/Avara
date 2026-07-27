@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import styles from "./Header.module.css";
 import { Leaf, Bloom } from "./faeMotifs";
+import ThemeToggle from "./ThemeToggle";
 import { verifyRoleToken } from "../../lib/siteAuth";
 
 const NAV_LINKS = [
@@ -40,6 +41,7 @@ export default async function Header() {
               {link.label}
             </Link>
           ))}
+          <ThemeToggle />
         </nav>
       </div>
     </header>

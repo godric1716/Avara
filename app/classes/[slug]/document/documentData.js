@@ -13,6 +13,8 @@ import {
   REFLECTION_SLOTS_MAX,
 } from "../../../sheet/data/mirrorwarden";
 import { DEVOURER_SPELL_SLOTS } from "../../../sheet/data/devourer";
+import { HARMONY_POOL, RESONANT_CANTRIPS_KNOWN } from "../../../sheet/data/resonant";
+import { hungerMax } from "../../../sheet/data/sangreal";
 
 const PB = (lv) => `+${2 + Math.floor((lv - 1) / 4)}`;
 
@@ -60,6 +62,57 @@ const DEVOURER_FEATURES = [
   "Hero Path Capstone",
   "Ability Score Improvement",
   "The First Devourer (Unlimited)",
+];
+
+const RESONANT_FEATURES = [
+  "Spellcasting, Harmony Pool, Partial Resonance",
+  "Nation Path",
+  "—",
+  "Ability Score Improvement or Feat",
+  "—",
+  "Avatar State, Nation Path feature",
+  "—",
+  "Ability Score Improvement or Feat",
+  "—",
+  "Nation Path feature",
+  "Sustained Resonance",
+  "Ability Score Improvement or Feat",
+  "—",
+  "Nation Path feature",
+  "—",
+  "Ability Score Improvement or Feat",
+  "Boundless Resonance",
+  "Nation Path feature",
+  "Ability Score Improvement or Feat",
+  "True Avatar",
+];
+
+const RESONANT_TIER = [
+  "1st", "1st", "2nd", "2nd", "3rd", "3rd", "4th", "4th", "5th", "5th",
+  "6th", "6th", "7th", "7th", "8th", "8th", "9th", "9th", "9th", "9th",
+];
+
+const SANGREAL_FEATURES = [
+  "Vampiric Traits, Hunger, The Bite, Bloodstarved",
+  "Blood Rush, Sanguine Ward",
+  "Bloodline",
+  "Ability Score Improvement",
+  "Extra Attack",
+  "Blood Siphon",
+  "Dreadful Gaze",
+  "Bloodline",
+  "Compulsion",
+  "Improved Bite",
+  "Bloodline",
+  "Ability Score Improvement",
+  "Deeper Hunger",
+  "Undying Will",
+  "Bloodline",
+  "Ability Score Improvement",
+  "Ravenous",
+  "Bloodline Capstone",
+  "Ability Score Improvement",
+  "The Undying Feast",
 ];
 
 const SLOT_LABEL = (row) =>
@@ -438,6 +491,133 @@ export const DOCUMENTS = {
     closing: {
       title: "Ink — the engine",
       text: "They are not warriors. They are authors. And in their hands, the story always has one more turn.",
+    },
+  },
+
+  /* =================== Resonant =================== */
+  resonant: {
+    quickReference: [
+      { label: "Hit Die", value: "d8 per Resonant level" },
+      { label: "Primary", value: "Wisdom" },
+      { label: "Saves", value: "Wisdom, Charisma" },
+      { label: "Armor", value: "None" },
+      { label: "Weapons", value: "Simple weapons" },
+      {
+        label: "Focus",
+        value:
+          "Any elemental focus — carved stone, water vial, ember case, or wind chime",
+      },
+      { label: "Resource", value: "Harmony Points — one shared pool for all four elements" },
+      { label: "Save DC", value: "8 + proficiency bonus + WIS modifier" },
+    ],
+    progressionHead: ["Lv", "PB", "Features", "Harmony", "Ripples", "Tier"],
+    progression: RESONANT_FEATURES.map((f, i) => [
+      i + 1,
+      PB(i + 1),
+      f,
+      HARMONY_POOL[i],
+      RESONANT_CANTRIPS_KNOWN[i],
+      RESONANT_TIER[i],
+    ]),
+    note: "Ripples are the at-will techniques you know — the column counts which you have access to, not how often you may cast them. Tier is the highest technique tier available.",
+    roleplay: {
+      ascendant: [
+        {
+          kind: "Design Note",
+          title: "Why Overdraw spends hit points",
+          text: "Overdraw spends hit points rather than a new resource pool because the brief was a dial built around how much you're willing to hurt yourself, and hit points are the one currency every table already understands as a real cost.",
+        },
+        {
+          kind: "Design Note",
+          title: "The Path that likes Imbalance",
+          text: "Volatile Equilibrium rewarding Imbalance specifically is the one Path that treats the base class's warning state as an opportunity rather than a penalty.",
+        },
+      ],
+      steadfast: [
+        {
+          title: "A mountain doesn't forget a season",
+          text: "Mountain's Patience takes the class's single loudest constraint — tracks wiping at the end of every fight — and simply removes it. A Steadfast carries their balance between encounters, which turns track management from a per-combat scramble into a long game.",
+        },
+      ],
+      tidecaller: [
+        {
+          title: "The tide leaves a pull behind",
+          text: "Undertow Marks never cap and never expire mid-fight, so a Tidecaller's control compounds across an encounter. Spending accumulated Marks to push a save DC higher is the payoff for having landed Water techniques earlier — patience rewarded rather than burst.",
+        },
+      ],
+      untethered: [
+        {
+          kind: "Design Note",
+          title: "Why the bond is free and multi-target",
+          text: "Skybound Bond is a direct Emboldening Bond port — the original single-target Charge economy was checked against this class's Harmony Pool and came out too expensive to ever use, so the bond stands free and reaches your whole proficiency bonus in allies instead.",
+        },
+      ],
+    },
+    closing: {
+      title: "Balance — the engine",
+      text: "Most full casters reward dumping resources into one thing. The Resonant punishes it. A single shared pool rather than four per-element pools is what makes that bite: every spend is also a balance decision.",
+    },
+  },
+
+  /* =================== Sangreal =================== */
+  sangreal: {
+    quickReference: [
+      { label: "Hit Die", value: "d8 per Sangreal level" },
+      {
+        label: "Primary",
+        value: "Dexterity for attacks, Charisma for Blood Sorcery and Compulsion DC",
+      },
+      { label: "Saves", value: "Dexterity, Charisma" },
+      { label: "Armor", value: "Light armor" },
+      {
+        label: "Weapons",
+        value: "Simple weapons, martial melee weapons, hand crossbows",
+      },
+      {
+        label: "Skills",
+        value:
+          "Choose 3: Stealth, Insight, Persuasion, Intimidation, Investigation, Perception, Acrobatics",
+      },
+      { label: "Resource", value: "Hunger — recharges on a short rest" },
+      { label: "Compulsion DC", value: "8 + proficiency bonus + CHA modifier" },
+    ],
+    progressionHead: ["Lv", "PB", "Features", "Hunger"],
+    progression: SANGREAL_FEATURES.map((f, i) => [
+      i + 1,
+      PB(i + 1),
+      f,
+      hungerMax(i + 1),
+    ]),
+    note: "Hunger is tiered rather than formulaic: 3 at levels 1–4, 5 at 5–10, 6 at 11–16, 8 at 17–20. You regain 1 whenever you land a critical hit or drop a creature to 0 HP.",
+    roleplay: {
+      hollowcrown: [
+        {
+          title: "An unsanctioned branch",
+          text: "This is Aalise Bathory's own line. Every character who takes it is either a rare scion she has personally acknowledged — or, more interesting at most tables, an unsanctioned branch of her bloodline that she does not yet know exists.",
+        },
+      ],
+      redhunt: [
+        {
+          title: "Turned, not born",
+          text: "Where the Hollow Crown inherits, the Red Hunt was made. Momentum that pays for itself: Blood Rush refunds on a kill, Twin Fangs carries you into the next target, and standing still is the only way to run dry.",
+        },
+      ],
+      weepingveil: [
+        {
+          title: "Feeding your ally is what protects them",
+          text: "Bonds over domination. Every point you heal splashes automatically onto whoever is nearest, and your Bonded ally can choose to take half of what lands on you — their choice, not yours, which is the whole ethic of the line in one mechanic.",
+        },
+      ],
+      ashencourt: [
+        {
+          title: "Centuries of accumulated knowledge",
+          text: "The Ashen Court does not gamble. A Studied target hands advantage to the entire party, Guaranteed Cut removes the die roll altogether once a rest, and The Bite simply ignores the resistance everyone else plans around.",
+        },
+      ],
+    },
+    closing: {
+      title: "Hunger — the engine",
+      text: "You do not decide to feed. You decide, for one more moment, not to.",
     },
   },
 };

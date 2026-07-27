@@ -75,12 +75,23 @@ export const metadata = {
     "A homebrew D&D world: classes, compendium, lore, and character sheets for Avara.",
   // The strongest signal browsers check before deciding to auto-dark-mode a
   // page that already implements its own theme — see the note in globals.css.
-  other: { "color-scheme": "light dark" },
+  other: { "color-scheme": "dark light" },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={fontVars}>
+    <html lang="en" className={fontVars} suppressHydrationWarning>
+      <head>
+        {/* Applies a stored light preference before first paint. Without this
+            a light-theme visitor gets a dark flash on every navigation.
+            Deliberately not reading prefers-color-scheme: dark is the
+            intended default regardless of the device setting. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem('avara-theme');if(t==='light'){document.documentElement.dataset.theme='light';document.documentElement.style.colorScheme='light'}}catch(e){}`,
+          }}
+        />
+      </head>
       <body>
         <Header />
         <main className="site-main">{children}</main>

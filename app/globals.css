@@ -1,9 +1,9 @@
 :root {
-  /* Tells the browser this page implements its own light/dark theme. Without
-     it, Chrome's automatic dark-mode heuristic can decide to algorithmically
-     invert/desaturate the page regardless of our media queries — the exact
-     symptom of a flat, textureless, muddy background with washed-out icons. */
-  color-scheme: light dark;
+  /* Tells the browser this page implements its own theme, so Chrome's
+     automatic dark-mode heuristic won't algorithmically invert it. Pinned to
+     dark because dark is the default here regardless of device setting; the
+     header toggle overrides it inline when light is chosen. */
+  color-scheme: dark;
 
   /* Aged parchment fibre — a single tiled noise texture, tinted per theme by
      the layers in `body` below. Base64 rather than percent-encoded: avoids
@@ -34,27 +34,28 @@
   --font-num: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: #e9e0cb;
-    --surface: #f7f1f8;
-    --surface-2: #ffffff;
-    --border: #dbc9de;
-    --text: #241a2c;
-    --text-dim: #5e4d68;
-    --text-faint: #8d7a95;
-    --accent: #5b2470;
-    --accent-strong: #421a54;
-    --accent-soft: rgba(91, 36, 112, 0.12);
-    --accent-2: #1f6b4f;
-    --accent-2-strong: #144f3a;
-    --accent-2-soft: rgba(31, 107, 79, 0.18);
-    --bloom: #c2478f;
-    --bloom-soft: rgba(194, 71, 143, 0.16);
-    --shadow: 0 1px 2px rgba(50, 15, 60, 0.07), 0 6px 22px -8px rgba(50, 15, 60, 0.2);
-    --bevel-hi: rgba(255, 255, 255, 0.65);
-    --bevel-lo: rgba(40, 10, 50, 0.14);
-  }
+/* Light is opt-in via the header toggle, not the OS preference. The dark
+   palette is the intended look; following prefers-color-scheme meant anyone
+   whose device was set to light got cream parchment they hadn't asked for. */
+:root[data-theme="light"] {
+  --bg: #e9e0cb;
+  --surface: #f7f1f8;
+  --surface-2: #ffffff;
+  --border: #dbc9de;
+  --text: #241a2c;
+  --text-dim: #5e4d68;
+  --text-faint: #8d7a95;
+  --accent: #5b2470;
+  --accent-strong: #421a54;
+  --accent-soft: rgba(91, 36, 112, 0.12);
+  --accent-2: #1f6b4f;
+  --accent-2-strong: #144f3a;
+  --accent-2-soft: rgba(31, 107, 79, 0.18);
+  --bloom: #c2478f;
+  --bloom-soft: rgba(194, 71, 143, 0.16);
+  --shadow: 0 1px 2px rgba(50, 15, 60, 0.07), 0 6px 22px -8px rgba(50, 15, 60, 0.2);
+  --bevel-hi: rgba(255, 255, 255, 0.65);
+  --bevel-lo: rgba(40, 10, 50, 0.14);
 }
 
 /* ===========================================================================
@@ -197,84 +198,83 @@
   --class-tracking: 0.04em;
 }
 
-@media (prefers-color-scheme: light) {
-  [data-class="resonant"] {
-    --class-accent: #1f5f8b;
-    --class-soft: rgba(31, 95, 139, 0.13);
-    --class-bg: #e6eef4;
-    --class-surface: #f3f9fc;
-    --class-surface-2: #ffffff;
-    --class-border: #c3d6e2;
-    --class-text: #0c1c26;
-    --class-text-dim: #3d5a6b;
-    --class-text-faint: #6b8599;
-  }
-  [data-class="sangreal"] {
-    --class-accent: #8e1f5f;
-    --class-soft: rgba(142, 31, 95, 0.13);
-    --class-bg: #f2e6ee;
-    --class-surface: #fbf4f8;
-    --class-surface-2: #ffffff;
-    --class-border: #ddc6d4;
-    --class-text: #26121f;
-    --class-text-dim: #6a4a5d;
-    --class-text-faint: #997c8d;
-  }
-  [data-class="deathknight"] {
-    --class-accent: #8e1f30;
-    --class-soft: rgba(142, 31, 48, 0.13);
-    --class-bg: #f1e8e9;
-    --class-surface: #fbf4f5;
-    --class-surface-2: #ffffff;
-    --class-border: #ddc6ca;
-    --class-text: #261216;
-    --class-text-dim: #6a4a51;
-    --class-text-faint: #997c83;
-  }
-  [data-class="sovereign"] {
-    --class-accent: #6d3d17;
-    --class-soft: rgba(109, 61, 23, 0.13);
-    --class-bg: #f2ece1;
-    --class-surface: #fcf7ee;
-    --class-surface-2: #ffffff;
-    --class-border: #ded1ba;
-    --class-text: #241a0c;
-    --class-text-dim: #665338;
-    --class-text-faint: #94805f;
-  }
-  [data-class="mirrorwarden"] {
-    --class-accent: #23666c;
-    --class-soft: rgba(35, 102, 108, 0.13);
-    --class-bg: #e6eff1;
-    --class-surface: #f4f9fa;
-    --class-surface-2: #ffffff;
-    --class-border: #c3d9dd;
-    --class-text: #0d2225;
-    --class-text-dim: #3f6065;
-    --class-text-faint: #6d898d;
-  }
-  [data-class="devourer"] {
-    --class-accent: #4a3aa0;
-    --class-soft: rgba(74, 58, 160, 0.13);
-    --class-bg: #e9e7f4;
-    --class-surface: #f4f2fb;
-    --class-surface-2: #ffffff;
-    --class-border: #ccc5e2;
-    --class-text: #16112b;
-    --class-text-dim: #4d4370;
-    --class-text-faint: #7d74a0;
-  }
-  [data-class="fablekeeper"] {
-    --class-accent: #1a6b4a;
-    --class-soft: rgba(26, 107, 74, 0.13);
-    --class-bg: #e5f0e8;
-    --class-surface: #f2faf4;
-    --class-surface-2: #ffffff;
-    --class-border: #c2dccb;
-    --class-text: #0c2116;
-    --class-text-dim: #3d6350;
-    --class-text-faint: #6b8f7b;
-  }
+/* Per-class light overrides, opt-in the same way. */
+:root[data-theme="light"] [data-class="resonant"] {
+  --class-accent: #1f5f8b;
+  --class-soft: rgba(31, 95, 139, 0.13);
+  --class-bg: #e6eef4;
+  --class-surface: #f3f9fc;
+  --class-surface-2: #ffffff;
+  --class-border: #c3d6e2;
+  --class-text: #0c1c26;
+  --class-text-dim: #3d5a6b;
+  --class-text-faint: #6b8599;
+}
+:root[data-theme="light"] [data-class="sangreal"] {
+  --class-accent: #8e1f5f;
+  --class-soft: rgba(142, 31, 95, 0.13);
+  --class-bg: #f2e6ee;
+  --class-surface: #fbf4f8;
+  --class-surface-2: #ffffff;
+  --class-border: #ddc6d4;
+  --class-text: #26121f;
+  --class-text-dim: #6a4a5d;
+  --class-text-faint: #997c8d;
+}
+:root[data-theme="light"] [data-class="deathknight"] {
+  --class-accent: #8e1f30;
+  --class-soft: rgba(142, 31, 48, 0.13);
+  --class-bg: #f1e8e9;
+  --class-surface: #fbf4f5;
+  --class-surface-2: #ffffff;
+  --class-border: #ddc6ca;
+  --class-text: #261216;
+  --class-text-dim: #6a4a51;
+  --class-text-faint: #997c83;
+}
+:root[data-theme="light"] [data-class="sovereign"] {
+  --class-accent: #6d3d17;
+  --class-soft: rgba(109, 61, 23, 0.13);
+  --class-bg: #f2ece1;
+  --class-surface: #fcf7ee;
+  --class-surface-2: #ffffff;
+  --class-border: #ded1ba;
+  --class-text: #241a0c;
+  --class-text-dim: #665338;
+  --class-text-faint: #94805f;
+}
+:root[data-theme="light"] [data-class="mirrorwarden"] {
+  --class-accent: #23666c;
+  --class-soft: rgba(35, 102, 108, 0.13);
+  --class-bg: #e6eff1;
+  --class-surface: #f4f9fa;
+  --class-surface-2: #ffffff;
+  --class-border: #c3d9dd;
+  --class-text: #0d2225;
+  --class-text-dim: #3f6065;
+  --class-text-faint: #6d898d;
+}
+:root[data-theme="light"] [data-class="devourer"] {
+  --class-accent: #4a3aa0;
+  --class-soft: rgba(74, 58, 160, 0.13);
+  --class-bg: #e9e7f4;
+  --class-surface: #f4f2fb;
+  --class-surface-2: #ffffff;
+  --class-border: #ccc5e2;
+  --class-text: #16112b;
+  --class-text-dim: #4d4370;
+  --class-text-faint: #7d74a0;
+}
+:root[data-theme="light"] [data-class="fablekeeper"] {
+  --class-accent: #1a6b4a;
+  --class-soft: rgba(26, 107, 74, 0.13);
+  --class-bg: #e5f0e8;
+  --class-surface: #f2faf4;
+  --class-surface-2: #ffffff;
+  --class-border: #c2dccb;
+  --class-text: #0c2116;
+  --class-text-dim: #3d6350;
+  --class-text-faint: #6b8f7b;
 }
 
 * {
@@ -313,18 +313,16 @@ body::before {
     radial-gradient(70vw 55vh at 88% 15%, var(--accent-2-soft), transparent 62%),
     radial-gradient(60vw 50vh at 50% 100%, var(--bloom-soft), transparent 65%);
   background-size: 220px 220px, cover, cover, cover;
-  /* The noise multiplies into the tint so it darkens the grain rather than
-     laying grey dust over everything. */
-  mix-blend-mode: multiply;
-  opacity: 0.5;
+  /* Dark is the default, so soft-light is the default too: multiply would
+     crush an already-dark ground into flat grey. */
+  mix-blend-mode: soft-light;
+  opacity: 0.75;
 }
 
-@media (prefers-color-scheme: dark) {
-  body::before {
-    /* Multiply would crush an already-dark ground, so lift the grain instead. */
-    mix-blend-mode: soft-light;
-    opacity: 0.75;
-  }
+:root[data-theme="light"] body::before {
+  /* On cream paper the grain should darken the fibre, not lift it. */
+  mix-blend-mode: multiply;
+  opacity: 0.5;
 }
 
 a {

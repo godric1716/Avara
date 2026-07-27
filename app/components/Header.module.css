@@ -71,6 +71,32 @@
   border-bottom-color: var(--accent);
 }
 
+.themeToggle {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-left: 6px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 0;
+}
+
+.themeToggle svg {
+  width: 17px;
+  height: 17px;
+}
+
+.themeToggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
 @media (max-width: 640px) {
   /* Five links wrapping to two ragged rows ate a third of the visible
      screen before any content. One scrollable row instead. */
