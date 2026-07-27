@@ -376,3 +376,49 @@ a.card:hover::before {
     transition: none !important;
   }
 }
+
+/* Printing (including "Save as PDF" from the browser's print dialog — how
+   the character sheet's export/download works, no separate PDF library).
+   Nearly everything reads from these tokens, so overriding them here is
+   enough to flip the whole app to plain black-on-white instead of wasting
+   ink on the fae theme's dark backgrounds and glows. */
+@media print {
+  :root,
+  [data-class] {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #ffffff;
+    --border: #999999;
+    --text: #000000;
+    --text-dim: #222222;
+    --text-faint: #555555;
+    --accent: #000000;
+    --accent-strong: #000000;
+    --accent-soft: transparent;
+    --accent-2: #000000;
+    --accent-2-strong: #000000;
+    --accent-2-soft: transparent;
+    --bloom: #000000;
+    --bloom-soft: transparent;
+    --class-accent: #000000;
+    --class-strong: #000000;
+    --class-soft: transparent;
+    --shadow: none;
+    --bevel-hi: transparent;
+    --bevel-lo: transparent;
+  }
+
+  body::before {
+    display: none;
+  }
+
+  header,
+  footer,
+  nav {
+    display: none !important;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}

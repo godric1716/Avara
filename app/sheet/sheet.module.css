@@ -602,6 +602,42 @@
   text-decoration: underline;
 }
 
+.printBtn {
+  flex: none;
+  background: none;
+  border: 1px solid var(--class-soft);
+  border-radius: 999px;
+  color: var(--class-accent);
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 7px 14px;
+}
+
+.printBtn:hover {
+  background: var(--class-soft);
+  border-color: var(--class-accent);
+}
+
+/* Every tab panel is always mounted (see CharacterSheet.js) so printing can
+   reveal all of them; on screen only the active one shows. */
+.panel {
+  display: none;
+}
+
+.panelActive {
+  display: block;
+}
+
+/* A heading naming the section, invisible on screen (the tab bar already
+   says it) but needed once every panel prints stacked together. */
+.printOnlyHeading {
+  display: none;
+}
+
 /* ---------- Columns ---------- */
 
 .columns {
@@ -1303,4 +1339,131 @@
   text-transform: uppercase;
   font-weight: 700;
   color: var(--text-faint);
+}
+
+/* ---------- Spellcasting (Devourer) ---------- */
+
+.spellcasting {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.spellSlotsCard,
+.preparedCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.slotsHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.slotsHead .cardTitle {
+  margin-bottom: 0;
+}
+
+.slotLevels {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.slotLevelRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.slotLevelLabel {
+  flex: none;
+  width: 30px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-faint);
+}
+
+.slotLevelRow .pips {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.slotLevelCount {
+  flex: none;
+  font-size: 11px;
+  color: var(--text-faint);
+  min-width: 40px;
+  text-align: right;
+}
+
+.spellTier {
+  margin-top: 16px;
+}
+
+.spellTier:first-of-type {
+  margin-top: 4px;
+}
+
+.checkItemDisabled {
+  opacity: 0.45;
+}
+
+.checkItemDisabled input {
+  cursor: not-allowed;
+}
+
+/* ---------- Print / export ---------- */
+
+@media print {
+  /* Reveal every panel, in document order, instead of just the active tab. */
+  .panel {
+    display: block !important;
+    break-inside: avoid;
+    margin-bottom: 28px;
+  }
+
+  .printOnlyHeading {
+    display: block;
+    font-size: 1.1rem;
+    margin: 0 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--class-accent);
+  }
+
+  /* Controls that only make sense on screen. */
+  .tabbar,
+  .printBtn,
+  .resetBtn,
+  .stepper,
+  .smallBtn,
+  .trackerForm,
+  .bestiaryLink,
+  .storageNote {
+    display: none !important;
+  }
+
+  .sheet {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .glow {
+    display: none;
+  }
+
+  .card,
+  .path,
+  .feature,
+  .entry,
+  .companions > * {
+    break-inside: avoid;
+  }
 }

@@ -21,11 +21,13 @@ import Companions from "./Companions";
 import CommonTurn from "./CommonTurn";
 import SecondaryTracker from "./SecondaryTracker";
 import ReferenceExtras from "./ReferenceExtras";
+import Spellcasting from "./Spellcasting";
 
 const TABS = [
   { key: "turn", label: "Common Turn" },
   { key: "actions", label: "Actions" },
   { key: "companions", label: "Companions", classId: "fablekeeper" },
+  { key: "spells", label: "Spells", classId: "devourer" },
   { key: "reference", label: "Reference" },
   { key: "notes", label: "Notes" },
 ];
@@ -247,82 +249,113 @@ export default function CharacterSheet() {
             </button>
           ))}
         </div>
+        <button
+          type="button"
+          className={styles.printBtn}
+          onClick={() => window.print()}
+        >
+          Print
+        </button>
         <button type="button" className={styles.resetBtn} onClick={reset}>
           Reset
         </button>
       </nav>
 
-      {activeTab === "turn" && (
-        <CommonTurn
-          cls={cls}
-          sub={sub}
-          level={level}
-          resourceLabel={cls.resourceLabel}
-          resourceMax={resourceMax}
-          primaryAbil={cls.primaryAbil}
-          abilityMods={abilityMods}
-          profBonus={pb}
-        />
-      )}
+      {/* Every visible tab's panel is always mounted; only the active one is
+          shown on screen (via .panelActive). Printing reveals all of them —
+          see the @media print rules in sheet.module.css — so "export the
+          sheet" produces the whole thing, not just whichever tab was open. */}
+      {visibleTabs.map((t) => (
+        <div
+          key={t.key}
+          className={`${styles.panel} ${activeTab === t.key ? styles.panelActive : ""}`}
+        >
+          <h2 className={styles.printOnlyHeading}>{t.label}</h2>
 
-      {activeTab === "actions" && (
-        <div className={styles.columns}>
-          <FeatureColumn
-            title={`${cls.label} Features`}
-            features={cls.generalFeatures}
-            level={level}
-          />
-          {sub && (
-            <FeatureColumn
-              title={sub.colTitle || sub.label}
-              features={sub.features}
+          {t.key === "turn" && (
+            <CommonTurn
+              cls={cls}
+              sub={sub}
               level={level}
+              resourceLabel={cls.resourceLabel}
+              resourceMax={resourceMax}
+              primaryAbil={cls.primaryAbil}
+              abilityMods={abilityMods}
+              profBonus={pb}
             />
           )}
+
+          {t.key === "actions" && (
+            <div className={styles.columns}>
+              <FeatureColumn
+                title={`${cls.label} Features`}
+                features={cls.generalFeatures}
+                level={level}
+              />
+              {sub && (
+                <FeatureColumn
+                  title={sub.colTitle || sub.label}
+                  features={sub.features}
+                  level={level}
+                />
+              )}
+            </div>
+          )}
+
+          {t.key === "companions" && (
+            <Companions
+              level={level}
+              subclass={character.subclass}
+              slots={character.fkSlots}
+              activeSlot={character.fkActive}
+              onSlotsChange={(fkSlots) => update({ fkSlots })}
+              onActiveChange={(fkActive) => update({ fkActive })}
+            />
+          )}
+
+          {t.key === "spells" && (
+            <Spellcasting
+              level={level}
+              abilityMods={abilityMods}
+              prepared={character.spellsPrepared}
+              slotsUsed={character.spellSlotsUsed}
+              onTogglePrepared={(name) => toggleIn("spellsPrepared", name)}
+              onSlotsChange={(spellSlotsUsed) => update({ spellSlotsUsed })}
+            />
+          )}
+
+          {t.key === "reference" && (
+            <div className={styles.columns}>
+              <CheckList
+                title="Feats"
+                entries={[...(cls.generalFeats || []), ...((sub && sub.feats) || [])]}
+                checked={character.feats}
+                onToggle={(name) => toggleIn("feats", name)}
+              />
+              <CheckList
+                title="Magic Items"
+                entries={[...(cls.sharedItems || []), ...((sub && sub.items) || [])]}
+                checked={character.items}
+                onToggle={(name) => toggleIn("items", name)}
+              />
+              <ReferenceExtras classId={character.classId} level={level} />
+            </div>
+          )}
+
+          {t.key === "notes" && (
+            <section className={`${styles.card} ${styles.notesCard}`}>
+              <h2 className={styles.cardTitle}>Notes</h2>
+              <textarea
+                className={styles.notes}
+                value={character.notes}
+                onChange={(e) => update({ notes: e.target.value })}
+                placeholder="Session notes, bonds, whatever you need to remember."
+                rows={14}
+              />
+            </section>
+          )}
         </div>
-      )}
-
-      {activeTab === "companions" && (
-        <Companions
-          level={level}
-          subclass={character.subclass}
-          slots={character.fkSlots}
-          activeSlot={character.fkActive}
-          onSlotsChange={(fkSlots) => update({ fkSlots })}
-          onActiveChange={(fkActive) => update({ fkActive })}
-        />
-      )}
-
-      {activeTab === "reference" && (
-        <div className={styles.columns}>
-          <CheckList
-            title="Feats"
-            entries={[...(cls.generalFeats || []), ...((sub && sub.feats) || [])]}
-            checked={character.feats}
-            onToggle={(name) => toggleIn("feats", name)}
-          />
-          <CheckList
-            title="Magic Items"
-            entries={[...(cls.sharedItems || []), ...((sub && sub.items) || [])]}
-            checked={character.items}
-            onToggle={(name) => toggleIn("items", name)}
-          />
-          <ReferenceExtras classId={character.classId} level={level} />
-        </div>
-      )}
-
-      {activeTab === "notes" && (
-        <section className={`${styles.card} ${styles.notesCard}`}>
-          <h2 className={styles.cardTitle}>Notes</h2>
-          <textarea
-            className={styles.notes}
-            value={character.notes}
-            onChange={(e) => update({ notes: e.target.value })}
-            placeholder="Session notes, bonds, whatever you need to remember."
-            rows={14}
-          />
-        </section>
-      )}
+      ))}
 
       <p className={styles.storageNote}>
         {loaded

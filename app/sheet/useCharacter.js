@@ -25,6 +25,8 @@ export function defaultCharacter() {
     notes: "",
     fkSlots: defaultSlots(),
     fkActive: null,
+    spellsPrepared: {},
+    spellSlotsUsed: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
   };
 }
 
@@ -63,6 +65,15 @@ function sanitize(raw) {
     // Merge onto defaults so a slot added later doesn't come back undefined.
     fkSlots: { ...base.fkSlots, ...(isPlainObject(raw.fkSlots) ? raw.fkSlots : {}) },
     fkActive: typeof raw.fkActive === "string" ? raw.fkActive : null,
+    spellsPrepared: isPlainObject(raw.spellsPrepared) ? raw.spellsPrepared : {},
+    spellSlotsUsed: {
+      ...base.spellSlotsUsed,
+      ...(isPlainObject(raw.spellSlotsUsed)
+        ? Object.fromEntries(
+            Object.entries(raw.spellSlotsUsed).map(([lvl, n]) => [lvl, clampInt(n, 0, 20, 0)])
+          )
+        : {}),
+    },
   };
 }
 
@@ -123,6 +134,8 @@ export function useCharacter() {
       resource: 0,
       tags: {},
       counters: {},
+      spellsPrepared: {},
+      spellSlotsUsed: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
     }));
   }, []);
 
