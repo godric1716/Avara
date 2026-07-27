@@ -1419,6 +1419,205 @@
   cursor: not-allowed;
 }
 
+/* ---------- Attacks, armor, inventory ---------- */
+
+.equipment {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.attacksCard {
+  grid-column: 1 / -1;
+}
+
+.addRow {
+  margin-bottom: 14px;
+}
+
+.attackList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.attackRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--class-accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: color-mix(in srgb, var(--surface-2) 55%, transparent);
+}
+
+.attackMain {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.attackName {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* The line players actually read mid-combat — kept large and monospaced. */
+.attackLine {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--class-accent);
+  letter-spacing: 0.02em;
+}
+
+.attackDamage {
+  color: var(--text);
+}
+
+.attackMeta {
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-faint);
+}
+
+.attackControls {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.miniField {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.miniField > span {
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-faint);
+}
+
+.miniField select,
+.miniField input {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 5px 7px;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--text);
+  width: 62px;
+}
+
+.miniCheck {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding-bottom: 6px;
+}
+
+.miniCheck input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--class-accent);
+  cursor: pointer;
+}
+
+.removeBtn {
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px 6px;
+}
+
+.removeBtn:hover {
+  color: var(--class-accent);
+}
+
+.acDisplay {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--class-accent);
+}
+
+.inventoryList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.inventoryList li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.qtyInput {
+  width: 46px;
+  flex: none;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 6px;
+  text-align: center;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--class-accent);
+}
+
+.invText {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed var(--border);
+  padding: 5px 2px;
+  font-family: inherit;
+  font-size: 13.5px;
+  color: var(--text);
+}
+
+.invText:focus {
+  outline: none;
+  border-bottom-color: var(--class-accent);
+}
+
+@media (max-width: 640px) {
+  .attackRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .attackControls {
+    justify-content: space-between;
+  }
+}
+
 /* ---------- Print / export ---------- */
 
 @media print {
@@ -1445,7 +1644,10 @@
   .smallBtn,
   .trackerForm,
   .bestiaryLink,
-  .storageNote {
+  .storageNote,
+  .addRow,
+  .attackControls,
+  .removeBtn {
     display: none !important;
   }
 

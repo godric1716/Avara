@@ -27,6 +27,10 @@ export function defaultCharacter() {
     fkActive: null,
     spellsPrepared: {},
     spellSlotsUsed: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+    attacks: [],
+    inventory: [],
+    armorIndex: null,
+    shieldEquipped: false,
   };
 }
 
@@ -66,6 +70,12 @@ function sanitize(raw) {
     fkSlots: { ...base.fkSlots, ...(isPlainObject(raw.fkSlots) ? raw.fkSlots : {}) },
     fkActive: typeof raw.fkActive === "string" ? raw.fkActive : null,
     spellsPrepared: isPlainObject(raw.spellsPrepared) ? raw.spellsPrepared : {},
+    // Equipment is carried across a class change — a battleaxe is still a
+    // battleaxe — unlike the class-scoped trackers reset in setClass.
+    attacks: Array.isArray(raw.attacks) ? raw.attacks : [],
+    inventory: Array.isArray(raw.inventory) ? raw.inventory : [],
+    armorIndex: typeof raw.armorIndex === "string" ? raw.armorIndex : null,
+    shieldEquipped: !!raw.shieldEquipped,
     spellSlotsUsed: {
       ...base.spellSlotsUsed,
       ...(isPlainObject(raw.spellSlotsUsed)

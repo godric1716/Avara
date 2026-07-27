@@ -22,10 +22,12 @@ import CommonTurn from "./CommonTurn";
 import SecondaryTracker from "./SecondaryTracker";
 import ReferenceExtras from "./ReferenceExtras";
 import Spellcasting from "./Spellcasting";
+import Equipment from "./Equipment";
 
 const TABS = [
   { key: "turn", label: "Common Turn" },
   { key: "actions", label: "Actions" },
+  { key: "gear", label: "Attacks & Gear" },
   { key: "companions", label: "Companions", classId: "fablekeeper" },
   { key: "spells", label: "Spells", classId: "devourer" },
   { key: "reference", label: "Reference" },
@@ -300,6 +302,22 @@ export default function CharacterSheet() {
                 />
               )}
             </div>
+          )}
+
+          {t.key === "gear" && (
+            <Equipment
+              classId={character.classId}
+              abilityMods={abilityMods}
+              profBonus={pb}
+              attacks={character.attacks}
+              inventory={character.inventory}
+              armorIndex={character.armorIndex}
+              shieldEquipped={character.shieldEquipped}
+              onAttacks={(attacks) => update({ attacks })}
+              onInventory={(inventory) => update({ inventory })}
+              onArmor={(armorIndex) => update({ armorIndex })}
+              onShield={(shieldEquipped) => update({ shieldEquipped })}
+            />
           )}
 
           {t.key === "companions" && (

@@ -161,7 +161,65 @@
   --class-tracking: 0.01em;
 }
 
+/* Resonant — open sky and deep water. Azure rather than the teal it started
+   as: teal sat 26 apart from the Mirrorwarden's cyan, close enough to read
+   as the same class at a glance. */
+[data-class="resonant"] {
+  --class-accent: #5aa9e6;
+  --class-strong: #2f6f9e;
+  --class-soft: rgba(90, 169, 230, 0.16);
+  --class-bg: #08131c;
+  --class-surface: #0e1e2a;
+  --class-surface-2: #142836;
+  --class-border: #204257;
+  --class-text: #e6f1f8;
+  --class-text-dim: #a3c1d6;
+  --class-text-faint: #6e8a9e;
+  --class-font: var(--font-resonant), var(--font-cinzel), serif;
+  --class-tracking: 0.1em;
+}
+
+/* Sangreal — old blood gone violet with age. Deliberately not the Death
+   Knight's crimson: both are blood classes, and at 25 apart they were
+   indistinguishable. Pushed toward wine-magenta on a violet-black ground. */
+[data-class="sangreal"] {
+  --class-accent: #cc3f9e;
+  --class-strong: #8e1f6b;
+  --class-soft: rgba(204, 63, 158, 0.16);
+  --class-bg: #140818;
+  --class-surface: #1e0f24;
+  --class-surface-2: #2a1632;
+  --class-border: #40204a;
+  --class-text: #f6e6f0;
+  --class-text-dim: #c9a3bd;
+  --class-text-faint: #8f6a85;
+  --class-font: var(--font-sangreal), var(--font-cinzel), serif;
+  --class-tracking: 0.04em;
+}
+
 @media (prefers-color-scheme: light) {
+  [data-class="resonant"] {
+    --class-accent: #1f5f8b;
+    --class-soft: rgba(31, 95, 139, 0.13);
+    --class-bg: #e6eef4;
+    --class-surface: #f3f9fc;
+    --class-surface-2: #ffffff;
+    --class-border: #c3d6e2;
+    --class-text: #0c1c26;
+    --class-text-dim: #3d5a6b;
+    --class-text-faint: #6b8599;
+  }
+  [data-class="sangreal"] {
+    --class-accent: #8e1f5f;
+    --class-soft: rgba(142, 31, 95, 0.13);
+    --class-bg: #f2e6ee;
+    --class-surface: #fbf4f8;
+    --class-surface-2: #ffffff;
+    --class-border: #ddc6d4;
+    --class-text: #26121f;
+    --class-text-dim: #6a4a5d;
+    --class-text-faint: #997c8d;
+  }
   [data-class="deathknight"] {
     --class-accent: #8e1f30;
     --class-soft: rgba(142, 31, 48, 0.13);

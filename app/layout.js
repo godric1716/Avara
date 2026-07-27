@@ -5,6 +5,8 @@ import {
   Julius_Sans_One,
   Italiana,
   IM_Fell_English,
+  Cormorant_Garamond,
+  Uncial_Antiqua,
 } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
@@ -45,8 +47,21 @@ const imFell = IM_Fell_English({
   weight: "400",
 });
 
+const cormorant = Cormorant_Garamond({
+  variable: "--font-resonant",
+  subsets: ["latin"],
+  weight: "400",
+});
+const uncial = Uncial_Antiqua({
+  variable: "--font-sangreal",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 const fontVars = [
   cinzel.variable,
+  cormorant.variable,
+  uncial.variable,
   pirata.variable,
   marcellus.variable,
   julius.variable,

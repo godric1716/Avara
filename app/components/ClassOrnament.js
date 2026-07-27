@@ -94,6 +94,31 @@ const ORNAMENTS = {
     </>
   ),
 
+  // Four elemental nodes strung on one line, balanced around a centre.
+  resonant: (
+    <>
+      <path d="M12 14h100M148 14h100" stroke={A} strokeWidth="1.4" />
+      <circle cx="130" cy="14" r="5" fill="none" stroke={A} strokeWidth="1.6" />
+      <circle cx="130" cy="14" r="1.6" fill={A} />
+      {[52, 88, 172, 208].map((x, i) => (
+        <circle key={x} cx={x} cy="14" r={i % 2 ? 2.6 : 3.4} fill={S} />
+      ))}
+    </>
+  ),
+
+  // A rule that bleeds toward a central drop.
+  sangreal: (
+    <>
+      <path d="M14 12h102M144 12h102" stroke={A} strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M130 4C130 4 125 11 125 14.5a5 5 0 0 0 10 0C135 11 130 4 130 4Z" fill={A} />
+      {[60, 90, 170, 200].map((x) => (
+        <path key={x} d={`M${x} 12v5`} stroke={S} strokeWidth="1.3" strokeLinecap="round" />
+      ))}
+      <circle cx="14" cy="12" r="2.2" fill={S} />
+      <circle cx="246" cy="12" r="2.2" fill={S} />
+    </>
+  ),
+
   // A quill nib on a growing stem — book and living thing at once. The nib
   // keeps it from reading as the site's fae vine now that it is green.
   fablekeeper: (

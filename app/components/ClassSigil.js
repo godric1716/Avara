@@ -10,6 +10,27 @@ const SIGILS = {
     </>
   ),
   devourer: <path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4Z" />,
+  // Four elements orbiting a still centre.
+  resonant: (
+    <>
+      <circle cx="12" cy="12" r="2.6" />
+      <circle cx="12" cy="4" r="1.9" />
+      <circle cx="20" cy="12" r="1.9" />
+      <circle cx="12" cy="20" r="1.9" />
+      <circle cx="4" cy="12" r="1.9" />
+      <path d="M12 6.6v2.8M14.6 12h2.8M12 14.6v2.8M6.6 12h2.8" />
+    </>
+  ),
+
+  // A chalice — the true blood, held.
+  sangreal: (
+    <>
+      <path d="M6 3h12l-1.2 6A5 5 0 0 1 12 13a5 5 0 0 1-4.8-4Z" />
+      <path d="M12 13v6" />
+      <path d="M8 21h8" />
+    </>
+  ),
+
   // Open book: two page leaves curving away from a central spine.
   fablekeeper: (
     <>

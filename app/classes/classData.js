@@ -349,6 +349,162 @@ export const CLASSES = [
       },
     ],
   },
+
+  {
+    slug: "resonant",
+    id: "resonant",
+    name: "Resonant",
+    eyebrow: "Elemental Harmony",
+    quote:
+      "Bend Earth, Water, Fire, and Air in balance — or break that balance and pay the price.",
+    intro: [
+      "A Wisdom-based full caster who draws on all four classical elements at once, channeling techniques through a Harmony Pool rather than spell slots. Unlike a bending master locked to one discipline, every Resonant has access to Earth, Water, Fire, and Air from 1st level — the real constraint is balance, not access.",
+      "Four Harmony Tracks record what you have been leaning on. Keep them level and you are Flowing, and everything hits harder. Let one run away from the others and you are Imbalanced: the dominant element turns on you, and the one you have been neglecting locks shut entirely.",
+    ],
+    hitDie: "d8",
+    primaryAbility: "Wisdom",
+    saves: "Wisdom, Charisma",
+    armor: "None",
+    resource: "Harmony Points",
+    resourceNote:
+      "A single shared pool for all four elements — not four separate ones. That is what gives the class its bite: there is no way to main-line a favourite element for free, so every spend is also a balance decision.",
+    recovery: "Refills on a long rest",
+    detail: {
+      label: "The Four Harmony Tracks",
+      text: "Earth, Water, Fire, Air — each 0 to 5, tracked with tally marks. Casting raises that element's track by 1 regardless of tier or cost, and they reset only at the end of combat, never on a rest.",
+    },
+    subclassLabel: "Nation Path",
+    subclassPlural: "Nation Paths",
+    subclasses: [
+      {
+        name: "The Ascendant",
+        title: "Fire",
+        quote: "The flame burns through you first, and you let it.",
+        blurb:
+          "Nova and sustain through controlled self-harm. Overdraw lets you pay hit points for damage on any cast, and Volatile Equilibrium turns the class's own Imbalance warning into an advantage.",
+      },
+      {
+        name: "The Steadfast",
+        title: "Earth",
+        quote: "A mountain doesn't forget a single season it's weathered.",
+        blurb:
+          "Tank and battlefield controller. Your tracks stop resetting at the end of combat, and Stoneguide lets you redirect an incoming hit away from an ally — or onto yourself, with resistance.",
+      },
+      {
+        name: "The Tidecaller",
+        title: "Water",
+        quote: "The tide leaves a pull behind in everything it touches.",
+        blurb:
+          "Controller and debuffer with a scaling healer's kit. Undertow Marks accumulate on anything that fails a save against your Water, and can be spent to push a later save DC higher.",
+      },
+      {
+        name: "The Untethered",
+        title: "Air",
+        quote: "A current doesn't carry just one leaf.",
+        blurb:
+          "Support built on a free standing bond. Movement itself adjusts your balance, and Skybound Bond threads a current through everyone close enough to catch it.",
+      },
+    ],
+    signature: [
+      {
+        lvl: 1,
+        name: "Balance States",
+        cost: "Passive",
+        desc: "Flowing when all four tracks sit within 1 of each other. Imbalanced when any track runs 3 or more above another — the highest element backlashes, the lowest locks.",
+      },
+      {
+        lvl: 6,
+        name: "Avatar State",
+        cost: "Reaction",
+        desc: "When all four tracks reach 3 or higher at once, spike them all to 5 for three rounds of empowered, discounted casting. Afterward every track crashes to zero and you take a level of exhaustion.",
+      },
+      {
+        lvl: 20,
+        name: "True Avatar",
+        cost: "Capstone",
+        desc: "Enter Avatar State with no track prerequisite, and hold it until you choose to let go.",
+      },
+    ],
+  },
+
+  {
+    slug: "sangreal",
+    id: "sangreal",
+    name: "Sangreal",
+    eyebrow: "Of the True Blood",
+    quote:
+      "There were never two vampires. There were five hungers wearing one face.",
+    intro: [
+      "Before Aalise Bathory ever claimed the title of Sang Éternel, there was only the Progenitor — a nameless first predator whose blood, when it finally split among those it turned, did not carry over cleanly. It fractured into five different answers to the same unbearable question: how do you go on living as something that isn't human anymore?",
+      "Those five answers became the Bloodlines. Every Sangreal carries one fragment of the Progenitor's fractured nature, whether they know its origin or not — which gives Avara's vampires two independent axes. The Sang Perdu to Sang Éternel hierarchy measures age and power. Bloodline measures nature, regardless of how old or powerful you become.",
+    ],
+    hitDie: "d8",
+    primaryAbility: "Dexterity (attacks), Charisma (Blood Sorcery)",
+    saves: "Dexterity, Charisma",
+    armor: "Light armor",
+    resource: "Hunger",
+    resourceNote:
+      "One small pool that recharges on a short rest, and everything in the class spends from it. You regain Hunger by landing a critical hit or dropping a creature — feeding the loop rather than waiting on it.",
+    recovery: "Recharges on a short rest",
+    detail: {
+      label: "Bloodstarved",
+      text: "If spending Hunger on The Bite drops you to zero, you are Bloodstarved until you rest — disadvantage on all saving throws. One clean flag, not a formula. The Bite has no upper limit beyond what you're holding, so the decision to empty yourself is always available.",
+    },
+    closer:
+      "You do not decide to feed. You decide, for one more moment, not to.",
+    subclassLabel: "Bloodline",
+    subclassPlural: "Bloodlines",
+    subclasses: [
+      {
+        name: "Hollow Crown",
+        title: "Aalise Bathory's own line",
+        quote: "Bait the hit, punish the attacker, shrug off what lands.",
+        blurb:
+          "Aggressive protection. Compulsion reaches further when it's an ally being targeted, and every failed save against it either bleeds the attacker or feeds you. Any PC who takes it is either a scion Aalise has acknowledged — or a branch of her bloodline she doesn't yet know exists.",
+      },
+      {
+        name: "Red Hunt",
+        title: "Turned, not born",
+        quote: "Chase, chain, never stop moving.",
+        blurb:
+          "Momentum that pays for itself. Blood Rush refunds itself on a kill, and Twin Fangs carries you from one target straight into the next.",
+      },
+      {
+        name: "Weeping Veil",
+        title: "Bonds over domination",
+        quote: "Feeding your ally is what protects them.",
+        blurb:
+          "Every point of healing you take splashes onto the nearest ally automatically, and a named Bonded creature can take half your damage — their choice, not yours.",
+      },
+      {
+        name: "Ashen Court",
+        title: "Centuries of accumulated knowledge",
+        quote: "Precision that doesn't miss and doesn't care what resists it.",
+        blurb:
+          "The Bite cuts straight through necrotic resistance, a Studied target hands advantage to your whole party, and once a rest an attack simply hits.",
+      },
+    ],
+    signature: [
+      {
+        lvl: 1,
+        name: "The Bite",
+        cost: "1+ Hunger",
+        desc: "On any hit, spend as much Hunger as you're holding — 2d8 necrotic per point, rising to 3d8 at 10th. No upper limit, which is what makes emptying yourself a real option.",
+      },
+      {
+        lvl: 9,
+        name: "Compulsion",
+        cost: "1 Hunger",
+        desc: "Reaction: an enemy within 10 feet saves or its attack redirects to a target of your choice, within that effect's own range.",
+      },
+      {
+        lvl: 20,
+        name: "The Undying Feast",
+        cost: "Capstone",
+        desc: "For one minute everything except The Bite costs nothing — so every point you generate pours into The Bite instead of being split four ways.",
+      },
+    ],
+  },
 ];
 
 /* Source documents hosted under /public/documents. `size` is shown on the
