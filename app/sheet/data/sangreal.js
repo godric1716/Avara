@@ -26,6 +26,17 @@ export const SANGREAL_GENERAL = [
   {lvl:20, name:"The Undying Feast", action:"Bonus action · 1/long rest", desc:"For 1 minute, Blood Rush, Sanguine Ward, Compulsion, and Blood Siphon all cost no Hunger. The Bite is deliberately untouched — every point you generate during the minute goes straight into it."},
 ];
 
+export const SANGREAL_GENERAL_FEATS = [
+  {name:"Deep Well", meta:"Feat", desc:"Your maximum Hunger increases by 1 at every tier."},
+  {name:"Efficient Feeding", meta:"Half-feat (+1 CON)", desc:"Once per short rest, cast any Blood Sorcery ability for free."},
+  {name:"Feral Recovery", meta:"Half-feat (+1 WIS or CON)", desc:"When you reduce a creature to 0 HP, also regain 1d4 HP, in addition to the Hunger you already regain."},
+];
+
+/* Not tied to a Bloodline — the Fang predates all five. */
+export const SANGREAL_ITEMS = [
+  {name:"The Progenitor's Fang", meta:"Artifact · Attunement", desc:"A dagger-fanged relic of the very first vampire, favoring no Bloodline. Levels 1–4: +1 to attack and damage; necrotic resistance becomes immunity. 5–10: +2, and once per long rest ignore becoming Bloodstarved. 11–16: +3, and spending 3+ Hunger on one Bite adds an extra die free. 17–20: once per long rest, bonus action to instantly restore all expended Hunger. Faintly sentient and hungry on its own account — advantage on Intimidation against anyone who has seen it drink, disadvantage on Persuasion with anyone innocent enough to sense what it is."},
+];
+
 export const SANGREAL_BLOODLINES = {
   hollowcrown: {
     label: "Hollow Crown", colTitle: "Bloodline of the Hollow Crown",
@@ -39,7 +50,15 @@ export const SANGREAL_BLOODLINES = {
       {lvl:15, name:"Unshakable Crown", desc:"While you hold at least 1 Hunger, advantage on saves against frightened or charmed. A creature that has already failed a save against your Compulsion this encounter has disadvantage on further saves against it."},
       {lvl:18, name:"The Crown Does Not Fall", action:"Bonus action · 1/long rest", desc:"For 1 minute, whenever an ally within your movement range is hit, use your reaction to move there and intercept — you take the damage instead, with resistance, and the attacker saves against your Compulsion DC or loses its reaction until the start of your next turn. Each time this saves an ally from dropping to 0 HP, you regain all expended Hunger."},
     ],
-    feats: [], items: []
+    feats: [
+      {name:"Bodyguard's Instinct", meta:"Feat · Hollow Crown", desc:"Bodyguard's Reach no longer requires a save to trigger against an ally — automatic, but The Toll's choice is unavailable on those triggers."},
+      {name:"Unyielding Ward", meta:"Half-feat (+1 CON) · Hollow Crown", desc:"Once per short rest, Blood Ward can be triggered as a reaction the instant before you're hit, instead of only as a bonus action."},
+    ],
+    items: [
+      {name:"Warding Collar", meta:"Rare · Attunement (Hollow Crown)", desc:"Blood Ward can be activated as a reaction, once per short rest."},
+      {name:"Gauntlet of the Unshaken", meta:"Very Rare · Attunement (Hollow Crown)", desc:"Second Command's additional Compulsion uses cost 1 less Hunger (minimum 1)."},
+      {name:"Crown of the Undying", meta:"Legendary · Hollow Crown only", desc:"The Crown Does Not Fall can be activated twice per long rest, and while active, Blood Ward costs no Hunger."},
+    ]
   },
   redhunt: {
     label: "Red Hunt", colTitle: "Bloodline of the Red Hunt",
@@ -53,7 +72,15 @@ export const SANGREAL_BLOODLINES = {
       {lvl:15, name:"Unbroken Chase", desc:"Opportunity attacks against you have disadvantage. If you've moved 20+ ft since the start of your turn, all your attacks this turn have advantage."},
       {lvl:18, name:"The Hunt Never Ends", action:"Bonus action · 1/long rest", desc:"For 1 minute, Blood Rush costs no Hunger and Twin Fangs triggers automatically — no cost, no per-turn limit — whenever you hit a creature."},
     ],
-    feats: [], items: []
+    feats: [
+      {name:"Twin Hunt", meta:"Feat · Red Hunt", desc:"Twin Fangs' first use each turn costs no Hunger."},
+      {name:"Fleet Fangs", meta:"Half-feat (+1 DEX) · Red Hunt", desc:"Twin Fangs' movement increases from half your speed to your full speed."},
+    ],
+    items: [
+      {name:"Boots of the Endless Chase", meta:"Rare · Attunement (Red Hunt)", desc:"Blood Rush's advantage no longer requires ending within 10 ft of an enemy — any enemy you moved past this turn qualifies."},
+      {name:"Necklace of Torn Prey", meta:"Very Rare · Attunement (Red Hunt)", desc:"Wounded Prey's threshold rises from half HP to 75% HP."},
+      {name:"Mantle of the Undying Hunt", meta:"Legendary · Red Hunt only", desc:"The Hunt Never Ends is usable twice per long rest, and your speed doubles while it is active."},
+    ]
   },
   weepingveil: {
     label: "Weeping Veil", colTitle: "Bloodline of the Weeping Veil",
@@ -67,7 +94,15 @@ export const SANGREAL_BLOODLINES = {
       {lvl:15, name:"Inseparable", desc:"While within 30 ft of your Bonded ally, you both have advantage on saves against charmed or frightened, and Given Freely's shared healing doubles to a full amount instead of half."},
       {lvl:18, name:"Til Death, and After", action:"Bonus action · 1/long rest", desc:"For 1 minute: the first time your Bonded ally would drop to 0 HP they drop to 1 instead, and you take necrotic equal to half the damage that would have felled them. Healing you grant them is maximized instead of rolled, and Given Freely reaches every ally within 30 ft."},
     ],
-    feats: [], items: []
+    feats: [
+      {name:"Distant Bond", meta:"Feat · Weeping Veil", desc:"Shared Feast, Twinned Wound, and Devoted Strike's ranges all extend to 60 ft."},
+      {name:"Shared Vigor", meta:"Half-feat (+1 CON or WIS) · Weeping Veil", desc:"Once per long rest, Given Freely's splash healing also removes one level of exhaustion from the ally it reaches."},
+    ],
+    items: [
+      {name:"Locket of the Bonded Heart", meta:"Rare · Attunement (Weeping Veil)", desc:"Twinned Wound can trigger even if your Bonded ally has already used their reaction this round, once per short rest."},
+      {name:"Chalice of Shared Blood", meta:"Very Rare · Attunement (Weeping Veil)", desc:"Given Freely's splash always heals the full amount rather than half — Inseparable's benefit, early."},
+      {name:"The Weeping Veil", meta:"Legendary · Weeping Veil only", desc:"Til Death, and After is usable twice per long rest, and its maximized-healing effect also applies to Shared Feast during that window."},
+    ]
   },
   ashencourt: {
     label: "Ashen Court", colTitle: "Bloodline of the Ashen Court",
@@ -81,7 +116,15 @@ export const SANGREAL_BLOODLINES = {
       {lvl:15, name:"Nothing Left to Chance", desc:"While you have a Studied target, you have advantage on saves against anything that target does to you, and your Compulsion against it never gains disadvantage from prior failed saves."},
       {lvl:18, name:"The Perfect Cut", action:"1/long rest", desc:"Your next attack against your Studied target automatically hits and crits, ignores all its resistances and immunities outright, and deals maximum damage. Until the end of the encounter, every ally attacking that creature also ignores its resistances and immunities."},
     ],
-    feats: [], items: []
+    feats: [
+      {name:"Perfect Study", meta:"Feat · Ashen Court", desc:"Marked Weakness no longer requires a hit — bonus action, no cost, mark any creature you can see as Studied."},
+      {name:"Keener Eye", meta:"Half-feat (+1 INT or WIS) · Ashen Court", desc:"Once per short rest, Guaranteed Cut can target an ally's attack roll instead of your own."},
+    ],
+    items: [
+      {name:"Loupe of Marked Prey", meta:"Rare · Attunement (Ashen Court)", desc:"Marked Weakness also gives the Studied target disadvantage on saves against your Compulsion."},
+      {name:"Scalpel of the Ashen Court", meta:"Very Rare · Attunement (Ashen Court)", desc:"Guaranteed Cut recharges an additional use per short rest."},
+      {name:"Codex of the Ashen Court", meta:"Legendary · Ashen Court only", desc:"The Perfect Cut is usable twice per long rest, and its party-wide bypass also grants advantage against that creature, not just the resistance and immunity ignore."},
+    ]
   }
 };
 
@@ -97,7 +140,7 @@ export const CLASS_SANGREAL = {
   subclassLabel: "Bloodline",
   subclasses: SANGREAL_BLOODLINES,
   generalFeatures: SANGREAL_GENERAL,
-  generalFeats: [],
-  sharedItems: [],
+  generalFeats: SANGREAL_GENERAL_FEATS,
+  sharedItems: SANGREAL_ITEMS,
   secondary: "sangreal"
 };

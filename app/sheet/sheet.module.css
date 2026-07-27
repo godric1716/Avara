@@ -574,21 +574,50 @@
 }
 
 @media (max-width: 640px) {
-  .tabScroll {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+  /* 26px of padding each side was costing the tab strip a fifth of a phone
+     screen; the panel doesn't need that much inset at this width. */
+  .sheet {
+    padding: 18px 14px 50px;
   }
 
-  .tabScroll::-webkit-scrollbar {
-    display: none;
+  /* Every tab visible at once beats a strip showing two of five. Wrapping
+     into a compact grid costs a little height and removes the hidden-content
+     problem entirely. */
+  .tabScroll {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    width: 100%;
   }
 
   .tabbtn {
     white-space: nowrap;
-    padding: 12px 13px;
-    font-size: 11.5px;
+    padding: 9px 4px;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    text-align: center;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tabActive {
+    background: var(--class-soft);
+    border-color: var(--class-accent);
+  }
+
+  .tabbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    border-bottom: none;
+    padding-bottom: 4px;
+  }
+
+  .resetBtn {
+    align-self: flex-end;
   }
 
   .resetBtn {
@@ -602,19 +631,25 @@
   text-decoration: underline;
 }
 
+.pageActions {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 34px;
+}
+
 .printBtn {
-  flex: none;
   background: none;
   border: 1px solid var(--class-soft);
   border-radius: 999px;
   color: var(--class-accent);
   font-family: inherit;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   font-weight: 700;
   cursor: pointer;
-  padding: 7px 14px;
+  padding: 12px 26px;
 }
 
 .printBtn:hover {
@@ -1419,6 +1454,151 @@
   cursor: not-allowed;
 }
 
+/* ---------- Collapsible feature / entry rows ---------- */
+
+.featureToggle,
+.checkToggle {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 4px 0;
+  color: inherit;
+}
+
+.featureToggle:hover .featureName,
+.checkToggle:hover .checkName {
+  color: var(--class-accent);
+}
+
+.chevron {
+  margin-left: auto;
+  flex: none;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--class-accent);
+  font-weight: 700;
+}
+
+.featureOpen .featureName {
+  color: var(--class-accent);
+}
+
+.checkRow {
+  display: flex;
+  align-items: baseline;
+  gap: 11px;
+}
+
+.checkRow input {
+  margin-top: 3px;
+  width: 17px;
+  height: 17px;
+  flex: none;
+  accent-color: var(--class-accent);
+  cursor: pointer;
+}
+
+/* Collapsed rows freed up enough room to set everything a size larger. */
+.featureName {
+  font-size: 1.02rem;
+}
+
+.checkName {
+  font-size: 14.5px;
+}
+
+.featureDesc,
+.checkDesc {
+  font-size: 14px;
+  line-height: 1.7;
+  padding-top: 6px;
+}
+
+.checkDesc {
+  padding-left: 28px;
+}
+
+.collapsed {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .featureName {
+    font-size: 1.05rem;
+  }
+
+  .checkName {
+    font-size: 15px;
+  }
+
+  .featureDesc,
+  .checkDesc {
+    font-size: 14.5px;
+  }
+
+  .featureToggle,
+  .checkToggle {
+    padding: 7px 0;
+  }
+}
+
+/* ---------- Readied spells ---------- */
+
+.readiedCard {
+  grid-column: 1 / -1;
+  border-color: var(--class-accent);
+}
+
+.readiedList {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.readiedItem {
+  padding: 11px 13px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--class-accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: color-mix(in srgb, var(--surface-2) 55%, transparent);
+}
+
+.readiedHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+
+.readiedName {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.readiedTier {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--class-accent);
+  white-space: nowrap;
+}
+
+.readiedDesc {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
 /* ---------- Attacks, armor, inventory ---------- */
 
 .equipment {
@@ -1647,8 +1827,16 @@
   .storageNote,
   .addRow,
   .attackControls,
-  .removeBtn {
+  .removeBtn,
+  .chevron,
+  .pageActions {
     display: none !important;
+  }
+
+  /* Collapsed rows are a screen-space affordance — a printed sheet has to
+     carry every description regardless of what happened to be open. */
+  .collapsed {
+    display: block !important;
   }
 
   .sheet {

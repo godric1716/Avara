@@ -27,7 +27,7 @@ import Equipment from "./Equipment";
 const TABS = [
   { key: "turn", label: "Common Turn" },
   { key: "actions", label: "Actions" },
-  { key: "gear", label: "Attacks & Gear" },
+  { key: "gear", label: "Gear" },
   { key: "companions", label: "Companions", classId: "fablekeeper" },
   { key: "spells", label: "Spells", classId: "devourer" },
   { key: "reference", label: "Reference" },
@@ -251,13 +251,6 @@ export default function CharacterSheet() {
             </button>
           ))}
         </div>
-        <button
-          type="button"
-          className={styles.printBtn}
-          onClick={() => window.print()}
-        >
-          Print
-        </button>
         <button type="button" className={styles.resetBtn} onClick={reset}>
           Reset
         </button>
@@ -374,6 +367,18 @@ export default function CharacterSheet() {
           )}
         </div>
       ))}
+
+      {/* Moved out of the tab bar: on a phone it was competing with the tabs
+          for the same scroll strip, which made the tabs hard to reach. */}
+      <div className={styles.pageActions}>
+        <button
+          type="button"
+          className={styles.printBtn}
+          onClick={() => window.print()}
+        >
+          Print / Save as PDF
+        </button>
+      </div>
 
       <p className={styles.storageNote}>
         {loaded

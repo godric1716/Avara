@@ -51,6 +51,11 @@ export default function Spellcasting({ level, abilityMods, prepared, slotsUsed, 
   }).length;
   const atCap = preparedNonCantripCount >= preparedMax;
 
+  // Flatten every ticked spell, cantrips first, for the Readied card.
+  const preparedList = SPELLS_BY_TIER.flatMap((tierSpells, tier) =>
+    tierSpells.filter((s) => prepared[s.name]).map((s) => ({ ...s, tier }))
+  );
+
   const slots = DEVOURER_SPELL_SLOTS[Math.min(Math.max(level, 1), 20) - 1];
   const activeSlotLevels = slots
     .map((max, i) => ({ lvl: i + 1, max }))
@@ -106,6 +111,31 @@ export default function Spellcasting({ level, abilityMods, prepared, slotsUsed, 
               );
             })}
           </div>
+        )}
+      </section>
+
+      {/* What you actually reach for mid-turn: everything ticked below,
+          pulled to the top so it isn't buried in the full list. */}
+      <section className={`${styles.card} ${styles.readiedCard}`}>
+        <h2 className={styles.cardTitle}>Readied</h2>
+        {preparedList.length === 0 ? (
+          <p className={styles.empty}>
+            Nothing prepared yet — tick spells below and they collect here.
+          </p>
+        ) : (
+          <ul className={styles.readiedList}>
+            {preparedList.map((s) => (
+              <li key={s.name} className={styles.readiedItem}>
+                <div className={styles.readiedHead}>
+                  <span className={styles.readiedName}>{s.name}</span>
+                  <span className={styles.readiedTier}>
+                    {s.tier === 0 ? "Cantrip" : TIER_LABELS[s.tier]}
+                  </span>
+                </div>
+                {s.desc && <p className={styles.readiedDesc}>{s.desc}</p>}
+              </li>
+            ))}
+          </ul>
         )}
       </section>
 

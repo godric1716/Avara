@@ -3,9 +3,12 @@
 .chapter {
   position: relative;
   max-width: 1180px;
-  margin: 22px auto 70px;
+  margin: 30px auto 80px;
   padding-bottom: 80px;
-  background: var(--class-bg);
+  /* Slightly translucent so the site's purple backdrop and its parchment
+     grain bleed through, tying the class panel to the world it sits in
+     rather than sealing it off as an opaque block. */
+  background: color-mix(in srgb, var(--class-bg) 93%, transparent);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -15,7 +18,7 @@
 
 @media (max-width: 1220px) {
   .chapter {
-    margin: 0 14px 50px;
+    margin: 0 18px 60px;
     border-radius: var(--radius);
   }
 }
