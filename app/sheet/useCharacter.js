@@ -31,6 +31,8 @@ export function defaultCharacter() {
     inventory: [],
     armorIndex: null,
     shieldEquipped: false,
+    techniquesKnown: {},
+    harmonyTracks: { Fire: 0, Earth: 0, Water: 0, Air: 0 },
   };
 }
 
@@ -76,6 +78,15 @@ function sanitize(raw) {
     inventory: Array.isArray(raw.inventory) ? raw.inventory : [],
     armorIndex: typeof raw.armorIndex === "string" ? raw.armorIndex : null,
     shieldEquipped: !!raw.shieldEquipped,
+    techniquesKnown: isPlainObject(raw.techniquesKnown) ? raw.techniquesKnown : {},
+    harmonyTracks: {
+      ...base.harmonyTracks,
+      ...(isPlainObject(raw.harmonyTracks)
+        ? Object.fromEntries(
+            Object.entries(raw.harmonyTracks).map(([el, n]) => [el, clampInt(n, 0, 5, 0)])
+          )
+        : {}),
+    },
     spellSlotsUsed: {
       ...base.spellSlotsUsed,
       ...(isPlainObject(raw.spellSlotsUsed)
@@ -146,6 +157,8 @@ export function useCharacter() {
       counters: {},
       spellsPrepared: {},
       spellSlotsUsed: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+      techniquesKnown: {},
+      harmonyTracks: { Fire: 0, Earth: 0, Water: 0, Air: 0 },
     }));
   }, []);
 

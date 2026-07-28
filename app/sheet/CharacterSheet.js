@@ -23,13 +23,19 @@ import SecondaryTracker from "./SecondaryTracker";
 import ReferenceExtras from "./ReferenceExtras";
 import Spellcasting from "./Spellcasting";
 import Equipment from "./Equipment";
+import Techniques from "./Techniques";
 
+/* Only the two classes that actually cast get a spell tab. The Sovereign is
+   explicitly "not a spellcaster" despite its Technique DC, and the
+   Mirrorwarden's stored spells live in the Vault tracker rather than a list,
+   since it steals them at the table instead of preparing from one. */
 const TABS = [
   { key: "turn", label: "Common Turn" },
   { key: "actions", label: "Actions" },
   { key: "gear", label: "Gear" },
   { key: "companions", label: "Companions", classId: "fablekeeper" },
   { key: "spells", label: "Spells", classId: "devourer" },
+  { key: "techniques", label: "Techniques", classId: "resonant" },
   { key: "reference", label: "Reference" },
   { key: "notes", label: "Notes" },
 ];
@@ -332,6 +338,16 @@ export default function CharacterSheet() {
               slotsUsed={character.spellSlotsUsed}
               onTogglePrepared={(name) => toggleIn("spellsPrepared", name)}
               onSlotsChange={(spellSlotsUsed) => update({ spellSlotsUsed })}
+            />
+          )}
+
+          {t.key === "techniques" && (
+            <Techniques
+              level={level}
+              known={character.techniquesKnown}
+              tracks={character.harmonyTracks}
+              onToggleKnown={(name) => toggleIn("techniquesKnown", name)}
+              onTracks={(harmonyTracks) => update({ harmonyTracks })}
             />
           )}
 
