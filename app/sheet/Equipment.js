@@ -3,9 +3,13 @@
 import { useState } from "react";
 import styles from "./sheet.module.css";
 import equipment from "./data/equipment.json";
+import { HOMEBREW_WEAPONS } from "./data/homebrewWeapons";
+import { startingKit } from "./data/startingGear";
 import { fmt } from "./data";
 
-const WEAPONS = equipment.weapons;
+const WEAPONS = [...equipment.weapons, ...HOMEBREW_WEAPONS].sort((a, b) =>
+  a.name.localeCompare(b.name)
+);
 const ARMOR = equipment.armor;
 
 /* Classes whose own features replace Strength/Dexterity on weapon attacks.
@@ -57,6 +61,7 @@ function abilityFor(weapon, classId, abilityMods, override) {
 
 export default function Equipment({
   classId,
+  subclass,
   abilityMods,
   profBonus,
   attacks,
@@ -67,9 +72,11 @@ export default function Equipment({
   onInventory,
   onArmor,
   onShield,
+  onApplyKit,
 }) {
   const [pickWeapon, setPickWeapon] = useState("");
   const [invDraft, setInvDraft] = useState("");
+  const kit = startingKit(classId, subclass);
 
   const armor = ARMOR.find((a) => a.index === armorIndex) || null;
   const dexMod = abilityMods.dex ?? 0;
@@ -98,6 +105,56 @@ export default function Equipment({
     onAttacks(attacks.map((a) => (a.id === id ? { ...a, ...patch } : a)));
   }
 
+  /* Adds the kit alongside whatever's already carried rather than replacing
+     it — equipping a starter kit should never quietly delete gear someone
+     spent sessions collecting. Inventory lines already present are skipped,
+     so pressing it twice doesn't double the pack. */
+  function equipKit() {
+    const stamp = Date.now();
+
+    /* Top up to the kit's counts rather than blindly appending, so pressing
+       this twice doesn't hand you four weapons — while still allowing the
+       kits that genuinely want a matched pair, like the Devourer's two
+       warglaives. */
+    const have = attacks.reduce((acc, a) => {
+      acc[a.index] = (acc[a.index] || 0) + 1;
+      return acc;
+    }, {});
+    const wanted = kit.weapons.reduce((acc, i) => {
+      acc[i] = (acc[i] || 0) + 1;
+      return acc;
+    }, {});
+
+    const newAttacks = [];
+    for (const [index, count] of Object.entries(wanted)) {
+      const shortfall = count - (have[index] || 0);
+      const w = WEAPONS.find((x) => x.index === index);
+      for (let i = 0; i < shortfall; i++) {
+        newAttacks.push({
+          id: `${index}-${stamp}-${i}`,
+          index,
+          name: w ? w.name : index,
+          ability: "auto",
+          bonus: 0,
+          damageBonus: 0,
+          proficient: true,
+          note: "",
+        });
+      }
+    }
+    const carried = new Set(inventory.map((i) => i.text));
+    const newItems = kit.items
+      .filter((text) => !carried.has(text))
+      .map((text, i) => ({ id: `k-${stamp}-${i}`, text, qty: 1 }));
+
+    onApplyKit({
+      armorIndex: kit.armor,
+      shieldEquipped: !!kit.shield,
+      attacks: [...attacks, ...newAttacks],
+      inventory: [...inventory, ...newItems],
+    });
+  }
+
   function addInventory(e) {
     e.preventDefault();
     const v = invDraft.trim();
@@ -108,6 +165,36 @@ export default function Equipment({
 
   return (
     <div className={styles.equipment}>
+      {/* ---------------- Starting kit ---------------- */}
+      {kit && (
+        <section className={`${styles.card} ${styles.kitCard}`}>
+          <div className={styles.slotsHead}>
+            <h2 className={styles.cardTitle}>{kit.label}</h2>
+            <button
+              type="button"
+              className={styles.smallBtn}
+              onClick={equipKit}
+            >
+              Equip starting gear
+            </button>
+          </div>
+          <p className={styles.kitLine}>
+            {[
+              kit.armor
+                ? ARMOR.find((a) => a.index === kit.armor)?.name
+                : "No armor",
+              kit.shield ? "Shield" : null,
+              ...kit.weapons.map(
+                (w) => WEAPONS.find((x) => x.index === w)?.name || w
+              ),
+            ]
+              .filter(Boolean)
+              .join(" · ")}
+          </p>
+          <p className={styles.trackerNote}>{kit.note}</p>
+        </section>
+      )}
+
       {/* ---------------- Attacks ---------------- */}
       <section className={`${styles.card} ${styles.attacksCard}`}>
         <h2 className={styles.cardTitle}>Attacks</h2>

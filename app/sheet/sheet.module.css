@@ -1702,6 +1702,19 @@
   grid-column: 1 / -1;
 }
 
+.kitCard {
+  grid-column: 1 / -1;
+  border-color: var(--class-accent);
+}
+
+.kitLine {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
 .addRow {
   margin-bottom: 14px;
 }

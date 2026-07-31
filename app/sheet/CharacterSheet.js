@@ -86,6 +86,10 @@ export default function CharacterSheet() {
     (k) => String(character[k] ?? "").trim() !== ""
   );
 
+  // Equipment builds the kit itself — it's the module that holds the weapon
+  // table, so it can resolve display names the same way manual picks do.
+  const applyKit = (patch) => update(patch);
+
   // Companions only exist for the Fablekeeper. If the class changes while that
   // tab is open, fall back rather than rendering an empty panel.
   const visibleTabs = TABS.filter(
@@ -348,6 +352,7 @@ export default function CharacterSheet() {
           {t.key === "gear" && (
             <Equipment
               classId={character.classId}
+              subclass={character.subclass}
               abilityMods={abilityMods}
               profBonus={pb}
               attacks={character.attacks}
@@ -358,6 +363,7 @@ export default function CharacterSheet() {
               onInventory={(inventory) => update({ inventory })}
               onArmor={(armorIndex) => update({ armorIndex })}
               onShield={(shieldEquipped) => update({ shieldEquipped })}
+              onApplyKit={applyKit}
             />
           )}
 
