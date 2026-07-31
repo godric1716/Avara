@@ -165,6 +165,7 @@ export const FABLEKEEPER_ITEMS = [
 ];
 
 export const CLASS_FABLEKEEPER = {
+  hitDie: 8,
   label: "Fablekeeper", eyebrow: "Every Creature Has a Story", primaryAbil: "wis",
   resourceLabel: "Ink",
   resourceMax: function(level, ab){ return Math.ceil(level/2) + ab.wis + profBonus(level); },

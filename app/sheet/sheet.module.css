@@ -198,6 +198,19 @@
   color: var(--class-accent);
 }
 
+/* An auto-calculated field shows its number as a placeholder, so it needs to
+   read as a real value rather than the usual muted hint. */
+.vitalValue::placeholder {
+  color: var(--class-accent);
+  opacity: 0.75;
+}
+
+/* A dashed edge marks the fields you've taken manual control of. */
+.vitalOverridden .vitalValue {
+  border-style: dashed;
+  border-color: var(--class-accent);
+}
+
 .abilityGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));

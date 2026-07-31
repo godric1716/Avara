@@ -24,6 +24,22 @@ function isFinesse(weapon) {
   return (weapon?.properties || []).includes("Finesse");
 }
 
+/* Armor Class from worn armor, honouring each armor's own Dex cap. Exported
+   so Vitals shows the same number this tab does rather than recomputing it. */
+export function armorClassFor(armorIndex, dexMod, shieldEquipped) {
+  const armor = ARMOR.find((a) => a.index === armorIndex) || null;
+  let ac = 10 + dexMod;
+  if (armor) {
+    const dexPart = armor.dexBonus
+      ? armor.maxDexBonus !== null
+        ? Math.min(dexMod, armor.maxDexBonus)
+        : dexMod
+      : 0;
+    ac = armor.baseAC + dexPart;
+  }
+  return ac + (shieldEquipped ? 2 : 0);
+}
+
 /* Which ability a given weapon actually uses, honouring the class override,
    then finesse, then melee/ranged defaults. */
 function abilityFor(weapon, classId, abilityMods, override) {
@@ -57,21 +73,7 @@ export default function Equipment({
 
   const armor = ARMOR.find((a) => a.index === armorIndex) || null;
   const dexMod = abilityMods.dex ?? 0;
-
-  /* Armor Class from the equipped armor, capped Dex where the armor says so.
-     Unarmored is the plain 10 + Dex baseline — several classes replace this
-     with their own formula, which is why the note below says so rather than
-     the sheet pretending this is authoritative. */
-  let ac = 10 + dexMod;
-  if (armor) {
-    const dexPart = armor.dexBonus
-      ? armor.maxDexBonus !== null
-        ? Math.min(dexMod, armor.maxDexBonus)
-        : dexMod
-      : 0;
-    ac = armor.baseAC + dexPart;
-  }
-  if (shieldEquipped) ac += 2;
+  const ac = armorClassFor(armorIndex, dexMod, shieldEquipped);
 
   function addAttack(index) {
     const w = WEAPONS.find((x) => x.index === index);

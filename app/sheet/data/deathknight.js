@@ -149,6 +149,7 @@ export function sealMax(level, conMod){
 }
 
 export const CLASS_DEATHKNIGHT = {
+  hitDie: 12,
   label: "Death Knight", eyebrow: "Covenant of the Unbroken", primaryAbil: "con",
   resourceLabel: "Grave Seals",
   resourceMax: function(level, ab){ return sealMax(level, ab.con); },

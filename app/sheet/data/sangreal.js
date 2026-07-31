@@ -129,6 +129,7 @@ export const SANGREAL_BLOODLINES = {
 };
 
 export const CLASS_SANGREAL = {
+  hitDie: 8,
   label: "Sangreal", eyebrow: "Of the True Blood", primaryAbil: "cha",
   resourceLabel: "Hunger",
   resourceMax: function(level){ return hungerMax(level); },

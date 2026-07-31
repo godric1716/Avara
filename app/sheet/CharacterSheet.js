@@ -10,10 +10,12 @@ import {
   CLASS_DATA,
   CLASS_ORDER,
   CLASS_SLUGS,
+  fixedHitPoints,
   fmt,
   mod,
   profBonus,
 } from "./data";
+import { armorClassFor } from "./Equipment";
 import ResourceTracker from "./ResourceTracker";
 import FeatureColumn from "./FeatureColumn";
 import CheckList from "./CheckList";
@@ -67,6 +69,21 @@ export default function CharacterSheet() {
   const loadout = useMemo(
     () => collectLoadout(cls, sub, character),
     [cls, sub, character]
+  );
+
+  /* Values the sheet can work out on its own. A blank field means "use this";
+     typing anything overrides it, which is what the Recalculate button undoes. */
+  const derived = useMemo(
+    () => ({
+      hpMax: fixedHitPoints(cls.hitDie, level, abilityMods.con ?? 0),
+      ac: armorClassFor(character.armorIndex, abilityMods.dex ?? 0, character.shieldEquipped),
+      speed: 30,
+    }),
+    [cls.hitDie, level, abilityMods, character.armorIndex, character.shieldEquipped]
+  );
+
+  const anyOverridden = ["hpMax", "ac", "speed"].some(
+    (k) => String(character[k] ?? "").trim() !== ""
   );
 
   // Companions only exist for the Fablekeeper. If the class changes while that
@@ -148,22 +165,41 @@ export default function CharacterSheet() {
       {/* ---------- Dashboard ---------- */}
       <div className={styles.dashboard}>
         <section className={`${styles.card} ${styles.vitals}`}>
-          <h2 className={styles.cardTitle}>Vitals</h2>
+          <div className={styles.slotsHead}>
+            <h2 className={styles.cardTitle}>Vitals</h2>
+            {anyOverridden && (
+              <button
+                type="button"
+                className={styles.smallBtn}
+                onClick={() => update({ hpMax: "", ac: "", speed: "" })}
+              >
+                Recalculate
+              </button>
+            )}
+          </div>
           <div className={styles.vitalsGrid}>
             <Vital
               label="HP"
               value={character.hpCur}
+              computed={derived.hpMax}
               onChange={(v) => update({ hpCur: v })}
             />
             <Vital
               label="Max HP"
               value={character.hpMax}
+              computed={derived.hpMax}
               onChange={(v) => update({ hpMax: v })}
             />
-            <Vital label="AC" value={character.ac} onChange={(v) => update({ ac: v })} />
+            <Vital
+              label="AC"
+              value={character.ac}
+              computed={derived.ac}
+              onChange={(v) => update({ ac: v })}
+            />
             <Vital
               label="Speed"
               value={character.speed}
+              computed={derived.speed}
               onChange={(v) => update({ speed: v })}
             />
             <div className={styles.vitalStatic}>
@@ -171,6 +207,12 @@ export default function CharacterSheet() {
               <span className={`${styles.vitalValue} num`}>{fmt(pb)}</span>
             </div>
           </div>
+          <p className={styles.trackerNote}>
+            Fixed HP for a {cls.label} — d{cls.hitDie} at 1st, then{" "}
+            {cls.hitDie / 2 + 1} per level, plus CON each time. Features that
+            raise your maximum outright aren&rsquo;t counted; type over any
+            field to set your own.
+          </p>
         </section>
 
         <section className={`${styles.card} ${styles.abilities}`}>
@@ -405,13 +447,18 @@ export default function CharacterSheet() {
   );
 }
 
-function Vital({ label, value, onChange }) {
+/* A blank field shows the computed value as a placeholder and reports it as
+   the character's actual number; anything typed wins and is marked as an
+   override so it's obvious the sheet has stopped calculating that one. */
+function Vital({ label, value, computed, onChange }) {
+  const overridden = String(value ?? "").trim() !== "";
   return (
-    <label className={styles.vital}>
+    <label className={`${styles.vital} ${overridden ? styles.vitalOverridden : ""}`}>
       <span className={styles.vitalLabel}>{label}</span>
       <input
         className={`${styles.vitalValue} num`}
         value={value}
+        placeholder={computed !== undefined ? String(computed) : ""}
         onChange={(e) => onChange(e.target.value)}
         inputMode="numeric"
       />

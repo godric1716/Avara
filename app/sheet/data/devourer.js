@@ -125,6 +125,7 @@ export const DEVOURER_ITEMS = [
 ];
 
 export const CLASS_DEVOURER = {
+  hitDie: 10,
   label: "Devourer", eyebrow: "Voidreaper · Annihilator · Void-Scarred", primaryAbil: "cha",
   resourceLabel: "Soul Fragments",
   resourceMax: function(level, ab){ return Math.max(0, level + ab.cha + (level >= 20 ? 5 : 0)); },

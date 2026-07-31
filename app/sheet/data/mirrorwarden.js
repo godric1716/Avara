@@ -94,6 +94,7 @@ export const MIRRORWARDEN_ITEMS = [
 ];
 
 export const CLASS_MIRRORWARDEN = {
+  hitDie: 8,
   label: "Mirrorwarden", eyebrow: "Bonded to the Fractured", primaryAbil: "cha",
   resourceLabel: "Mirror Points",
   resourceMax: function(level){ return MIRROR_POINTS_MAX[Math.min(20,Math.max(1,level))-1]; },

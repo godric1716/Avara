@@ -127,6 +127,7 @@ export const RESONANT_PATHS = {
 };
 
 export const CLASS_RESONANT = {
+  hitDie: 8,
   label: "Resonant", eyebrow: "Elemental Harmony", primaryAbil: "wis",
   resourceLabel: "Harmony Points",
   resourceMax: function(level){

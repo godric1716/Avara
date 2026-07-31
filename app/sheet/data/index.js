@@ -6,7 +6,7 @@ import { CLASS_FABLEKEEPER } from "./fablekeeper";
 import { CLASS_RESONANT } from "./resonant";
 import { CLASS_SANGREAL } from "./sangreal";
 
-export { mod, fmt, profBonus } from "./helpers";
+export { mod, fmt, profBonus, fixedHitPoints } from "./helpers";
 
 /* Sheet class id -> chapter page slug, so the sheet can link into the lore. */
 export const CLASS_SLUGS = {

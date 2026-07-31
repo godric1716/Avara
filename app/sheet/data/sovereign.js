@@ -98,6 +98,7 @@ export const SOVEREIGN_RELIQUARIES = {
 };
 
 export const CLASS_SOVEREIGN = {
+  hitDie: 10,
   label: "Undying Sovereign", eyebrow: "A Vessel of Inherited Power", primaryAbil: "int",
   resourceLabel: "Malice",
   resourceMax: function(level, ab){
