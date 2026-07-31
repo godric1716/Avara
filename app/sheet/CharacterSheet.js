@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import styles from "./sheet.module.css";
-import ClassSigil from "../components/ClassSigil";
 import { useCharacter } from "./useCharacter";
 import {
   ABILITIES,
@@ -26,6 +25,7 @@ import ReferenceExtras from "./ReferenceExtras";
 import Spellcasting from "./Spellcasting";
 import Equipment from "./Equipment";
 import Techniques from "./Techniques";
+import Portrait from "./Portrait";
 
 /* Only the two classes that actually cast get a spell tab. The Sovereign is
    explicitly "not a spellcaster" despite its Technique DC, and the
@@ -103,7 +103,11 @@ export default function CharacterSheet() {
 
       {/* ---------- Identity bar ---------- */}
       <header className={styles.identity}>
-        <ClassSigil id={character.classId} className={styles.sigil} />
+        <Portrait
+          classId={character.classId}
+          portrait={character.portrait}
+          onChange={(portrait) => update({ portrait })}
+        />
         <div className={styles.identityMain}>
           <input
             className={styles.nameInput}

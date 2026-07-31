@@ -78,6 +78,100 @@
   filter: drop-shadow(0 0 16px var(--class-soft));
 }
 
+/* ---------- Portrait ---------- */
+
+.portrait {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.portraitFrame {
+  width: 78px;
+  height: 78px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface-2) 70%, transparent);
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.18s ease;
+}
+
+.portraitFrame:hover {
+  border-color: var(--class-accent);
+}
+
+.portraitImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.portraitEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px;
+}
+
+.portraitSigil {
+  width: 26px;
+  height: 26px;
+  color: var(--class-accent);
+  opacity: 0.75;
+}
+
+.portraitHint {
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-faint);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.portraitRemove {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-faint);
+  cursor: pointer;
+  padding: 0;
+}
+
+.portraitRemove:hover {
+  color: var(--class-accent);
+}
+
+.portraitError {
+  font-size: 10px;
+  line-height: 1.4;
+  color: var(--warn, #d9a441);
+  max-width: 110px;
+  text-align: center;
+}
+
+.hiddenInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .identityMain {
   flex: 1 1 220px;
   min-width: 0;
@@ -1931,8 +2025,17 @@
   .attackControls,
   .removeBtn,
   .chevron,
-  .pageActions {
+  .pageActions,
+  .portraitRemove,
+  .portraitHint,
+  .portraitError {
     display: none !important;
+  }
+
+  /* The portrait itself should print; browsers skip background images by
+     default but an <img> comes through. */
+  .portraitFrame {
+    border-color: #999;
   }
 
   /* Collapsed rows are a screen-space affordance — a printed sheet has to

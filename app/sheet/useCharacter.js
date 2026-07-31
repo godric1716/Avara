@@ -33,6 +33,7 @@ export function defaultCharacter() {
     shieldEquipped: false,
     techniquesKnown: {},
     harmonyTracks: { Fire: 0, Earth: 0, Water: 0, Air: 0 },
+    portrait: "",
   };
 }
 
@@ -79,6 +80,13 @@ function sanitize(raw) {
     armorIndex: typeof raw.armorIndex === "string" ? raw.armorIndex : null,
     shieldEquipped: !!raw.shieldEquipped,
     techniquesKnown: isPlainObject(raw.techniquesKnown) ? raw.techniquesKnown : {},
+    /* Only ever an inline image we encoded ourselves. Storage is editable by
+       hand, so anything else — a remote URL, a javascript: scheme — is
+       dropped rather than handed to an <img src>. */
+    portrait:
+      typeof raw.portrait === "string" && /^data:image\/(png|jpeg|webp|gif);base64,/.test(raw.portrait)
+        ? raw.portrait
+        : "",
     harmonyTracks: {
       ...base.harmonyTracks,
       ...(isPlainObject(raw.harmonyTracks)
