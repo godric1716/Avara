@@ -1,11 +1,6 @@
 "use client";
 
 import styles from "./sheet.module.css";
-import {
-  DEVOURER_STANDARD_SPELLS,
-  DEVOURER_SPELL_SLOTS,
-  DEVOURER_SPELLS,
-} from "./data/devourer";
 import { FABLEKEEPER_CONCOCTIONS } from "./data/fablekeeper";
 
 const SEAL_BANDS = [
@@ -16,12 +11,14 @@ const SEAL_BANDS = [
   { levels: "17–20", max: "CON mod + 12", from: 17, to: 20 },
 ];
 
-const SLOT_LEVELS = ["1st", "2nd", "3rd", "4th", "5th"];
+/* Per-class reference tables that don't fit the feat/item checklists.
 
-/* Per-class reference tables that don't fit the feat/item checklists. */
+   The Devourer deliberately has nothing here: its slots, custom spells and
+   standard list all live in the Spells tab now, and leaving a second static
+   copy in Reference meant two Spell Slots cards on one sheet — one
+   interactive, one not. */
 export default function ReferenceExtras({ classId, level }) {
   if (classId === "deathknight") return <SealTable level={level} />;
-  if (classId === "devourer") return <DevourerReference level={level} />;
   if (classId === "fablekeeper") return <Concoctions />;
   return null;
 }
@@ -54,94 +51,6 @@ function SealTable({ level }) {
         pool does not exist yet.
       </p>
     </section>
-  );
-}
-
-function DevourerReference({ level }) {
-  const slots = DEVOURER_SPELL_SLOTS[Math.min(Math.max(level, 1), 20) - 1];
-  const hasSlots = slots.some((n) => n > 0);
-
-  return (
-    <>
-      <section className={`${styles.card} ${styles.column}`}>
-        <h2 className={styles.cardTitle}>Spell Slots</h2>
-        {hasSlots ? (
-          <div className={styles.slotRow}>
-            {slots.map((count, i) =>
-              count > 0 ? (
-                <div key={SLOT_LEVELS[i]} className={styles.slotChip}>
-                  <span className={styles.slotChipLabel}>{SLOT_LEVELS[i]}</span>
-                  <span className={`${styles.slotChipCount} num`}>{count}</span>
-                </div>
-              ) : null
-            )}
-          </div>
-        ) : (
-          <p className={styles.empty}>No slots yet — spellcasting begins at 2nd level.</p>
-        )}
-
-        <details className={styles.upcoming}>
-          <summary>Full progression</summary>
-          <table className={styles.refTable}>
-            <thead>
-              <tr>
-                <th>Lv</th>
-                {SLOT_LEVELS.map((s) => (
-                  <th key={s}>{s}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {DEVOURER_SPELL_SLOTS.map((row, i) => (
-                <tr key={i} className={i + 1 === level ? styles.refRowActive : ""}>
-                  <td className="num">{i + 1}</td>
-                  {row.map((n, j) => (
-                    <td key={j} className="num">
-                      {n || "—"}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </details>
-      </section>
-
-      <section className={`${styles.card} ${styles.column}`}>
-        <h2 className={styles.cardTitle}>Custom Spells</h2>
-        <ul className={styles.featureList}>
-          {DEVOURER_SPELLS.map((s) => (
-            <li key={s.name} className={styles.feature}>
-              <div className={styles.featureHead}>
-                <h3 className={styles.featureName}>{s.name}</h3>
-              </div>
-              {s.meta && <div className={styles.featureMeta}>{s.meta}</div>}
-              <p className={styles.featureDesc}>{s.desc}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className={`${styles.card} ${styles.column}`}>
-        <h2 className={styles.cardTitle}>Standard Spell List</h2>
-        <p className={styles.trackerNote}>
-          Names only — these are ordinary 5e spells, so look them up in the
-          compendium or your usual reference.
-        </p>
-        {Object.entries(DEVOURER_STANDARD_SPELLS).map(([tier, names]) => (
-          <div key={tier} className={styles.spellGroup}>
-            <h3 className={styles.spellGroupTitle}>{tier}</h3>
-            <div className={styles.spellNames}>
-              {names.map((n) => (
-                <span key={n} className={styles.spellName}>
-                  {n}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </section>
-    </>
   );
 }
 
