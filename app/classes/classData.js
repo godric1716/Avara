@@ -505,6 +505,86 @@ export const CLASSES = [
       },
     ],
   },
+
+  {
+    slug: "unbroken",
+    id: "unbroken",
+    name: "The Unbroken",
+    eyebrow: "A Wound, and Then a Wolf",
+    quote:
+      "You do not choose the wolf. You bleed, and it decides you're ready.",
+    intro: [
+      "Where a Sangreal is made — turned, chosen, handed the Progenitor's fractured blood on purpose — the Unbroken are made by nothing so deliberate. A wolf is not sired. A wolf is revealed, usually at the worst possible moment: a blade that should have killed you, a wound that should have ended the fight, and instead of dying you simply changed.",
+      "So there is no elegant origin myth here, no first wolf whose blood split five ways. There is only the same fact repeated across centuries and across bloodlines that have nothing to do with each other: enough pain, in the right person, reveals something that was always underneath. The Packs that formed afterward didn't organize around shared blood. They organized around shared answers to the same violence.",
+      "The Bathory Pack — Aalise's own circle of bound wolves — sits at the center of most of what Avara has written down about the Unbroken, not because they invented the condition but because they were the first to survive it long enough to write anything at all.",
+    ],
+    hitDie: "d12",
+    primaryAbility: "Strength, Constitution",
+    saves: "Strength, Constitution",
+    armor: "Light armor, medium armor, shields",
+    resource: "Bloodlust",
+    resourceNote:
+      "The only pool in Avara with no ceiling. While transformed, damage dealt and damage taken both generate Bloodlust at their full value — symmetric on purpose — and you spend it to reduce incoming damage as it lands, no action required.",
+    recovery: "Resets when the encounter ends",
+    detail: {
+      label: "The Threshold",
+      text: "Drop to half your maximum HP or below and you transform — automatically, free, no action spent, no choice offered. Everything the class does is built on the far side of that line, which makes the first half of your health a resource like any other.",
+    },
+    closer:
+      "Nothing in this class ever heals you. The pack keeps you standing; your own hands don't.",
+    subclassLabel: "Tank Pack",
+    subclassPlural: "Tank Packs",
+    subclasses: [
+      {
+        name: "Ironback",
+        title: "Pure mitigation",
+        quote: "The wall that doesn't move, and doesn't explain why.",
+        blurb:
+          "No punishment, no redirect — just a hit cap. Stone Wall spends Bloodlust automatically to hold any single blow under a percentage of your maximum HP, and that ceiling keeps tightening as you level. The pack watches you take blow after blow and simply not fall.",
+      },
+      {
+        name: "Bloodfang",
+        title: "Retaliation",
+        quote: "Every hit that lands on you is a mistake the attacker keeps paying for.",
+        blurb:
+          "Bloodlust spent on defense comes back out as necrotic damage, and the wound doesn't close clean — it ticks again the following turn unless someone heals it. By 15th, anything that has bled you once attacks you at disadvantage for the rest of the fight.",
+      },
+      {
+        name: "Warden's Circle",
+        title: "Redirect",
+        quote: "It doesn't matter what you were already doing. The wolf moves anyway.",
+        blurb:
+          "You get between the party and the thing trying to kill them, physically and repeatedly. Stand Between costs no Bloodlust to trigger, and from 8th it stops costing your reaction at all when the blow would have killed someone.",
+      },
+      {
+        name: "Vaela's Line",
+        title: "The odd sibling",
+        quote: "The hybrid made literal, not just borrowed.",
+        blurb:
+          "The newest and strangest Pack, traced back to Vaela herself — proof that the wolf's revelation and the vampire's turning were never as incompatible as either side likes to claim. Control and speed pulled from vampire blood, layered over a body that still refuses to heal itself.",
+      },
+    ],
+    signature: [
+      {
+        lvl: 1,
+        name: "Bloodlust",
+        cost: "The whole system",
+        desc: "Spend it 1-for-1 to reduce damage the instant it would land. At 14th each point stops two, and there is never a maximum — what you're holding is only ever what the fight has given you.",
+      },
+      {
+        lvl: 10,
+        name: "Provoke the Change",
+        cost: "1/short rest",
+        desc: "Bonus action to spend your own health down to exactly half, triggering the Threshold deliberately. Because you chose it, you bank double the HP spent as Bloodlust and hit for an extra 1d8 for the rest of the transformation.",
+      },
+      {
+        lvl: 20,
+        name: "The Unbroken Pack",
+        cost: "Capstone",
+        desc: "Once per long rest, redirect a killing blow aimed at an ally within 30 feet onto yourself — and then reduce it with Bloodlust as normal. You never heal, but you can always be the one who bleeds instead of them.",
+      },
+    ],
+  },
 ];
 
 /* Source documents hosted under /public/documents. `size` is shown on the

@@ -256,6 +256,7 @@ export default function CharacterSheet() {
           label={cls.resourceLabel}
           value={character.resource}
           max={resourceMax}
+          uncapped={cls.resourceUncapped}
           buttons={cls.resourceButtons}
           profBonus={pb}
           onChange={(v) => update({ resource: v })}
@@ -411,6 +412,18 @@ export default function CharacterSheet() {
                 checked={character.feats}
                 onToggle={(name) => toggleIn("feats", name)}
               />
+              {/* A separate column only for classes that pick from a second
+                  always-on pool alongside feats — the Unbroken's Instincts.
+                  They share the `feats` bucket because names are unique
+                  within a class and both behave the same way once taken. */}
+              {cls.instincts && (
+                <CheckList
+                  title={cls.instinctsLabel || "Instincts"}
+                  entries={[...cls.instincts, ...((sub && sub.instincts) || [])]}
+                  checked={character.feats}
+                  onToggle={(name) => toggleIn("feats", name)}
+                />
+              )}
               <CheckList
                 title="Magic Items"
                 entries={[...(cls.sharedItems || []), ...((sub && sub.items) || [])]}
@@ -486,7 +499,12 @@ function clamp(v) {
    currently selected class — a name checked under another class won't match. */
 function collectLoadout(cls, sub, character) {
   const out = [];
-  const feats = [...(cls.generalFeats || []), ...((sub && sub.feats) || [])];
+  const feats = [
+    ...(cls.generalFeats || []),
+    ...(cls.instincts || []),
+    ...((sub && sub.feats) || []),
+    ...((sub && sub.instincts) || []),
+  ];
   const items = [...(cls.sharedItems || []), ...((sub && sub.items) || [])];
   for (const f of feats) {
     if (character.feats[f.name]) out.push({ ...f, bucket: "feats" });

@@ -94,6 +94,24 @@ const KITS = {
     ],
   },
 
+  /* Medium armor and shields are proficiencies the document grants, but the
+     kit stops at hide: Thick Hide is +2 AC in Beast-Form and the document
+     says outright that it makes a shield not worth the slot, so leading a new
+     player into buying one would be leading them wrong. */
+  unbroken: {
+    label: "Pack Kit",
+    note: "Built to the document's proficiencies — it lists no starting equipment of its own.",
+    armor: "hide-armor",
+    shield: false,
+    weapons: ["greataxe", "handaxe"],
+    items: [
+      "Explorer's pack",
+      "The scar from the wound that revealed you — not equipment, but you'll be asked about it",
+      "A pack token: a tooth, a strip of hide, a knot of another wolf's hair",
+      "Bandages, far more than one person needs",
+    ],
+  },
+
   /* The Resonant's document names four foci — carved stone, water vial, ember
      case, wind chime — one per element, so each Nation Path gets its own kit
      built around its focus. Simple weapons only; no armor proficiency. */

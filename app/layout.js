@@ -7,6 +7,7 @@ import {
   IM_Fell_English,
   Cormorant_Garamond,
   Uncial_Antiqua,
+  Metamorphous,
 } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
@@ -57,6 +58,13 @@ const uncial = Uncial_Antiqua({
   subsets: ["latin"],
   weight: "400",
 });
+/* Rough-carved rather than calligraphic — the one face here that reads as cut
+   into something instead of written on it. */
+const metamorphous = Metamorphous({
+  variable: "--font-unbroken",
+  subsets: ["latin"],
+  weight: "400",
+});
 
 const fontVars = [
   cinzel.variable,
@@ -67,6 +75,7 @@ const fontVars = [
   julius.variable,
   italiana.variable,
   imFell.variable,
+  metamorphous.variable,
 ].join(" ");
 
 export const metadata = {

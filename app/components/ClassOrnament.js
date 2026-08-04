@@ -119,6 +119,34 @@ const ORNAMENTS = {
     </>
   ),
 
+  // A line torn open at the centre, a crescent in the gap, claw marks either
+  // side — the wound first, then the wolf.
+  unbroken: (
+    <>
+      <path d="M12 14h96" stroke={A} strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M152 14h96" stroke={A} strokeWidth="1.5" strokeLinecap="round" />
+      <path
+        d="M134.5 5.5A9 9 0 1 0 137 22.5 7.2 7.2 0 0 1 134.5 5.5Z"
+        fill="none"
+        stroke={A}
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      {[
+        [58, -1],
+        [196, 1],
+      ].map(([x, dir]) => (
+        <g key={x} stroke={S} strokeWidth="1.3" strokeLinecap="round">
+          <path d={`M${x} 7 ${x + 7 * dir} 21`} />
+          <path d={`M${x + 9 * dir} 7 ${x + 16 * dir} 21`} />
+          <path d={`M${x + 18 * dir} 7 ${x + 25 * dir} 21`} />
+        </g>
+      ))}
+      <circle cx="12" cy="14" r="2.2" fill={S} />
+      <circle cx="248" cy="14" r="2.2" fill={S} />
+    </>
+  ),
+
   // A quill nib on a growing stem — book and living thing at once. The nib
   // keeps it from reading as the site's fae vine now that it is green.
   fablekeeper: (

@@ -198,7 +198,37 @@
   --class-tracking: 0.04em;
 }
 
+/* Unbroken — moonlight on cold iron. The only near-neutral accent on the
+   site: every other class sits at 42–69% saturation, so a 10% silver reads
+   as its own family even where the hue runs close to the Devourer's violet
+   or the Mirrorwarden's cyan. */
+[data-class="unbroken"] {
+  --class-accent: #c9d4e0;
+  --class-strong: #7d8ea3;
+  --class-soft: rgba(201, 212, 224, 0.14);
+  --class-bg: #0b0e13;
+  --class-surface: #131820;
+  --class-surface-2: #1b212b;
+  --class-border: #2e3744;
+  --class-text: #eef2f7;
+  --class-text-dim: #aab6c4;
+  --class-text-faint: #74808f;
+  --class-font: var(--font-unbroken), var(--font-cinzel), serif;
+  --class-tracking: 0.05em;
+}
+
 /* Per-class light overrides, opt-in the same way. */
+:root[data-theme="light"] [data-class="unbroken"] {
+  --class-accent: #3d566e;
+  --class-soft: rgba(61, 86, 110, 0.13);
+  --class-bg: #e8ecf1;
+  --class-surface: #f6f8fb;
+  --class-surface-2: #ffffff;
+  --class-border: #ccd5df;
+  --class-text: #131a22;
+  --class-text-dim: #4a5866;
+  --class-text-faint: #7b8896;
+}
 :root[data-theme="light"] [data-class="resonant"] {
   --class-accent: #1f5f8b;
   --class-soft: rgba(31, 95, 139, 0.13);

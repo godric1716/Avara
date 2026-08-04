@@ -31,6 +31,15 @@ const SIGILS = {
     </>
   ),
 
+  // A crescent moon with a wolf's fang crossing it — the wound and the change.
+  unbroken: (
+    <>
+      <path d="M17.5 3.6A9 9 0 1 0 20.4 15 7 7 0 0 1 17.5 3.6Z" />
+      <path d="M9.4 8.6 12 16.6l2.6-8" />
+      <path d="M10.4 11.6h3.2" />
+    </>
+  ),
+
   // Open book: two page leaves curving away from a central spine.
   fablekeeper: (
     <>

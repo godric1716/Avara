@@ -39,6 +39,9 @@ function economyNote(cls) {
   if (cls.resourceRecoveryType === "deathknight-turns") {
     return "it builds during the fight and resets when combat ends, so holding it back between fights gains you nothing.";
   }
+  if (cls.resourceRecoveryType === "combat") {
+    return "it builds from damage in both directions and resets when the encounter ends, so banking it between fights gains you nothing.";
+  }
   const emptiesOnRest = (cls.resourceButtons || []).some(
     (b) => b.tag === "reset-zero"
   );
@@ -115,7 +118,7 @@ export default function CommonTurn({
           </div>
           <div>
             <dt>{resourceLabel}</dt>
-            <dd className="num">{resourceMax}</dd>
+            <dd className="num">{cls.resourceUncapped ? "—" : resourceMax}</dd>
           </div>
         </dl>
       </header>
@@ -171,7 +174,16 @@ export default function CommonTurn({
       <footer className={styles.reportFoot}>
         <span className={styles.reportSlot}>Round economy</span>
         <p className={styles.reportDesc}>
-          {cls.resourceLabel} pool at this level is <strong>{resourceMax}</strong>
+          {cls.resourceUncapped ? (
+            <>
+              {cls.resourceLabel} has <strong>no cap</strong>
+            </>
+          ) : (
+            <>
+              {cls.resourceLabel} pool at this level is{" "}
+              <strong>{resourceMax}</strong>
+            </>
+          )}
           {" — "}
           {economyNote(cls)}
         </p>

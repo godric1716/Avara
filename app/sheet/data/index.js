@@ -5,6 +5,7 @@ import { CLASS_DEVOURER } from "./devourer";
 import { CLASS_FABLEKEEPER } from "./fablekeeper";
 import { CLASS_RESONANT } from "./resonant";
 import { CLASS_SANGREAL } from "./sangreal";
+import { CLASS_UNBROKEN } from "./unbroken";
 
 export { mod, fmt, profBonus, fixedHitPoints } from "./helpers";
 
@@ -17,6 +18,7 @@ export const CLASS_SLUGS = {
   fablekeeper: "fablekeeper",
   resonant: "resonant",
   sangreal: "sangreal",
+  unbroken: "unbroken",
 };
 
 export const CLASS_DATA = {
@@ -27,6 +29,7 @@ export const CLASS_DATA = {
   fablekeeper: CLASS_FABLEKEEPER,
   resonant: CLASS_RESONANT,
   sangreal: CLASS_SANGREAL,
+  unbroken: CLASS_UNBROKEN,
 };
 
 export const CLASS_ORDER = [
@@ -37,6 +40,7 @@ export const CLASS_ORDER = [
   "fablekeeper",
   "resonant",
   "sangreal",
+  "unbroken",
 ];
 
 export const ABILITIES = [

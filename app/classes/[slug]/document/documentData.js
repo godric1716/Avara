@@ -115,6 +115,33 @@ const SANGREAL_FEATURES = [
   "The Undying Feast",
 ];
 
+const UNBROKEN_FEATURES = [
+  "Beast Traits, Waking Form, Bloodlust, The Threshold, Beast-Form",
+  "Beast's Instinct, Simmering Blood, Bared Fangs",
+  "Tank Pack, Widened Frame, Fed by the Pack",
+  "Ability Score Improvement",
+  "Extra Attack",
+  "Howl of Provocation",
+  "Beast's Instinct",
+  "Tank Pack Feature",
+  "Beast's Instinct",
+  "Provoke the Change",
+  "Tank Pack Feature",
+  "Ability Score Improvement",
+  "Greater Howl",
+  "Hardened Hide",
+  "Tank Pack Feature",
+  "Ability Score Improvement",
+  "Beast's Instinct",
+  "Tank Pack Capstone",
+  "Ability Score Improvement",
+  "The Unbroken Pack",
+];
+
+/* Instincts are picked at 2, 7, 9 and 17 — the column is the running total,
+   counted off those levels rather than transcribed. */
+const INSTINCTS_KNOWN = (lv) => [2, 7, 9, 17].filter((p) => lv >= p).length;
+
 const SLOT_LABEL = (row) =>
   row.some((n) => n > 0) ? row.filter((n) => n > 0).join(" / ") : "—";
 
@@ -618,6 +645,64 @@ export const DOCUMENTS = {
     closing: {
       title: "Hunger — the engine",
       text: "You do not decide to feed. You decide, for one more moment, not to.",
+    },
+  },
+
+  unbroken: {
+    quickReference: [
+      { label: "Hit Die", value: "d12 per Unbroken level" },
+      { label: "Primary", value: "Strength, Constitution" },
+      { label: "Saves", value: "Strength, Constitution" },
+      { label: "Armor", value: "Light armor, medium armor, shields" },
+      {
+        label: "Skills",
+        value:
+          "Choose 2: Athletics, Intimidation, Perception, Survival, Animal Handling, Insight",
+      },
+      { label: "Resource", value: "Bloodlust — no maximum; resets when the encounter ends" },
+      { label: "Challenge DC", value: "8 + proficiency bonus + STR modifier" },
+      {
+        label: "Compulsion DC",
+        value: "8 + proficiency bonus + CHA modifier (Vaela's Line only)",
+      },
+    ],
+    progressionHead: ["Lv", "PB", "Features", "Instincts"],
+    progression: UNBROKEN_FEATURES.map((f, i) => [
+      i + 1,
+      PB(i + 1),
+      f,
+      INSTINCTS_KNOWN(i + 1),
+    ]),
+    note: "Bloodlust is the one pool on this site with no ceiling — it is only ever as large as the fight has made it. Transformed, damage dealt and damage taken both generate it at full value; in Waking Form only damage taken does, and spending it there costs 2 for every 1 point of damage reduced. That worse rate is the whole bet: hold for the Threshold, or pay double to postpone it.",
+    roleplay: {
+      ironback: [
+        {
+          title: "The wall that doesn't explain itself",
+          text: "Ironback is the only Pack that answers violence with nothing but refusal — no retaliation, no interception, just a ceiling on how much any single blow is allowed to matter. The pack watches you take hit after hit and simply not fall, and that certainty is worth more to them than any shield.",
+        },
+      ],
+      bloodfang: [
+        {
+          title: "The wound that doesn't close",
+          text: "Bloodfang turns defense into a bill. Every point of Bloodlust you spend surviving a hit comes back out of the attacker, and from 8th it comes out twice unless somebody heals them first. By 15th anything that has drawn your blood this fight is attacking you at disadvantage — the class's memory is longer than the round.",
+        },
+      ],
+      warden: [
+        {
+          title: "The wolf moves anyway",
+          text: "Warden's Circle is the Pack that spends its own turn on somebody else's problem. Stand Between costs no Bloodlust to trigger, only your reaction — and from 8th not even that, when the blow would have killed the ally. Its capstone is honest about the risk: None Shall Pass can pull more damage onto you in one minute than any other capstone asks.",
+        },
+      ],
+      vaela: [
+        {
+          title: "Proof the two things were never incompatible",
+          text: "The newest and strangest of the four, traced to Vaela herself. Beast-Form here means becoming something closer to what she is — vampiric traits layered over a body that still refuses to heal itself. Where the other Packs answer damage, Vaela's Line answers movement: everything that hits you risks losing the ability to walk away.",
+        },
+      ],
+    },
+    closing: {
+      title: "Bloodlust — the engine",
+      text: "Nothing in this class ever heals you. The pack keeps you standing; your own hands don't.",
     },
   },
 };
