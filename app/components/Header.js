@@ -1,9 +1,10 @@
-import { cookies } from "next/headers";
+import { headers } from "next/headers";
 import Link from "next/link";
 import styles from "./Header.module.css";
 import { Leaf, Bloom } from "./faeMotifs";
 import ThemeToggle from "./ThemeToggle";
-import { verifyRoleToken } from "../../lib/siteAuth";
+import { auth } from "../../lib/auth";
+import { isDm } from "../../lib/allowlist";
 
 const NAV_LINKS = [
   { href: "/classes", label: "Classes" },
@@ -14,13 +15,17 @@ const NAV_LINKS = [
 ];
 
 export default async function Header() {
-  const secret = process.env.AVARA_AUTH_SECRET;
-  // No secret configured means the gate itself is off (see proxy.js), so show
-  // every link — there's no player/DM split to enforce yet.
-  const role = secret
-    ? await verifyRoleToken((await cookies()).get("avara_role")?.value, secret)
-    : "dm";
-  const links = NAV_LINKS.filter((l) => !l.dmOnly || role === "dm");
+  const configured = !!(process.env.BETTER_AUTH_SECRET && process.env.DATABASE_URL);
+  // Unconfigured means the gate itself is off (see proxy.js), so show every
+  // link — there's no player/DM split to enforce yet.
+  let dm = !configured;
+  if (configured) {
+    const session = await auth.api.getSession({ headers: await headers() });
+    dm = isDm(session?.user?.email);
+  }
+  /* Hiding the link is presentation only. The pages themselves are gated in
+     proxy.js — a player who types /npcs directly still gets turned away. */
+  const links = NAV_LINKS.filter((l) => !l.dmOnly || dm);
 
   return (
     <header className={styles.header}>

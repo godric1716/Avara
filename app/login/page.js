@@ -1,5 +1,5 @@
 import styles from "./login.module.css";
-import { login } from "./actions";
+import GoogleSignIn from "./GoogleSignIn";
 
 export const metadata = {
   title: "Sign in · Avara",
@@ -8,8 +8,10 @@ export const metadata = {
 export default async function LoginPage({ searchParams }) {
   const sp = await searchParams;
   const fromParam = Array.isArray(sp.from) ? sp.from[0] : sp.from;
-  const from = fromParam && fromParam.startsWith("/") ? fromParam : "/";
-  const error = sp.error === "1";
+  /* Only ever a path on this site. An absolute URL here would turn the login
+     page into an open redirect — sign in, get bounced somewhere else. */
+  const from = fromParam && /^\/(?!\/)/.test(fromParam) ? fromParam : "/";
+  const denied = sp.error === "denied";
 
   return (
     <div className={styles.wrap}>
@@ -17,25 +19,19 @@ export default async function LoginPage({ searchParams }) {
       <div className={styles.card}>
         <span className={styles.eyebrow}>A World for the Table</span>
         <h1 className={styles.title}>AVARA</h1>
-        <p className={styles.lede}>Enter the table&rsquo;s passphrase to continue.</p>
+        <p className={styles.lede}>
+          Sign in with the Google account your DM added to the table.
+        </p>
 
-        <form action={login} className={styles.form}>
-          <input type="hidden" name="from" value={from} />
-          <input
-            type="password"
-            name="password"
-            placeholder="Passphrase"
-            autoFocus
-            required
-            className={styles.input}
-          />
-          <button type="submit" className={styles.button}>
-            Enter
-          </button>
-        </form>
+        <div className={styles.form}>
+          <GoogleSignIn from={from} />
+        </div>
 
-        {error && (
-          <p className={styles.error}>That passphrase didn&rsquo;t match. Try again.</p>
+        {denied && (
+          <p className={styles.error}>
+            That Google account isn&rsquo;t on the table&rsquo;s list. Ask your
+            DM to add it, then try again.
+          </p>
         )}
       </div>
     </div>
