@@ -48,6 +48,7 @@ export default function CharacterSheet() {
     character,
     roster,
     loaded,
+    syncState,
     update,
     setAbility,
     setClass,
@@ -483,9 +484,15 @@ export default function CharacterSheet() {
       </div>
 
       <p className={styles.storageNote}>
-        {loaded
-          ? "Saved automatically in this browser."
-          : "Loading your saved sheet…"}
+        {!loaded
+          ? "Loading your saved sheet…"
+          : syncState === "local"
+            ? "Saved in this browser only — sign in to keep your characters across devices."
+            : syncState === "error"
+              ? "Couldn't reach the server. Your work is saved in this browser and will sync when it's back."
+              : /* Said plainly rather than buried: players type private things
+                   into the Notes tab, and they should know who can read it. */
+                "Saved to your account, on every device. Your DM can see and edit your sheets."}
       </p>
     </div>
   );

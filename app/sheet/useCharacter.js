@@ -3,6 +3,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CLASS_DATA, firstSubclassKey } from "./data";
 import { defaultSlots } from "./Companions";
+import {
+  fetchCharacters,
+  pushCharacter,
+  removeCharacter,
+  importLocal,
+} from "./actions";
 
 const STORAGE_KEY = "avara-roster-v2";
 
@@ -168,6 +174,31 @@ function loadRoster() {
   return { characters, activeId };
 }
 
+/* Combines what this browser has with what the server has.
+
+   Where both know a character, the newer `updatedAt` wins — that's the whole
+   reason every edit stamps it. Where only one side knows it, it's kept:
+   a character that exists only locally hasn't uploaded yet, and one that
+   exists only on the server was made on another device. Nothing is dropped
+   just for being unfamiliar to one side. */
+function mergeRosters(local, server) {
+  const byId = new Map();
+  for (const c of local) byId.set(c.id, c);
+
+  for (const s of server) {
+    const mine = byId.get(s.id);
+    const clean = sanitize(s);
+    if (!mine || (clean.updatedAt || 0) >= (mine.updatedAt || 0)) {
+      byId.set(s.id, { ...clean, ownerName: s.ownerName, updatedByName: s.updatedByName, mine: s.mine });
+    } else {
+      // Local copy is newer; keep it but carry the server's ownership labels.
+      byId.set(s.id, { ...mine, ownerName: s.ownerName, updatedByName: s.updatedByName, mine: s.mine });
+    }
+  }
+
+  return [...byId.values()].sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+}
+
 function isPlainObject(v) {
   return !!v && typeof v === "object" && !Array.isArray(v);
 }
@@ -186,11 +217,50 @@ export function useCharacter() {
   // Rendered markup must match the server on first paint, so storage is read
   // in an effect rather than during initial state.
   const [loaded, setLoaded] = useState(false);
+  /* "local"   — signed out, or the server hasn't answered yet
+     "syncing" — a push is in flight
+     "synced"  — the server has everything
+     "error"   — the last push failed; localStorage still has the work */
+  const [syncState, setSyncState] = useState("local");
   const saveTimer = useRef(null);
+  const pushTimer = useRef(null);
+  const pendingIds = useRef(new Set());
 
+  /* Load order matters. Local storage is read first and rendered immediately
+     so the sheet is usable offline and on a slow connection, then the server
+     is merged in on top once it answers. */
   useEffect(() => {
-    setRoster(loadRoster());
+    const local = loadRoster();
+    setRoster(local);
     setLoaded(true);
+
+    let cancelled = false;
+    (async () => {
+      try {
+        // Push anything this browser has that the server has never seen.
+        // importLocal only inserts, so this can't clobber another device.
+        await importLocal(local.characters);
+        const res = await fetchCharacters();
+        if (cancelled || !res.ok) return;
+
+        setRoster((r) => {
+          const merged = mergeRosters(r.characters, res.characters);
+          const activeId = merged.some((c) => c.id === r.activeId)
+            ? r.activeId
+            : merged[0]?.id || "";
+          return { characters: merged, activeId };
+        });
+        setSyncState("synced");
+      } catch {
+        /* Signed out, offline, or the action failed. The sheet keeps working
+           against localStorage — this is a sync feature, not a dependency. */
+        if (!cancelled) setSyncState("local");
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -208,6 +278,29 @@ export function useCharacter() {
     }, 250);
     return () => clearTimeout(saveTimer.current);
   }, [roster, loaded]);
+
+  /* Server pushes are debounced harder than the local save. Typing a name is
+     a keystroke a character, and each one is a round trip otherwise. */
+  useEffect(() => {
+    if (!loaded || syncState === "local") return;
+    clearTimeout(pushTimer.current);
+    pushTimer.current = setTimeout(async () => {
+      const ids = [...pendingIds.current];
+      pendingIds.current.clear();
+      if (ids.length === 0) return;
+      setSyncState("syncing");
+      try {
+        for (const id of ids) {
+          const c = roster.characters.find((x) => x.id === id);
+          if (c) await pushCharacter(id, c);
+        }
+        setSyncState("synced");
+      } catch {
+        setSyncState("error");
+      }
+    }, 1200);
+    return () => clearTimeout(pushTimer.current);
+  }, [roster, loaded, syncState]);
 
   const character = useMemo(
     () =>
@@ -240,6 +333,9 @@ export function useCharacter() {
       const i = idx < 0 ? 0 : idx;
       const next = r.characters.slice();
       next[i] = { ...fn(next[i]), updatedAt: Date.now() };
+      // Queue this one for the next push rather than sending the whole
+      // roster — an edit to one character shouldn't rewrite the other four.
+      pendingIds.current.add(next[i].id);
       return { ...r, characters: next };
     });
   }, []);
@@ -299,6 +395,7 @@ export function useCharacter() {
 
   const createCharacter = useCallback(() => {
     const fresh = newCharacter();
+    pendingIds.current.add(fresh.id);
     setRoster((r) => ({
       characters: [...r.characters, fresh],
       activeId: fresh.id,
@@ -320,11 +417,17 @@ export function useCharacter() {
       const at = r.characters.findIndex((c) => c.id === id) + 1;
       const characters = r.characters.slice();
       characters.splice(at, 0, copy);
+      pendingIds.current.add(copy.id);
       return { characters, activeId: copy.id };
     });
   }, []);
 
   const deleteCharacter = useCallback((id) => {
+    /* Deliberately not awaited. The row is gone from the UI immediately; if
+       the server call fails the character reappears on the next load, which
+       is the safer way round for something that can't be undone. */
+    pendingIds.current.delete(id);
+    removeCharacter(id).catch(() => {});
     setRoster((r) => {
       const at = r.characters.findIndex((c) => c.id === id);
       if (at < 0) return r;
@@ -347,6 +450,7 @@ export function useCharacter() {
     character,
     roster: rosterSummary,
     loaded,
+    syncState,
     update,
     setAbility,
     setClass,
