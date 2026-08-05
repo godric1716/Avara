@@ -1,0 +1,149 @@
+.group {
+  margin-bottom: 30px;
+}
+
+.groupTitle {
+  margin: 0 0 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.empty {
+  margin: 0;
+  padding: 16px 18px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 13px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+/* Anything waiting on a decision is the only thing on this page that needs
+   attention, so it's the only thing that gets the accent. */
+.row[data-status="pending"] {
+  border-left-color: var(--accent);
+}
+
+.row[data-status="approved"] {
+  border-left-color: var(--accent-2);
+}
+
+.row[data-status="denied"] {
+  opacity: 0.62;
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  font-size: 14px;
+  color: var(--text);
+}
+
+.email {
+  font-size: 11.5px;
+  color: var(--text-dim);
+  word-break: break-all;
+}
+
+.when {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-faint);
+}
+
+.actions {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 7px 13px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.danger {
+  color: var(--danger, #e05a6f);
+  border-color: var(--danger, #e05a6f);
+}
+
+.rowError {
+  flex-basis: 100%;
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--danger, #e05a6f);
+}
+
+.note {
+  margin: 0 0 10px;
+  padding: 13px 16px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+}
+
+@media (max-width: 560px) {
+  .row {
+    align-items: flex-start;
+  }
+  .actions {
+    width: 100%;
+  }
+}

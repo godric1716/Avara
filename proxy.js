@@ -4,7 +4,7 @@ import { isAllowed, isDm } from "./lib/allowlist";
 
 /* Pages that carry DM-only spoiler material — hidden from players entirely,
    not just unlinked from navigation. */
-const DM_ONLY = ["/npcs", "/world"];
+const DM_ONLY = ["/npcs", "/world", "/players", "/api/admin"];
 
 /* Paths that must stay reachable without a session, or nobody could ever get
    one. /api/auth is the whole sign-in flow, Google's callback included —
@@ -36,7 +36,7 @@ export async function proxy(request) {
   /* Re-checked on every request rather than trusted from sign-up time, so
      removing someone from AVARA_ALLOWED_EMAILS locks them out immediately
      instead of whenever their session happens to expire. */
-  if (!session || !isAllowed(email)) {
+  if (!session || !(await isAllowed(email))) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     url.search = "";

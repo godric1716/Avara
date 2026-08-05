@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { currentUser } from "../../../../lib/characters";
-import { isAllowed, isDm, allowedEmails } from "../../../../lib/allowlist";
+import {
+  isAllowed,
+  isAllowedByEnv,
+  isDm,
+  allowedEmails,
+} from "../../../../lib/allowlist";
 
 /* Vercel marks the allowlist variables "Sensitive", so their values can't be
    read back from the dashboard or `vercel env pull`. That left no way to tell
@@ -20,17 +25,15 @@ export async function GET(request) {
   }
 
   const email = request.nextUrl.searchParams.get("email");
-  const counts = {
-    allowedCount: allowedEmails().size,
-    dmCount: [...allowedEmails()].filter((e) => isDm(e)).length,
-  };
+  const counts = { envAllowlistCount: allowedEmails().size };
 
   if (!email) return NextResponse.json(counts);
 
   return NextResponse.json({
     ...counts,
     email,
-    canSignIn: isAllowed(email),
+    canSignIn: await isAllowed(email),
+    viaEnvBootstrap: isAllowedByEnv(email),
     isDm: isDm(email),
   });
 }

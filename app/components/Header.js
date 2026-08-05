@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { href: "/compendium", label: "Compendium" },
   { href: "/world", label: "World of Avara", dmOnly: true },
   { href: "/npcs", label: "NPCs", dmOnly: true },
+  { href: "/players", label: "Players", dmOnly: true },
   { href: "/characters", label: "Characters" },
   { href: "/sheet", label: "Character Sheet" },
 ];
