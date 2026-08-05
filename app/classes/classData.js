@@ -600,6 +600,9 @@ export const CLASS_DOCUMENTS = {
     { label: "Fablekeeper class document", file: "fablekeeper.docx", size: "58 KB", kind: "DOCX" },
     { label: "Fablekeeper Pokédex", file: "fablekeeper-pokedex.pdf", size: "1.0 MB" },
   ],
+  resonant: [{ label: "Resonant class document", file: "resonant.pdf", size: "83 KB" }],
+  sangreal: [{ label: "Sangreal class document", file: "sangreal.pdf", size: "105 KB" }],
+  unbroken: [{ label: "Unbroken class document", file: "unbroken.pdf", size: "106 KB" }],
 };
 
 export function getClass(slug) {
