@@ -53,6 +53,42 @@
   line-height: 1.6;
 }
 
+/* ---------- Conflict ---------- */
+
+/* Sits above everything and uses the warning colour rather than the class
+   accent — this is the one message on the sheet where doing nothing loses
+   somebody's work, so it must not read as decoration. */
+.conflict {
+  position: relative;
+  margin-bottom: 14px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--danger, #e05a6f);
+  border-left: 3px solid var(--danger, #e05a6f);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  box-shadow: var(--shadow);
+}
+
+.conflictTitle {
+  margin: 0 0 6px;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: var(--danger, #e05a6f);
+}
+
+.conflictBody {
+  margin: 0 0 12px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.conflictActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 /* ---------- Roster ---------- */
 
 .roster {

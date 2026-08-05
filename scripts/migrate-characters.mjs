@@ -25,6 +25,12 @@ create table if not exists character_sheet (
 -- one index that matters.
 create index if not exists character_sheet_owner_idx
   on character_sheet (owner_id, updated_at desc);
+
+/* Optimistic concurrency. A counter rather than a timestamp comparison:
+   updated_at goes through a float when converted to epoch milliseconds, and
+   an edit lost to a rounding error is exactly the bug this prevents. */
+alter table character_sheet
+  add column if not exists version bigint not null default 1;
 `;
 
 const rows = await pool.query(SQL).then(

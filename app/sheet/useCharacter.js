@@ -108,8 +108,14 @@ function sanitize(raw) {
     spellsPrepared: isPlainObject(raw.spellsPrepared) ? raw.spellsPrepared : {},
     // Equipment is carried across a class change — a battleaxe is still a
     // battleaxe — unlike the class-scoped trackers reset in setClass.
-    attacks: Array.isArray(raw.attacks) ? raw.attacks : [],
-    inventory: Array.isArray(raw.inventory) ? raw.inventory : [],
+    attacks: normalizeRows(raw.attacks, "a"),
+    inventory: normalizeRows(raw.inventory, "i", (row) => ({
+      // Rows written before inventory had a `text` field kept the label under
+      // `name`, which would otherwise render as an empty input.
+      ...row,
+      text: typeof row.text === "string" ? row.text : String(row.name ?? ""),
+      qty: row.qty ?? 1,
+    })),
     armorIndex: typeof raw.armorIndex === "string" ? raw.armorIndex : null,
     shieldEquipped: !!raw.shieldEquipped,
     techniquesKnown: isPlainObject(raw.techniquesKnown) ? raw.techniquesKnown : {},
@@ -199,6 +205,29 @@ function mergeRosters(local, server) {
   return [...byId.values()].sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
 }
 
+/* Attack and inventory rows are keyed by `id` when rendered. Rows written
+   before ids existed — or hand-edited in storage — have none, which React
+   reports as a missing key and, worse, means it matches rows by position:
+   delete one and the values below it shift up into the wrong inputs.
+
+   Minting an id here rather than at render keeps it stable across renders,
+   which is the whole point of a key. */
+function normalizeRows(raw, prefix, shape) {
+  if (!Array.isArray(raw)) return [];
+  const seen = new Set();
+  return raw
+    .filter((row) => row && typeof row === "object")
+    .map((row, i) => {
+      let id = typeof row.id === "string" && row.id ? row.id : "";
+      // A duplicate id is as broken as a missing one, and duplicates are how
+      // a hand-copied row usually arrives.
+      if (!id || seen.has(id)) id = `${prefix}-${newId()}-${i}`;
+      seen.add(id);
+      const next = { ...row, id };
+      return shape ? shape(next) : next;
+    });
+}
+
 function isPlainObject(v) {
   return !!v && typeof v === "object" && !Array.isArray(v);
 }
@@ -222,6 +251,8 @@ export function useCharacter() {
      "synced"  — the server has everything
      "error"   — the last push failed; localStorage still has the work */
   const [syncState, setSyncState] = useState("local");
+  // Both copies of a character that was edited in two places at once.
+  const [conflict, setConflict] = useState(null);
   const saveTimer = useRef(null);
   const pushTimer = useRef(null);
   const pendingIds = useRef(new Set());
@@ -313,7 +344,27 @@ export function useCharacter() {
       try {
         for (const id of ids) {
           const c = roster.characters.find((x) => x.id === id);
-          if (c) await pushCharacter(id, c);
+          if (!c) continue;
+          const res = await pushCharacter(id, c, c.version ?? null);
+
+          if (res?.conflict) {
+            /* Somebody edited this character between our load and our save.
+               Nothing is overwritten and nothing is thrown away — both copies
+               are held and the player picks, because guessing here means
+               silently losing somebody's level-up. */
+            setConflict({ local: c, server: res.server });
+            setSyncState("conflict");
+            return;
+          }
+          if (res?.ok && typeof res.version === "number") {
+            // Track the new version so the next save isn't a false conflict.
+            setRoster((r) => ({
+              ...r,
+              characters: r.characters.map((x) =>
+                x.id === id ? { ...x, version: res.version } : x
+              ),
+            }));
+          }
         }
         setSyncState("synced");
       } catch {
@@ -471,11 +522,35 @@ export function useCharacter() {
     });
   }, []);
 
+  /* Resolving a conflict is always an explicit choice by the player.
+
+     "mine" re-saves the local copy at the server's current version, which
+     makes the write land. "theirs" replaces the local copy outright. Either
+     way the losing copy is gone, so neither is the default. */
+  const resolveConflict = useCallback((keep) => {
+    setConflict((c) => {
+      if (!c) return null;
+      const winner =
+        keep === "theirs"
+          ? { ...c.server }
+          : { ...c.local, version: c.server?.version ?? null };
+      setRoster((r) => ({
+        ...r,
+        characters: r.characters.map((x) => (x.id === winner.id ? winner : x)),
+      }));
+      if (keep === "mine") pendingIds.current.add(winner.id);
+      return null;
+    });
+    setSyncState("syncing");
+  }, []);
+
   return {
     character,
     roster: rosterSummary,
     loaded,
     syncState,
+    conflict,
+    resolveConflict,
     update,
     setAbility,
     setClass,

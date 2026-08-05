@@ -31,10 +31,11 @@ export async function fetchCharacters() {
   }
 }
 
-export async function pushCharacter(id, data) {
+/* Returns { ok, version } on success, or { conflict: true, server } when the
+   character changed underneath this edit — the client decides which wins. */
+export async function pushCharacter(id, data, expectedVersion = null) {
   try {
-    await saveCharacter(id, data);
-    return { ok: true };
+    return await saveCharacter(id, data, expectedVersion);
   } catch (e) {
     return { ok: false, error: e.message };
   }

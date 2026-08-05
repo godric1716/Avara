@@ -49,6 +49,8 @@ export default function CharacterSheet() {
     roster,
     loaded,
     syncState,
+    conflict,
+    resolveConflict,
     update,
     setAbility,
     setClass,
@@ -114,6 +116,38 @@ export default function CharacterSheet() {
   return (
     <div data-class={character.classId} className={styles.sheet}>
       <div className={styles.glow} aria-hidden="true" />
+
+      {conflict && (
+        <section className={styles.conflict} role="alert">
+          <h2 className={styles.conflictTitle}>
+            {conflict.local.name || "This character"} was edited somewhere else
+          </h2>
+          <p className={styles.conflictBody}>
+            Someone saved a change while you were working
+            {conflict.server?.updatedByName
+              ? ` — last edited by ${conflict.server.updatedByName}`
+              : ""}
+            . Nothing has been overwritten. Choose which version to keep;
+            the other is discarded.
+          </p>
+          <div className={styles.conflictActions}>
+            <button
+              type="button"
+              className={styles.smallBtn}
+              onClick={() => resolveConflict("mine")}
+            >
+              Keep my version
+            </button>
+            <button
+              type="button"
+              className={styles.smallBtn}
+              onClick={() => resolveConflict("theirs")}
+            >
+              Use the saved version
+            </button>
+          </div>
+        </section>
+      )}
 
       <Roster
         roster={roster}
