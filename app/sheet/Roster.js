@@ -20,6 +20,12 @@ export default function Roster({
   const [confirmingId, setConfirmingId] = useState(null);
   const active = roster.find((c) => c.isActive);
 
+  /* The DM's roster comes back holding every character at the table, which
+     would bury their own sheets in this strip. Show only your own — plus
+     whichever is open, so a player's sheet opened from the Characters page
+     still appears here while you're in it. */
+  const shown = roster.filter((c) => c.mine || c.isActive);
+
   // A pending confirmation is about one specific character; switching away
   // from it should drop the prompt rather than carry it to the new sheet.
   useEffect(() => {
@@ -29,7 +35,7 @@ export default function Roster({
   return (
     <section className={styles.roster} aria-label="Your characters">
       <div className={styles.rosterScroll}>
-        {roster.map((c) => (
+        {shown.map((c) => (
           <button
             key={c.id}
             type="button"
@@ -52,7 +58,9 @@ export default function Roster({
                 {c.name || "Unnamed"}
               </span>
               <span className={styles.rosterMeta}>
-                {c.classLabel} · {c.level}
+                {/* Whose it is matters more than what it is when you're
+                    looking at somebody else's sheet. */}
+                {c.mine ? `${c.classLabel} · ${c.level}` : `${c.ownerName || "Player"}'s · ${c.level}`}
               </span>
             </span>
           </button>

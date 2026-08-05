@@ -330,6 +330,30 @@
   text-decoration: underline;
 }
 
+/* Deliberately loud. If you're the DM editing a player's sheet, that needs to
+   be obvious at a glance rather than something you infer from the name. */
+.ownerFlag {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 2px 9px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--class-accent);
+  background: var(--class-soft);
+  border: 1px solid var(--class-accent);
+  border-radius: 999px;
+}
+
+.editedFlag {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 10.5px;
+  font-style: italic;
+  color: var(--text-faint);
+}
+
 .selects {
   display: flex;
   gap: 12px;

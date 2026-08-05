@@ -231,6 +231,18 @@ export function useCharacter() {
      is merged in on top once it answers. */
   useEffect(() => {
     const local = loadRoster();
+    /* ?c=<id> from the Characters page. Applied before the server merge so
+       the requested character is already active by the time it arrives —
+       otherwise the sheet flashes whichever one was open last. */
+    let requested = "";
+    try {
+      requested = new URLSearchParams(window.location.search).get("c") || "";
+    } catch {
+      /* no URL access — fall back to the stored active character */
+    }
+    if (requested && local.characters.some((c) => c.id === requested)) {
+      local.activeId = requested;
+    }
     setRoster(local);
     setLoaded(true);
 
@@ -245,9 +257,18 @@ export function useCharacter() {
 
         setRoster((r) => {
           const merged = mergeRosters(r.characters, res.characters);
-          const activeId = merged.some((c) => c.id === r.activeId)
-            ? r.activeId
-            : merged[0]?.id || "";
+          /* Re-applied here as well as before the fetch: a DM opening a
+             player's sheet from the Characters page has never had that
+             character locally, so it only becomes selectable now. */
+          const wanted =
+            requested && merged.some((c) => c.id === requested)
+              ? requested
+              : null;
+          const activeId =
+            wanted ||
+            (merged.some((c) => c.id === r.activeId)
+              ? r.activeId
+              : merged[0]?.id || "");
           return { characters: merged, activeId };
         });
         setSyncState("synced");
@@ -321,6 +342,10 @@ export function useCharacter() {
         classLabel: CLASS_DATA[c.classId]?.label || "",
         portrait: c.portrait,
         isActive: c.id === character.id,
+        // Undefined until the server answers, so an unsynced character is
+        // treated as yours rather than briefly hidden as someone else's.
+        mine: c.mine !== false,
+        ownerName: c.ownerName || "",
       })),
     [roster.characters, character.id]
   );

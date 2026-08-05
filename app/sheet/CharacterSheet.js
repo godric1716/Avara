@@ -142,6 +142,19 @@ export default function CharacterSheet() {
             <Link href={`/classes/${CLASS_SLUGS[character.classId]}`}>
               {cls.eyebrow}
             </Link>
+            {/* Editing somebody else's sheet should never be something you
+                only realise afterwards. */}
+            {character.mine === false && character.ownerName && (
+              <span className={styles.ownerFlag}>
+                {character.ownerName}&rsquo;s character
+              </span>
+            )}
+            {character.updatedByName &&
+              character.updatedByName !== character.ownerName && (
+                <span className={styles.editedFlag}>
+                  Last edited by {character.updatedByName}
+                </span>
+              )}
           </div>
         </div>
 
