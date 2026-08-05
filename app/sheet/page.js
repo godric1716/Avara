@@ -5,7 +5,7 @@ import Flourish from "../components/Flourish";
 export const metadata = {
   title: "Character Sheet · Avara",
   description:
-    "An interactive tracker for the five homebrew classes of Avara, saved in your browser.",
+    "An interactive tracker for the eight homebrew classes of Avara, saved in your browser.",
 };
 
 export default function SheetPage() {

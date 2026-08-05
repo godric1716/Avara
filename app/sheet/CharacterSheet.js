@@ -26,6 +26,7 @@ import Spellcasting from "./Spellcasting";
 import Equipment from "./Equipment";
 import Techniques from "./Techniques";
 import Portrait from "./Portrait";
+import Roster from "./Roster";
 
 /* Only the two classes that actually cast get a spell tab. The Sovereign is
    explicitly "not a spellcaster" despite its Technique DC, and the
@@ -43,8 +44,20 @@ const TABS = [
 ];
 
 export default function CharacterSheet() {
-  const { character, loaded, update, setAbility, setClass, toggleIn, reset } =
-    useCharacter();
+  const {
+    character,
+    roster,
+    loaded,
+    update,
+    setAbility,
+    setClass,
+    toggleIn,
+    reset,
+    selectCharacter,
+    createCharacter,
+    duplicateCharacter,
+    deleteCharacter,
+  } = useCharacter();
   const [tab, setTab] = useState("turn");
 
   const cls = CLASS_DATA[character.classId];
@@ -100,6 +113,14 @@ export default function CharacterSheet() {
   return (
     <div data-class={character.classId} className={styles.sheet}>
       <div className={styles.glow} aria-hidden="true" />
+
+      <Roster
+        roster={roster}
+        onSelect={selectCharacter}
+        onCreate={createCharacter}
+        onDuplicate={duplicateCharacter}
+        onDelete={deleteCharacter}
+      />
 
       {/* ---------- Identity bar ---------- */}
       <header className={styles.identity}>
