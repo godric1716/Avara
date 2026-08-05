@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./players.module.css";
 import { approve, deny, forget } from "./actions";
 
 export default function RequestRow({ request }) {
+  const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState("");
   const [confirmForget, setConfirmForget] = useState(false);
@@ -14,7 +16,14 @@ export default function RequestRow({ request }) {
     startTransition(async () => {
       try {
         const res = await fn(request.email);
-        if (res && res.ok === false) setError(res.error || "That didn't work.");
+        if (res && res.ok === false) {
+          setError(res.error || "That didn't work.");
+          return;
+        }
+        /* revalidatePath marks the server data stale but doesn't tell an
+           already-open page to fetch it again, so the row sat in the wrong
+           group until something else caused a navigation. */
+        router.refresh();
       } catch (e) {
         setError(e.message || "That didn't work.");
       }
