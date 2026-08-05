@@ -20,12 +20,15 @@ export async function proxy(request) {
 
   if (matches(pathname, PUBLIC)) return NextResponse.next();
 
-  /* Local development stays open until sign-in is configured, so the site is
-     still workable before the env vars are set. Both halves are required:
-     a half-configured deploy should fail shut, not run wide open. */
-  if (!process.env.BETTER_AUTH_SECRET || !process.env.DATABASE_URL) {
-    return NextResponse.next();
-  }
+  /* Opening the gate has to be an explicit decision, never an inference from
+     a missing variable.
+
+     The previous version of this file turned the gate off when its secret was
+     absent, so a deploy that lost one env var served the DM's spoiler pages
+     to anyone — silently, with no error anywhere. A misconfigured deploy must
+     fail shut. AVARA_AUTH_DISABLED exists for working on the site offline and
+     is the only way through. */
+  if (process.env.AVARA_AUTH_DISABLED === "1") return NextResponse.next();
 
   const session = await auth.api.getSession({ headers: request.headers });
   const email = session?.user?.email;

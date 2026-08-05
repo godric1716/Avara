@@ -15,11 +15,11 @@ const NAV_LINKS = [
 ];
 
 export default async function Header() {
-  const configured = !!(process.env.BETTER_AUTH_SECRET && process.env.DATABASE_URL);
-  // Unconfigured means the gate itself is off (see proxy.js), so show every
-  // link — there's no player/DM split to enforce yet.
-  let dm = !configured;
-  if (configured) {
+  /* Mirrors proxy.js exactly: the DM links only appear for a real DM session,
+     and the single explicit escape hatch is the same one the gate uses. A
+     missing env var must never be read as "show everything". */
+  let dm = process.env.AVARA_AUTH_DISABLED === "1";
+  if (!dm) {
     const session = await auth.api.getSession({ headers: await headers() });
     dm = isDm(session?.user?.email);
   }
