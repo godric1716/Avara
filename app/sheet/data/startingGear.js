@@ -94,75 +94,78 @@ const KITS = {
     ],
   },
 
-  /* The Paragon's document lists no armor or weapon proficiencies at all, and
-     Powered Strike is an innate attack rather than a weapon — so these kits
-     carry no weapons on purpose. That isn't an omission: giving a Paragon a
-     longsword would suggest the class wants one, and it doesn't. */
+  /* The document's own starting equipment, one reading of it per Archetype:
+     "a martial weapon, or a simple weapon and a shield, or two simple
+     weapons", plus a costume, civilian clothes for a secret identity, and an
+     explorer's pack. Armor is light or medium — never heavy.
+
+     The secret identity is the document's, not invented here, and it is the
+     only kit on the site that equips a character with a second life. */
   paragon: {
     bySubclass: {
       streak: {
         label: "Streak's Kit",
-        note: "No weapons — Powered Strike is the weapon. Everything here is built to survive going very fast.",
-        armor: null,
+        note: "Two simple weapons and light armor — nothing that slows you down.",
+        armor: "studded-leather-armor",
         shield: false,
-        weapons: [],
+        weapons: ["dagger", "dagger"],
         items: [
           "Explorer's pack",
-          "Boots already worn through at the toe, twice resoled",
-          "Goggles, for the part where the air stops being air",
-          "A pocketful of things you picked up mid-run and haven't explained yet",
+          "A costume built for wind resistance, and boots twice resoled already",
+          "Common clothes for the name people know you by",
+          "5d4 × 10 gp in starting currency",
         ],
       },
       web: {
         label: "The Web's Kit",
-        note: "No weapons — Powered Strike is the weapon. Line, anchor, and something to bandage the landing.",
-        armor: null,
+        note: "Two simple weapons and light armor. The line isn't equipment — it's you.",
+        armor: "leather-armor",
         shield: false,
-        weapons: [],
+        weapons: ["quarterstaff", "dagger"],
         items: [
           "Explorer's pack",
-          "100 ft of silk line, spun from something you'd rather not name",
-          "A grapnel and a set of climbing anchors",
-          "Healer's kit, mostly used on other people",
+          "A masked costume, mended more often than it's washed",
+          "Common clothes for the name people know you by",
+          "5d4 × 10 gp in starting currency",
         ],
       },
       weave: {
         label: "The Weave's Kit",
-        note: "No weapons — Mind Blast reaches 60 feet without one.",
-        armor: null,
-        shield: false,
-        weapons: [],
+        note: "A simple weapon and a shield — Mind Blast already reaches 60 feet without either.",
+        armor: "leather-armor",
+        shield: true,
+        weapons: ["quarterstaff"],
         items: [
           "Explorer's pack",
-          "A journal of thoughts that weren't yours, kept so you can tell them apart",
-          "Wax earplugs — useless, and you wear them anyway",
-          "A token from someone whose mind you promised never to read",
+          "A hood and half-mask, because eye contact is a liability now",
+          "Common clothes for the name people know you by",
+          "5d4 × 10 gp in starting currency",
         ],
       },
       brick: {
         label: "The Brick's Kit",
-        note: "No weapons — your hands already are one. Nothing here is fragile.",
-        armor: null,
+        note: "A martial weapon and medium armor, for the days something needs hitting with more than hands.",
+        armor: "chain-shirt",
         shield: false,
-        weapons: [],
+        weapons: ["maul"],
         items: [
           "Explorer's pack",
-          "Chain and a harness, for the things too heavy to carry politely",
-          "A doorframe you keep meaning to return",
-          "Clothes cut generously, because they never last",
+          "A costume cut generously, because they never last",
+          "Common clothes for the name people know you by",
+          "5d4 × 10 gp in starting currency",
         ],
       },
       tempest: {
         label: "The Tempest's Kit",
-        note: "No weapons — Powered Strike carries your element. Pack for what you set off.",
-        armor: null,
+        note: "A martial weapon and medium armor, packed for whatever you set off.",
+        armor: "scale-mail",
         shield: false,
-        weapons: [],
+        weapons: ["greatsword"],
         items: [
           "Explorer's pack",
-          "A focus stone in your element — warm, cold, or faintly humming",
-          "Burn salve, frost balm, and an insulated glove; you'll use one",
-          "The scorched, cracked, or fused remains of the first thing you touched",
+          "A costume scorched, frosted, or scarred at the cuffs, depending",
+          "Common clothes for the name people know you by",
+          "5d4 × 10 gp in starting currency",
         ],
       },
     },

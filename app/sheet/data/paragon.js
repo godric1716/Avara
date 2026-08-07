@@ -1,12 +1,13 @@
 /* Genetic Potential is level + CON, which is the only resource on the site
    that scales off an ability score rather than a table.
 
-   Genetic Surge at 10 says only "your maximum increases" without a number,
-   so it is not modelled — inventing one would put a wrong figure in a rules
-   reference. Genetic Surge II at 14 does state +2, and that is applied. */
+   Genetic Surge adds +2 from 10th, and Surge II another +2 from 14th, for
+   +4 total — the progression table spells both out. An earlier draft left
+   Surge's amount unstated and this was modelled without it. */
 export function geneticPotentialMax(level, abilityMods) {
   const con = abilityMods?.con ?? 0;
-  return Math.max(0, level + con + (level >= 14 ? 2 : 0));
+  const surge = level >= 14 ? 4 : level >= 10 ? 2 : 0;
+  return Math.max(0, level + con + surge);
 }
 
 /* Genes Known, straight off the progression table: 2 at 1st, then one more
@@ -29,10 +30,10 @@ export const PARAGON_GENERAL = [
   {lvl:2, name:"Genetic Potential", desc:"Your resource pool for Genes that cost points, equal to your Paragon level plus your Constitution modifier. At-will Genes cost nothing."},
   {lvl:5, name:"Extra Attack", desc:"Attack twice, instead of once, when you take the Attack action."},
   {lvl:7, name:"Adaptive Instinct", action:"Automatic · no action", desc:"When you take damage from a source that already damaged you earlier in the same encounter, you gain resistance to that damage type until the end of your next turn."},
-  {lvl:10, name:"Genetic Surge", desc:"Your Genetic Potential maximum increases. The document doesn't state by how much — agree a number with your DM."},
+  {lvl:10, name:"Genetic Surge", desc:"Your Genetic Potential maximum increases by 2."},
   {lvl:11, name:"Extra Attack II", desc:"Attack three times when you take the Attack action."},
   {lvl:13, name:"Overcharged Genes", action:"1/short rest", desc:"Use a Gene that costs Genetic Potential without spending any points."},
-  {lvl:14, name:"Genetic Surge II", desc:"Your maximum increases by 2, stacking with Genetic Surge. Once per long rest, when your Genetic Potential drops to 0, immediately regain half your maximum (round up) as part of the triggering action."},
+  {lvl:14, name:"Genetic Surge II", desc:"Your maximum increases by a further 2, stacking with Genetic Surge for +4 in total. Once per long rest, when your Genetic Potential drops to 0, immediately regain half your maximum (round up) as part of the triggering action."},
   {lvl:17, name:"Extra Attack III", desc:"Attack four times when you take the Attack action."},
   {lvl:20, name:"Apex Potential", action:"Capstone", desc:"Two ability scores of your choice increase by 2, to a maximum of 24. Once per long rest, use two Genes as part of the same action without spending Genetic Potential for either."},
 ];

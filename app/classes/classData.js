@@ -595,23 +595,23 @@ export const CLASSES = [
       "The power is the easy part. It arrives whether you asked for it or not. Everything after that is a decision you keep making.",
     intro: [
       "Some are born with it. Most find out the way anyone finds out anything important — badly, suddenly, in a moment where there was no time to be careful. A wall comes down and doesn't land on you. A blade stops an inch short and you don't know why. Something that was always in you answers a question you didn't ask.",
-      "This is not sorcery and it is not a covenant. Nobody handed it over and nobody can take it back. It is written into you the way your height is, an inheritance from no one in particular — and like anything written into a body, it can be pushed further than it was meant to go. Paragons call that Genetic Potential, and they measure their lives by how much of it they are willing to spend.",
-      "There is no order, no academy, no first Paragon whose blood split five ways. There are only five shapes the same impossible thing keeps taking: the ones who move too fast to follow, the ones who never quite touch the ground, the ones who get inside your head, the ones who simply do not stop, and the ones who carry a storm around in their chest.",
+      "Magic in Avara is old, dangerous, and tightly bound to bloodlines, pacts, and places of power — vampires, fae courts, wolves, witches, the works. A Paragon doesn't fit any of those boxes. Genetic Potential is something stranger: a power that simply is, awakened in an ordinary person rather than inherited through a known lineage or granted by a patron.",
+      "Nobody has a name for what a Paragon is when one first appears — not witch, not blessed, not cursed — so the world reaches for the nearest story it has and calls them a hero, a monster, or a miracle, depending on who's watching and what they just did with their powers. That ambiguity is the heart of the class: a Paragon has to choose to be a hero. Nothing about the power itself makes that choice for them.",
     ],
     hitDie: "d10",
     primaryAbility: "Strength or Dexterity",
     saves: "Strength, Constitution",
-    armor: "See the class document",
+    armor: "Light armor, medium armor, shields",
     resource: "Genetic Potential",
     resourceNote:
       "The only pool in Avara that scales off an ability score rather than a table: your Paragon level plus your Constitution modifier. It grows every single level, so the question is never whether you can afford a Gene, only how much of yourself you're willing to spend at once.",
     recovery: "Refills on a long rest",
     detail: {
-      label: "Genes",
-      text: "Your powers, chosen and permanent. Some are at-will and cost nothing — you simply are faster, tougher, harder to surprise. Others burn Genetic Potential. You learn two at 1st level and one more at every odd level after, drawn from the universal list or from the exclusive powers only your Archetype can reach.",
+      label: "A second life",
+      text: "Alone among Avara's classes, a Paragon starts with a costume and a set of common clothes for the name people already know them by. The class assumes there is someone you were before this, and someone you still have to be at dinner.",
     },
     closer:
-      "Every feat this class offers is a moment rather than a mechanic. Not Today. Never Give Up. Everyone's Hero. Read the list and you can see what the class thinks it is about.",
+      "Every feat this class offers is a moment rather than a mechanic. Not Today. Never Give Up. Everyone's Hero. Read that list and you can see what the class thinks it is about — and what it thinks you'll have to keep deciding.",
     subclassLabel: "Hero Archetype",
     subclassPlural: "Hero Archetypes",
     subclasses: [

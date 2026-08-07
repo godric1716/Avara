@@ -153,7 +153,7 @@ const PARAGON_FEATURES = [
   "Adaptive Instinct",
   "Ability Score Improvement",
   "Archetype Ultimate",
-  "Powered Strike die → 1d10, Genetic Surge",
+  "Powered Strike die → 1d10, Genetic Surge (+2 max)",
   "Extra Attack II (3 attacks)",
   "Ability Score Improvement",
   "Overcharged Genes",
@@ -735,23 +735,37 @@ export const DOCUMENTS = {
       { label: "Hit Die", value: "d10 per Paragon level" },
       { label: "Primary", value: "Strength or Dexterity" },
       { label: "Saves", value: "Strength, Constitution" },
+      { label: "Armor", value: "Light armor, medium armor, shields" },
+      { label: "Weapons", value: "Simple weapons, martial weapons" },
+      { label: "Tools", value: "None" },
+      {
+        label: "Skills",
+        value:
+          "Choose 2: Acrobatics, Athletics, Insight, Intimidation, Investigation, Perception, Persuasion, Stealth",
+      },
       {
         label: "Resource",
-        value: "Genetic Potential — your level plus your CON modifier",
+        value: "Genetic Potential — your level plus your CON modifier, +2 from 10th and +4 from 14th",
       },
       { label: "Powered Strike", value: "1d6, rising to 1d8 at 5th, 1d10 at 10th, 1d12 at 17th" },
       { label: "Genes Known", value: "2 at 1st, one more at every odd level, to 11 at 19th" },
       { label: "Archetypes", value: "Streak, The Web, The Weave, The Brick, The Tempest" },
+      {
+        label: "Starting Equipment",
+        value:
+          "A martial weapon, or a simple weapon and a shield, or two simple weapons · a signature costume, mask, or civilian disguise kit · common clothes for a secret identity · an explorer's pack · 5d4 × 10 starting currency",
+      },
     ],
-    progressionHead: ["Lv", "PB", "Features", "Genes", "Strike"],
-    progression: PARAGON_FEATURES.map((f, i) => [
-      i + 1,
-      PB(i + 1),
-      f,
-      PARAGON_GENES_KNOWN[i],
-      poweredStrikeDie(i + 1),
-    ]),
-    note: "Genetic Potential is the only pool on this site that scales off an ability score rather than a table, so a Paragon's resource grows every single level rather than in tiers. Genetic Surge at 10th raises the maximum but the document doesn't say by how much — settle a number with your DM. Genetic Surge II at 14th states +2, and that is what the sheet applies.",
+    progressionHead: ["Lv", "PB", "Features", "Genes", "Strike", "GP"],
+    /* GP is shown as the document's own formula rather than a number: it
+       depends on the character's CON, so any figure here would be wrong for
+       everyone but one build. The sheet resolves it for real. */
+    progression: PARAGON_FEATURES.map((f, i) => {
+      const lv = i + 1;
+      const gp = lv === 1 ? "—" : lv >= 14 ? "Lv + CON + 4" : lv >= 10 ? "Lv + CON + 2" : "Lv + CON";
+      return [lv, PB(lv), f, PARAGON_GENES_KNOWN[i], poweredStrikeDie(lv), gp];
+    }),
+    note: "Genetic Potential is the only pool on this site that scales off an ability score rather than a table, so a Paragon's resource grows every single level rather than in tiers. Genetic Surge adds +2 to the maximum from 10th, and Surge II a further +2 from 14th — the GP column below folds both in, so it reads level + CON + 4 from 14th onward.",
     roleplay: {
       streak: [
         {
