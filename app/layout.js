@@ -8,6 +8,7 @@ import {
   Cormorant_Garamond,
   Uncial_Antiqua,
   Metamorphous,
+  Russo_One,
 } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
@@ -65,6 +66,14 @@ const metamorphous = Metamorphous({
   subsets: ["latin"],
   weight: "400",
 });
+/* The one face on the site that isn't a serif or a blackletter. A superhero
+   class earns a bold geometric sans — it should look like it wandered in
+   from a different genre, because it did. */
+const russo = Russo_One({
+  variable: "--font-paragon",
+  subsets: ["latin"],
+  weight: "400",
+});
 
 const fontVars = [
   cinzel.variable,
@@ -76,6 +85,7 @@ const fontVars = [
   italiana.variable,
   imFell.variable,
   metamorphous.variable,
+  russo.variable,
 ].join(" ");
 
 export const metadata = {

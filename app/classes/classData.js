@@ -585,6 +585,93 @@ export const CLASSES = [
       },
     ],
   },
+
+  {
+    slug: "paragon",
+    id: "paragon",
+    name: "The Paragon",
+    eyebrow: "Genetic Potential",
+    quote:
+      "The power is the easy part. It arrives whether you asked for it or not. Everything after that is a decision you keep making.",
+    intro: [
+      "Some are born with it. Most find out the way anyone finds out anything important — badly, suddenly, in a moment where there was no time to be careful. A wall comes down and doesn't land on you. A blade stops an inch short and you don't know why. Something that was always in you answers a question you didn't ask.",
+      "This is not sorcery and it is not a covenant. Nobody handed it over and nobody can take it back. It is written into you the way your height is, an inheritance from no one in particular — and like anything written into a body, it can be pushed further than it was meant to go. Paragons call that Genetic Potential, and they measure their lives by how much of it they are willing to spend.",
+      "There is no order, no academy, no first Paragon whose blood split five ways. There are only five shapes the same impossible thing keeps taking: the ones who move too fast to follow, the ones who never quite touch the ground, the ones who get inside your head, the ones who simply do not stop, and the ones who carry a storm around in their chest.",
+    ],
+    hitDie: "d10",
+    primaryAbility: "Strength or Dexterity",
+    saves: "Strength, Constitution",
+    armor: "See the class document",
+    resource: "Genetic Potential",
+    resourceNote:
+      "The only pool in Avara that scales off an ability score rather than a table: your Paragon level plus your Constitution modifier. It grows every single level, so the question is never whether you can afford a Gene, only how much of yourself you're willing to spend at once.",
+    recovery: "Refills on a long rest",
+    detail: {
+      label: "Genes",
+      text: "Your powers, chosen and permanent. Some are at-will and cost nothing — you simply are faster, tougher, harder to surprise. Others burn Genetic Potential. You learn two at 1st level and one more at every odd level after, drawn from the universal list or from the exclusive powers only your Archetype can reach.",
+    },
+    closer:
+      "Every feat this class offers is a moment rather than a mechanic. Not Today. Never Give Up. Everyone's Hero. Read the list and you can see what the class thinks it is about.",
+    subclassLabel: "Hero Archetype",
+    subclassPlural: "Hero Archetypes",
+    subclasses: [
+      {
+        name: "Streak",
+        title: "The speedster",
+        quote: "By the time it matters, you were already there.",
+        blurb:
+          "Momentum given weight. Every twenty feet you cover banks a die you can spend on a hit, so standing still is the only real way to run dry. At 9th you take an extra turn outright, and at 15th you leave something behind that soaks the attacks meant for you.",
+      },
+      {
+        name: "The Web",
+        title: "The web-slinger",
+        quote: "You don't have to hit them. You have to hold them still.",
+        blurb:
+          "Battlefield puppetry rather than force. Your hits stack Webbing that slows a target until clearing it costs them a whole action, and your reactions belong to other people — hauling an ally out of a hazard, making an attack miss that was never aimed at you.",
+      },
+      {
+        name: "The Weave",
+        title: "The telepath",
+        quote: "Their body is not the part that's fighting you.",
+        blurb:
+          "The only Archetype that fights entirely at range. Mind Blast makes every attack a 60-foot psychic strike, and Fracture leaves a mind rolling a die each turn to see whether it gets to act at all. By 15th you stop leaving that to chance and simply tell it what to do.",
+      },
+      {
+        name: "The Brick",
+        title: "The strongman",
+        quote: "It stops being a fight the moment you get hold of them.",
+        blurb:
+          "A bruiser and grappler in one. You grab things far larger than you, hurt them for holding still, and heal off a share of the damage you deal doing it. By 15th there's no size you can't take hold of and nothing that can move you while you're holding it.",
+      },
+      {
+        name: "The Tempest",
+        title: "The elemental",
+        quote: "Fire, cold, or lightning — decided once, at the beginning.",
+        blurb:
+          "Choose your element at creation and never again. All three share the same damage maths; what changes is what your Mark does when it goes off. Cold freezes them in place, Lightning jumps to whoever's nearest, and Fire punishes anything that stood still to take it.",
+      },
+    ],
+    signature: [
+      {
+        lvl: 1,
+        name: "Powered Strike",
+        cost: "At-will",
+        desc: "Your basic attack, and unusually it scales on its own: 1d6 plus your modifier and your proficiency bonus, growing to 1d12 by 17th. Every Archetype reshapes what it means — the Weave fires it 60 feet, the Tempest sets it alight, the Brick grabs hold with it.",
+      },
+      {
+        lvl: 7,
+        name: "Adaptive Instinct",
+        cost: "Automatic",
+        desc: "Anything that hurts you twice in one fight stops working as well the second time. No action, no roll, no choice — your body simply learns, mid-encounter.",
+      },
+      {
+        lvl: 20,
+        name: "Apex Potential",
+        cost: "Capstone",
+        desc: "Two ability scores rise by 2, past the usual ceiling to a maximum of 24, and once a day you fire two Genes off in the same action for nothing at all.",
+      },
+    ],
+  },
 ];
 
 /* Source documents hosted under /public/documents. `size` is shown on the

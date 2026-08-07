@@ -31,6 +31,15 @@ const SIGILS = {
     </>
   ),
 
+  // A double helix inside a hero's shield — genetics, worn as a crest.
+  paragon: (
+    <>
+      <path d="M12 2.4 20 5v7.4c0 4.2-3.2 7.4-8 9.2-4.8-1.8-8-5-8-9.2V5Z" />
+      <path d="M9.2 6.4c0 3.7 5.6 3.7 5.6 7.4M14.8 6.4c0 3.7-5.6 3.7-5.6 7.4" />
+      <path d="M9.7 9.4h4.6M9.7 12.6h4.6" />
+    </>
+  ),
+
   // A crescent moon with a wolf's fang crossing it — the wound and the change.
   unbroken: (
     <>

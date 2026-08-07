@@ -217,7 +217,37 @@
   --class-tracking: 0.05em;
 }
 
+/* Paragon — irradiated lime, the colour of a mutation doing something it
+   shouldn't. Sits in the widest empty stretch of the site's hue wheel: every
+   other accent is either below 34deg or above 152deg, so nothing else lives
+   anywhere near it. */
+[data-class="paragon"] {
+  --class-accent: #a3e635;
+  --class-strong: #5f8a1a;
+  --class-soft: rgba(163, 230, 53, 0.15);
+  --class-bg: #0d1108;
+  --class-surface: #141a0d;
+  --class-surface-2: #1c2413;
+  --class-border: #2f3d1e;
+  --class-text: #f0f5e8;
+  --class-text-dim: #b6c4a4;
+  --class-text-faint: #7d8b6c;
+  --class-font: var(--font-paragon), var(--font-cinzel), sans-serif;
+  --class-tracking: 0.08em;
+}
+
 /* Per-class light overrides, opt-in the same way. */
+:root[data-theme="light"] [data-class="paragon"] {
+  --class-accent: #4a6b12;
+  --class-soft: rgba(74, 107, 18, 0.13);
+  --class-bg: #eef2e6;
+  --class-surface: #f8faf3;
+  --class-surface-2: #ffffff;
+  --class-border: #d3ddc2;
+  --class-text: #171d0e;
+  --class-text-dim: #4e5a3c;
+  --class-text-faint: #7f8b6d;
+}
 :root[data-theme="light"] [data-class="unbroken"] {
   --class-accent: #3d566e;
   --class-soft: rgba(61, 86, 110, 0.13);

@@ -94,6 +94,80 @@ const KITS = {
     ],
   },
 
+  /* The Paragon's document lists no armor or weapon proficiencies at all, and
+     Powered Strike is an innate attack rather than a weapon — so these kits
+     carry no weapons on purpose. That isn't an omission: giving a Paragon a
+     longsword would suggest the class wants one, and it doesn't. */
+  paragon: {
+    bySubclass: {
+      streak: {
+        label: "Streak's Kit",
+        note: "No weapons — Powered Strike is the weapon. Everything here is built to survive going very fast.",
+        armor: null,
+        shield: false,
+        weapons: [],
+        items: [
+          "Explorer's pack",
+          "Boots already worn through at the toe, twice resoled",
+          "Goggles, for the part where the air stops being air",
+          "A pocketful of things you picked up mid-run and haven't explained yet",
+        ],
+      },
+      web: {
+        label: "The Web's Kit",
+        note: "No weapons — Powered Strike is the weapon. Line, anchor, and something to bandage the landing.",
+        armor: null,
+        shield: false,
+        weapons: [],
+        items: [
+          "Explorer's pack",
+          "100 ft of silk line, spun from something you'd rather not name",
+          "A grapnel and a set of climbing anchors",
+          "Healer's kit, mostly used on other people",
+        ],
+      },
+      weave: {
+        label: "The Weave's Kit",
+        note: "No weapons — Mind Blast reaches 60 feet without one.",
+        armor: null,
+        shield: false,
+        weapons: [],
+        items: [
+          "Explorer's pack",
+          "A journal of thoughts that weren't yours, kept so you can tell them apart",
+          "Wax earplugs — useless, and you wear them anyway",
+          "A token from someone whose mind you promised never to read",
+        ],
+      },
+      brick: {
+        label: "The Brick's Kit",
+        note: "No weapons — your hands already are one. Nothing here is fragile.",
+        armor: null,
+        shield: false,
+        weapons: [],
+        items: [
+          "Explorer's pack",
+          "Chain and a harness, for the things too heavy to carry politely",
+          "A doorframe you keep meaning to return",
+          "Clothes cut generously, because they never last",
+        ],
+      },
+      tempest: {
+        label: "The Tempest's Kit",
+        note: "No weapons — Powered Strike carries your element. Pack for what you set off.",
+        armor: null,
+        shield: false,
+        weapons: [],
+        items: [
+          "Explorer's pack",
+          "A focus stone in your element — warm, cold, or faintly humming",
+          "Burn salve, frost balm, and an insulated glove; you'll use one",
+          "The scorched, cracked, or fused remains of the first thing you touched",
+        ],
+      },
+    },
+  },
+
   /* Medium armor and shields are proficiencies the document grants, but the
      kit stops at hide: Thick Hide is +2 AC in Beast-Form and the document
      says outright that it makes a shield not worth the slot, so leading a new

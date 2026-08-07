@@ -15,6 +15,7 @@ import {
 import { DEVOURER_SPELL_SLOTS } from "../../../sheet/data/devourer";
 import { HARMONY_POOL, RESONANT_CANTRIPS_KNOWN } from "../../../sheet/data/resonant";
 import { hungerMax } from "../../../sheet/data/sangreal";
+import { PARAGON_GENES_KNOWN, poweredStrikeDie } from "../../../sheet/data/paragon";
 
 const PB = (lv) => `+${2 + Math.floor((lv - 1) / 4)}`;
 
@@ -141,6 +142,29 @@ const UNBROKEN_FEATURES = [
 /* Instincts are picked at 2, 7, 9 and 17 — the column is the running total,
    counted off those levels rather than transcribed. */
 const INSTINCTS_KNOWN = (lv) => [2, 7, 9, 17].filter((p) => lv >= p).length;
+
+const PARAGON_FEATURES = [
+  "Powered Strike, Hero Archetype, 2 Genes Known",
+  "Genetic Potential online",
+  "Archetype feature",
+  "Ability Score Improvement",
+  "Extra Attack (2 attacks), Powered Strike die → 1d8",
+  "Archetype feature",
+  "Adaptive Instinct",
+  "Ability Score Improvement",
+  "Archetype Ultimate",
+  "Powered Strike die → 1d10, Genetic Surge",
+  "Extra Attack II (3 attacks)",
+  "Ability Score Improvement",
+  "Overcharged Genes",
+  "Genetic Surge II",
+  "Archetype feature",
+  "Ability Score Improvement",
+  "Extra Attack III (4 attacks), Powered Strike die → 1d12",
+  "—",
+  "Ability Score Improvement",
+  "Apex Potential (capstone)",
+];
 
 const SLOT_LABEL = (row) =>
   row.some((n) => n > 0) ? row.filter((n) => n > 0).join(" / ") : "—";
@@ -703,6 +727,66 @@ export const DOCUMENTS = {
     closing: {
       title: "Bloodlust — the engine",
       text: "Nothing in this class ever heals you. The pack keeps you standing; your own hands don't.",
+    },
+  },
+
+  paragon: {
+    quickReference: [
+      { label: "Hit Die", value: "d10 per Paragon level" },
+      { label: "Primary", value: "Strength or Dexterity" },
+      { label: "Saves", value: "Strength, Constitution" },
+      {
+        label: "Resource",
+        value: "Genetic Potential — your level plus your CON modifier",
+      },
+      { label: "Powered Strike", value: "1d6, rising to 1d8 at 5th, 1d10 at 10th, 1d12 at 17th" },
+      { label: "Genes Known", value: "2 at 1st, one more at every odd level, to 11 at 19th" },
+      { label: "Archetypes", value: "Streak, The Web, The Weave, The Brick, The Tempest" },
+    ],
+    progressionHead: ["Lv", "PB", "Features", "Genes", "Strike"],
+    progression: PARAGON_FEATURES.map((f, i) => [
+      i + 1,
+      PB(i + 1),
+      f,
+      PARAGON_GENES_KNOWN[i],
+      poweredStrikeDie(i + 1),
+    ]),
+    note: "Genetic Potential is the only pool on this site that scales off an ability score rather than a table, so a Paragon's resource grows every single level rather than in tiers. Genetic Surge at 10th raises the maximum but the document doesn't say by how much — settle a number with your DM. Genetic Surge II at 14th states +2, and that is what the sheet applies.",
+    roleplay: {
+      streak: [
+        {
+          title: "Standing still is the only way to run dry",
+          text: "Every Archetype has an engine; Streak's is distance covered. Twenty feet banks a die, four dice can be held, and any attack can spend them. A Streak who plays cautiously has switched their own class off — which is the point of the design, and worth saying out loud to a player who keeps ending their turn behind cover.",
+        },
+      ],
+      web: [
+        {
+          title: "Your reactions belong to other people",
+          text: "Safety Line, Web Shield, Web Anchor — the Web's best options all fire on someone else's turn to protect someone else's character. It is the most quietly generous Archetype here, and the one whose contribution is hardest to see on a damage log.",
+        },
+      ],
+      weave: [
+        {
+          title: "A die roll instead of a save",
+          text: "Fracture is unusual: after the save, the target rolls each turn to find out whether it acts at all. That randomness is the flavour — a mind coming apart isn't reliably disabled, it's unreliable. Puppeteer at 15th is the moment you stop rolling and start dictating.",
+        },
+      ],
+      brick: [
+        {
+          title: "It stops being a fight once you have hold of them",
+          text: "The Brick converts a grapple from a control option into a damage engine — hurting them for being held, hitting harder because they're held, and healing off a growing share of it. Note how much of the kit assumes you already have something in your hands.",
+        },
+      ],
+      tempest: [
+        {
+          title: "One decision, made at creation",
+          text: "Fire, Cold and Lightning share identical damage maths on purpose, so the choice is never a power question. What changes is what happens when the Mark goes off: Cold locks a target down, Lightning spreads to whatever's nearest, Fire punishes anything that stood still. Choose for how you want fights to feel.",
+        },
+      ],
+    },
+    closing: {
+      title: "Genetic Potential — the engine",
+      text: "The power is the easy part. It arrives whether you asked for it or not. Everything after that is a decision you keep making.",
     },
   },
 };

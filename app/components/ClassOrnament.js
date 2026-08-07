@@ -119,6 +119,36 @@ const ORNAMENTS = {
     </>
   ),
 
+  // A helix twisting along the rule, with a burst at the centre — the only
+  // ornament here built from two interleaving strands rather than one line.
+  paragon: (
+    <>
+      <path
+        d="M10 14c14-9 28 9 42 0s28 9 42 0M10 14c14 9 28-9 42 0s28-9 42 0"
+        stroke={A}
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        fill="none"
+      />
+      <path
+        d="M156 14c14-9 28 9 42 0s28 9 42 0M156 14c14 9 28-9 42 0s28-9 42 0"
+        stroke={A}
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        fill="none"
+      />
+      {[31, 73, 177, 219].map((x) => (
+        <path key={x} d={`M${x} 9.5v9`} stroke={S} strokeWidth="1.2" strokeLinecap="round" />
+      ))}
+      {/* central burst */}
+      <path
+        d="M130 3.5 132.6 11 140 14l-7.4 3-2.6 7.5-2.6-7.5L120 14l7.4-3Z"
+        fill={A}
+      />
+      <circle cx="130" cy="14" r="1.5" fill={S} />
+    </>
+  ),
+
   // A line torn open at the centre, a crescent in the gap, claw marks either
   // side — the wound first, then the wolf.
   unbroken: (
