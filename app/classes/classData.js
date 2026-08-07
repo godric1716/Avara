@@ -690,6 +690,7 @@ export const CLASS_DOCUMENTS = {
   resonant: [{ label: "Resonant class document", file: "resonant.pdf", size: "83 KB" }],
   sangreal: [{ label: "Sangreal class document", file: "sangreal.pdf", size: "105 KB" }],
   unbroken: [{ label: "Unbroken class document", file: "unbroken.pdf", size: "106 KB" }],
+  paragon: [{ label: "Paragon class document", file: "paragon.pdf", size: "29 KB" }],
 };
 
 export function getClass(slug) {
