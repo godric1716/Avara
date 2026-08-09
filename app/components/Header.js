@@ -8,6 +8,7 @@ import { isDm } from "../../lib/allowlist";
 
 const NAV_LINKS = [
   { href: "/classes", label: "Classes" },
+  { href: "/peoples", label: "Peoples" },
   { href: "/compendium", label: "Compendium" },
   { href: "/world", label: "World of Avara", dmOnly: true },
   { href: "/npcs", label: "NPCs", dmOnly: true },

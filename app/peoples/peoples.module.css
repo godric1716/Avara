@@ -1,0 +1,432 @@
+/* Peoples & Paths keeps the site's own plum-and-emerald identity rather than
+   re-pointing the palette the way a class page does. Each entry contributes
+   one decorative --tint, used for its sigil and the rule under its title, so
+   a new race ships its colour in its data and needs nothing here. */
+
+.lede {
+  max-width: 62ch;
+  margin: 14px auto 0;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text-dim);
+}
+
+/* ---------- Source document ---------- */
+
+.docRow {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 34px;
+}
+
+.docLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 17px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-dim);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.docLink:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.docMeta {
+  font-size: 10px;
+  color: var(--text-faint);
+  letter-spacing: 0.1em;
+}
+
+/* ---------- Groups on the index ---------- */
+
+.group {
+  margin-bottom: 46px;
+}
+
+.groupHead {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.groupEyebrow {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+
+.groupTitle {
+  margin: 5px 0 8px;
+  font-size: 1.5rem;
+}
+
+.groupBlurb {
+  margin: 0;
+  max-width: 66ch;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 16px;
+  height: 100%;
+  text-decoration: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.cardMark {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
+.sigil {
+  width: 23px;
+  height: 23px;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+
+.cardName {
+  font-family: var(--font-cinzel), serif;
+  font-size: 16px;
+  color: var(--text);
+}
+
+.cardTagline {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.cardArrow {
+  color: var(--text-faint);
+  font-size: 15px;
+}
+
+.card:hover .cardArrow {
+  color: var(--accent);
+}
+
+/* ---------- Entry page ---------- */
+
+.back {
+  margin: 0 0 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back a {
+  color: var(--text-faint);
+  text-decoration: none;
+}
+
+.back a:hover {
+  color: var(--accent);
+}
+
+.entryHead {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.entryMark {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  color: var(--tint);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.entrySigil {
+  width: 36px;
+  height: 36px;
+}
+
+.entryKind {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tint);
+}
+
+.entryTitle {
+  margin: 5px 0 0;
+  font-size: 2.1rem;
+  line-height: 1.15;
+}
+
+.entryTagline {
+  margin: 7px 0 0;
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+/* The one place the entry's own colour appears at any size. */
+.rule {
+  height: 2px;
+  margin: 20px 0 26px;
+  background: linear-gradient(
+    to right,
+    var(--tint),
+    color-mix(in srgb, var(--tint) 25%, transparent) 55%,
+    transparent
+  );
+}
+
+.quote {
+  margin: 0 0 24px;
+  padding-left: 18px;
+  border-left: 2px solid var(--tint);
+  font-size: 17px;
+  line-height: 1.6;
+  font-style: italic;
+  color: var(--text);
+}
+
+.intro {
+  max-width: 68ch;
+  margin-bottom: 30px;
+}
+
+.intro p {
+  margin: 0 0 14px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-dim);
+}
+
+/* ---------- Cards on the entry page ---------- */
+
+.panel {
+  display: block;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.cardTitle {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.prose {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text-dim);
+}
+
+.prose:last-child {
+  margin-bottom: 0;
+}
+
+.quickList {
+  margin: 0;
+  display: grid;
+  gap: 11px;
+}
+
+.quickList > div {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 14px;
+  align-items: baseline;
+}
+
+.quickList dt {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--tint);
+}
+
+.quickList dd {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-dim);
+}
+
+.traitList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 15px;
+}
+
+.traitName {
+  display: block;
+  font-family: var(--font-cinzel), serif;
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.traitDesc {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+
+.featureCard {
+  border-left: 3px solid var(--tint);
+}
+
+.featureName {
+  font-family: var(--font-cinzel), serif;
+  font-size: 15px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--tint);
+}
+
+.dmCard {
+  border-style: dashed;
+}
+
+.dmTag {
+  padding: 2px 8px;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  border-radius: 999px;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+/* ---------- Roll tables ---------- */
+
+.die {
+  padding: 2px 8px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  border-radius: 999px;
+  color: var(--tint);
+  border: 1px solid var(--tint);
+}
+
+.rollList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 9px;
+  counter-reset: roll;
+}
+
+.rollList li {
+  display: flex;
+  gap: 13px;
+  align-items: baseline;
+}
+
+.rollNum {
+  flex: 0 0 auto;
+  width: 22px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--tint);
+  border-bottom: 1px solid var(--border);
+}
+
+.rollText {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--text-dim);
+}
+
+.alignTag {
+  margin-left: 9px;
+  padding: 1px 7px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-radius: 999px;
+  color: var(--text-faint);
+  border: 1px solid var(--border);
+}
+
+@media (max-width: 620px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .quickList > div {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+  .entryTitle {
+    font-size: 1.7rem;
+  }
+}

@@ -674,8 +674,12 @@ export const CLASSES = [
   },
 ];
 
-/* Source documents hosted under /public/documents. `size` is shown on the
-   download so nobody opens a 1 MB file on phone data by accident. */
+/* Source documents hosted under /public/documents, keyed by section slug —
+   originally one per class, now also the Peoples & Paths document, so the
+   key is "whatever page hosts it" rather than strictly a class.
+
+   `size` is shown on the download so nobody opens a 1 MB file on phone data
+   by accident. */
 export const CLASS_DOCUMENTS = {
   "death-knight": [{ label: "Death Knight class document", file: "death-knight.pdf", size: "77 KB" }],
   "undying-sovereign": [
@@ -691,6 +695,13 @@ export const CLASS_DOCUMENTS = {
   sangreal: [{ label: "Sangreal class document", file: "sangreal.pdf", size: "105 KB" }],
   unbroken: [{ label: "Unbroken class document", file: "unbroken.pdf", size: "106 KB" }],
   paragon: [{ label: "Paragon class document", file: "paragon.pdf", size: "29 KB" }],
+  peoples: [
+    {
+      label: "Peoples & Paths source document",
+      file: "peoples-and-paths.pdf",
+      size: "145 KB",
+    },
+  ],
 };
 
 export function getClass(slug) {
