@@ -27,6 +27,8 @@ import Equipment from "./Equipment";
 import Techniques from "./Techniques";
 import Portrait from "./Portrait";
 import Roster from "./Roster";
+import Heritage from "./Heritage";
+import { RACES, BACKGROUNDS } from "../peoples/data";
 
 /* Only the two classes that actually cast get a spell tab. The Sovereign is
    explicitly "not a spellcaster" despite its Technique DC, and the
@@ -35,6 +37,7 @@ import Roster from "./Roster";
 const TABS = [
   { key: "turn", label: "Common Turn" },
   { key: "actions", label: "Actions" },
+  { key: "origin", label: "Origin" },
   { key: "gear", label: "Gear" },
   { key: "companions", label: "Companions", classId: "fablekeeper" },
   { key: "spells", label: "Spells", classId: "devourer" },
@@ -54,6 +57,8 @@ export default function CharacterSheet() {
     update,
     setAbility,
     setClass,
+    setBackground,
+    setRoleplay,
     toggleIn,
     reset,
     selectCharacter,
@@ -222,6 +227,36 @@ export default function CharacterSheet() {
               </select>
             </label>
           )}
+
+          <label className={styles.field}>
+            <span>Race</span>
+            <select
+              value={character.race}
+              onChange={(e) => update({ race: e.target.value })}
+            >
+              <option value="">—</option>
+              {RACES.map((r) => (
+                <option key={r.slug} value={r.slug}>
+                  {r.name}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label className={styles.field}>
+            <span>Background</span>
+            <select
+              value={character.background}
+              onChange={(e) => setBackground(e.target.value)}
+            >
+              <option value="">—</option>
+              {BACKGROUNDS.map((b) => (
+                <option key={b.slug} value={b.slug}>
+                  {b.name}
+                </option>
+              ))}
+            </select>
+          </label>
 
           <label className={styles.field}>
             <span>Level</span>
@@ -421,6 +456,15 @@ export default function CharacterSheet() {
                 />
               )}
             </div>
+          )}
+
+          {t.key === "origin" && (
+            <Heritage
+              race={character.race}
+              background={character.background}
+              roleplay={character.roleplay}
+              onRoleplay={setRoleplay}
+            />
           )}
 
           {t.key === "gear" && (

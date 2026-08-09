@@ -9,6 +9,7 @@ import {
   removeCharacter,
   importLocal,
 } from "./actions";
+import { getEntry } from "../peoples/data";
 
 const STORAGE_KEY = "avara-roster-v2";
 
@@ -37,6 +38,15 @@ export function defaultCharacter() {
     level: 1,
     classId: "deathknight",
     subclass: firstSubclassKey("deathknight"),
+    /* Empty means "not chosen yet" rather than defaulting to the first race
+       — a blank race is a real state a character can be in mid-creation, and
+       defaulting would quietly assign one nobody picked. */
+    race: "",
+    background: "",
+    /* Stored as the chosen text, not an index. A player can type their own,
+       and a stored index would silently point at a different line if the
+       background's table were ever reordered. */
+    roleplay: { personality: "", ideal: "", bond: "", flaw: "" },
     abilities: { str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10 },
     hpCur: "",
     hpMax: "",
@@ -102,6 +112,21 @@ function sanitize(raw) {
     items: isPlainObject(raw.items) ? raw.items : {},
     notes: typeof raw.notes === "string" ? raw.notes : "",
     name: typeof raw.name === "string" ? raw.name : "",
+    /* Checked against the data the same way classId is: a slug that no
+       longer exists — a renamed race, a hand-edited value — becomes blank
+       rather than rendering an entry that isn't there. */
+    race: validSlug(raw.race, "race"),
+    background: validSlug(raw.background, "background"),
+    roleplay: {
+      ...base.roleplay,
+      ...(isPlainObject(raw.roleplay)
+        ? Object.fromEntries(
+            Object.entries(raw.roleplay)
+              .filter(([k]) => k in base.roleplay)
+              .map(([k, v]) => [k, typeof v === "string" ? v : ""])
+          )
+        : {}),
+    },
     // Merge onto defaults so a slot added later doesn't come back undefined.
     fkSlots: { ...base.fkSlots, ...(isPlainObject(raw.fkSlots) ? raw.fkSlots : {}) },
     fkActive: typeof raw.fkActive === "string" ? raw.fkActive : null,
@@ -226,6 +251,12 @@ function normalizeRows(raw, prefix, shape) {
       const next = { ...row, id };
       return shape ? shape(next) : next;
     });
+}
+
+function validSlug(slug, kind) {
+  if (typeof slug !== "string" || !slug) return "";
+  const entry = getEntry(slug);
+  return entry && entry.kind === kind ? slug : "";
 }
 
 function isPlainObject(v) {
@@ -445,6 +476,37 @@ export function useCharacter() {
     [patchActive]
   );
 
+  /* Changing background clears any roleplay line that came from the old
+     background's tables, but keeps anything the player typed themselves.
+     Wiping everything would punish a player for writing their own bond;
+     keeping everything would leave a Fenris ideal on an Island Hopper. */
+  const setBackground = useCallback(
+    (background) =>
+      patchActive((c) => {
+        const old = c.background ? getEntry(c.background) : null;
+        if (!old) return { ...c, background };
+
+        const fromOldTable = {
+          personality: old.personality || [],
+          ideal: (old.ideals || []).map((i) => i.text),
+          bond: old.bonds || [],
+          flaw: old.flaws || [],
+        };
+        const roleplay = { ...c.roleplay };
+        for (const [field, options] of Object.entries(fromOldTable)) {
+          if (options.includes(roleplay[field])) roleplay[field] = "";
+        }
+        return { ...c, background, roleplay };
+      }),
+    [patchActive]
+  );
+
+  const setRoleplay = useCallback(
+    (field, value) =>
+      patchActive((c) => ({ ...c, roleplay: { ...c.roleplay, [field]: value } })),
+    [patchActive]
+  );
+
   const toggleIn = useCallback(
     (bucket, key) =>
       patchActive((c) => {
@@ -554,6 +616,8 @@ export function useCharacter() {
     update,
     setAbility,
     setClass,
+    setBackground,
+    setRoleplay,
     toggleIn,
     reset,
     selectCharacter,
