@@ -46,11 +46,40 @@ export default function FeatureColumn({ title, features, level }) {
               {/* Always rendered, hidden by class rather than unmounted, so
                   printing can reveal every description regardless of which
                   rows happened to be open on screen. */}
-              <p
+              <div
                 className={`${styles.featureDesc} ${open ? "" : styles.collapsed}`}
               >
-                {f.desc}
-              </p>
+                <p className={styles.featureText}>{f.desc}</p>
+
+                {/* The Rhovian subclasses split several features into named
+                    sub-abilities, and a couple carry a scaling table. Without
+                    these the sheet would show the intro sentence and quietly
+                    drop the actual rules. */}
+                {f.bullets && (
+                  <ul className={styles.featureBullets}>
+                    {f.bullets.map((b) => (
+                      <li key={b.name}>
+                        <span className={styles.featureBulletName}>{b.name}</span>{" "}
+                        {b.desc}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {f.table && (
+                  <table className={styles.featureTable}>
+                    <tbody>
+                      {f.table.rows.map((r) => (
+                        <tr key={r[0]}>
+                          {r.map((cell, i) => (
+                            <td key={i}>{cell}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
             </li>
           );
         })}

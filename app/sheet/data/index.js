@@ -7,6 +7,7 @@ import { CLASS_RESONANT } from "./resonant";
 import { CLASS_SANGREAL } from "./sangreal";
 import { CLASS_UNBROKEN } from "./unbroken";
 import { CLASS_PARAGON } from "./paragon";
+import { STANDARD_CLASSES, STANDARD_ORDER } from "./standard";
 
 export { mod, fmt, profBonus, fixedHitPoints } from "./helpers";
 
@@ -33,7 +34,12 @@ export const CLASS_DATA = {
   sangreal: CLASS_SANGREAL,
   unbroken: CLASS_UNBROKEN,
   paragon: CLASS_PARAGON,
+  /* The ten standard classes the Varra sourcebook covers. Barebones by
+     design — see standard.js. */
+  ...STANDARD_CLASSES,
 };
+
+export { STANDARD_ORDER };
 
 export const CLASS_ORDER = [
   "deathknight",

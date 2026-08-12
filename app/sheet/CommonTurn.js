@@ -116,10 +116,14 @@ export default function CommonTurn({
             <dt>Prof</dt>
             <dd className="num">+{profBonus}</dd>
           </div>
-          <div>
-            <dt>{resourceLabel}</dt>
-            <dd className="num">{cls.resourceUncapped ? "—" : resourceMax}</dd>
-          </div>
+          {/* Omitted entirely for classes with no modelled resource, rather
+              than printing a blank label over an undefined number. */}
+          {resourceLabel && (
+            <div>
+              <dt>{resourceLabel}</dt>
+              <dd className="num">{cls.resourceUncapped ? "—" : resourceMax}</dd>
+            </div>
+          )}
         </dl>
       </header>
 
@@ -171,6 +175,7 @@ export default function CommonTurn({
         );
       })}
 
+      {cls.resourceLabel && (
       <footer className={styles.reportFoot}>
         <span className={styles.reportSlot}>Round economy</span>
         <p className={styles.reportDesc}>
@@ -188,6 +193,7 @@ export default function CommonTurn({
           {economyNote(cls)}
         </p>
       </footer>
+      )}
     </section>
   );
 }

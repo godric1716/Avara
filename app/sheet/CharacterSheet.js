@@ -9,6 +9,7 @@ import {
   CLASS_DATA,
   CLASS_ORDER,
   CLASS_SLUGS,
+  STANDARD_ORDER,
   fixedHitPoints,
   fmt,
   mod,
@@ -201,9 +202,20 @@ export default function CharacterSheet() {
             aria-label="Character name"
           />
           <div className={styles.identityMeta}>
-            <Link href={`/classes/${CLASS_SLUGS[character.classId]}`}>
-              {cls.eyebrow}
-            </Link>
+            {/* Avara classes link to their chapter; the standard ten have no
+                chapter page, so they link to the Rhovian subclass instead —
+                which is the only part of them this site actually documents. */}
+            {cls.standard ? (
+              sub?.varraSlug ? (
+                <Link href={`/varra/${sub.varraSlug}`}>{sub.label}</Link>
+              ) : (
+                <span>{cls.eyebrow}</span>
+              )
+            ) : (
+              <Link href={`/classes/${CLASS_SLUGS[character.classId]}`}>
+                {cls.eyebrow}
+              </Link>
+            )}
             {/* Editing somebody else's sheet should never be something you
                 only realise afterwards. */}
             {character.mine === false && character.ownerName && (
@@ -227,11 +239,20 @@ export default function CharacterSheet() {
               value={character.classId}
               onChange={(e) => setClass(e.target.value)}
             >
-              {CLASS_ORDER.map((id) => (
-                <option key={id} value={id}>
-                  {CLASS_DATA[id].label}
-                </option>
-              ))}
+              <optgroup label="Avara">
+                {CLASS_ORDER.map((id) => (
+                  <option key={id} value={id}>
+                    {CLASS_DATA[id].label}
+                  </option>
+                ))}
+              </optgroup>
+              <optgroup label="Standard (Varra Aeterna subclasses)">
+                {STANDARD_ORDER.map((id) => (
+                  <option key={id} value={id}>
+                    {CLASS_DATA[id].label}
+                  </option>
+                ))}
+              </optgroup>
             </select>
           </label>
 
@@ -387,15 +408,20 @@ export default function CharacterSheet() {
           </div>
         </section>
 
-        <ResourceTracker
-          label={cls.resourceLabel}
-          value={character.resource}
-          max={resourceMax}
-          uncapped={cls.resourceUncapped}
-          buttons={cls.resourceButtons}
-          profBonus={pb}
-          onChange={(v) => update({ resource: v })}
-        />
+        {/* The standard ten track Rage, Ki, sorcery points and spell slots in
+            ways this sheet doesn't model, so they get no tracker at all
+            rather than an empty one claiming a pool they don't have. */}
+        {cls.resourceLabel && (
+          <ResourceTracker
+            label={cls.resourceLabel}
+            value={character.resource}
+            max={resourceMax}
+            uncapped={cls.resourceUncapped}
+            buttons={cls.resourceButtons}
+            profBonus={pb}
+            onChange={(v) => update({ resource: v })}
+          />
+        )}
 
         <SecondaryTracker
           classId={character.classId}

@@ -236,7 +236,56 @@
   --class-tracking: 0.08em;
 }
 
+/* The ten standard classes all share the Varra Aeterna palette rather than
+   getting one each. They exist on this site only because that sourcebook
+   gives them subclasses, so they should read as part of that book — and ten
+   more accents on top of the nine Avara ones was never going to work.
+   Porphyry, with gold as the secondary. */
+[data-class="barbarian"],
+[data-class="cleric"],
+[data-class="druid"],
+[data-class="fighter"],
+[data-class="paladin"],
+[data-class="ranger"],
+[data-class="rogue"],
+[data-class="sorcerer"],
+[data-class="warlock"],
+[data-class="wizard"] {
+  --class-accent: #c8a24a;
+  --class-strong: #8c4a5f;
+  --class-soft: rgba(140, 74, 95, 0.18);
+  --class-bg: #140d10;
+  --class-surface: #1d1318;
+  --class-surface-2: #271a20;
+  --class-border: #3f2830;
+  --class-text: #f5ece9;
+  --class-text-dim: #c6aaa8;
+  --class-text-faint: #8d7274;
+  --class-font: var(--font-cinzel), serif;
+  --class-tracking: 0.05em;
+}
+
 /* Per-class light overrides, opt-in the same way. */
+:root[data-theme="light"] [data-class="barbarian"],
+:root[data-theme="light"] [data-class="cleric"],
+:root[data-theme="light"] [data-class="druid"],
+:root[data-theme="light"] [data-class="fighter"],
+:root[data-theme="light"] [data-class="paladin"],
+:root[data-theme="light"] [data-class="ranger"],
+:root[data-theme="light"] [data-class="rogue"],
+:root[data-theme="light"] [data-class="sorcerer"],
+:root[data-theme="light"] [data-class="warlock"],
+:root[data-theme="light"] [data-class="wizard"] {
+  --class-accent: #7a3b4e;
+  --class-soft: rgba(122, 59, 78, 0.13);
+  --class-bg: #f2eaec;
+  --class-surface: #fbf5f7;
+  --class-surface-2: #ffffff;
+  --class-border: #ddc8ce;
+  --class-text: #241419;
+  --class-text-dim: #6a4c53;
+  --class-text-faint: #977d83;
+}
 :root[data-theme="light"] [data-class="paragon"] {
   --class-accent: #4a6b12;
   --class-soft: rgba(74, 107, 18, 0.13);
