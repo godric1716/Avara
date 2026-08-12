@@ -750,7 +750,7 @@ export const DOCUMENTS = {
       {
         label: "Powered Strike",
         value:
-          "Added to your weapon attacks — 1d6, rising to 1d8 at 5th, 1d10 at 10th, 1d12 at 17th",
+          "Added to your weapon attacks, along with your proficiency bonus — 1d6, rising to 1d8 at 5th, 1d10 at 10th, 1d12 at 17th",
       },
       { label: "Genes Known", value: "2 at 1st, one more at every odd level, to 11 at 19th" },
       { label: "Archetypes", value: "Streak, The Web, The Weave, The Brick, The Tempest" },

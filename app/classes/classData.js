@@ -656,7 +656,7 @@ export const CLASSES = [
         lvl: 1,
         name: "Powered Strike",
         cost: "At-will",
-        desc: "Not a separate attack — it adds to the one you were already making. 1d6 on top of your weapon damage, growing to 1d12 by 17th. Every Archetype reshapes what it means: the Weave sends it 60 feet, the Tempest sets it alight, the Brick grabs hold with it.",
+        desc: "Not a separate attack — it adds to the one you were already making. 1d6 and your proficiency bonus on top of your weapon damage, the die growing to 1d12 by 17th. Every Archetype reshapes what it means: the Weave sends it 60 feet, the Tempest sets it alight, the Brick grabs hold with it.",
       },
       {
         lvl: 7,

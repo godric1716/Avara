@@ -88,6 +88,7 @@ export default function Equipment({
   const bonusFn = CLASS_DATA[classId]?.bonusAttackDie;
   const bonusDie = bonusFn ? bonusFn(level) : null;
   const bonusLabel = CLASS_DATA[classId]?.bonusAttackLabel;
+  const bonusDieAddsProf = !!CLASS_DATA[classId]?.bonusAttackAddsProf;
 
   function addAttack(index) {
     const w = WEAPONS.find((x) => x.index === index);
@@ -233,8 +234,15 @@ export default function Equipment({
 
         {bonusDie && (
           <p className={styles.trackerNote}>
-            {bonusLabel} adds <strong>{bonusDie}</strong> to every weapon
-            attack below — it&rsquo;s already included in the damage shown.
+            {bonusLabel} adds <strong>{bonusDie}</strong>
+            {bonusDieAddsProf && (
+              <>
+                {" "}
+                and your proficiency bonus (<strong>{fmt(profBonus)}</strong>)
+              </>
+            )}{" "}
+            to every weapon attack below — already included in the damage
+            shown, so don&rsquo;t add it again.
           </p>
         )}
 
@@ -251,7 +259,14 @@ export default function Equipment({
               const abilMod = abilityMods[abil] ?? 0;
               const toHit =
                 abilMod + (a.proficient ? profBonus : 0) + Number(a.bonus || 0);
-              const dmgMod = abilMod + Number(a.damageBonus || 0);
+              /* Powered Strike carries the proficiency bonus into damage —
+                 unusual, but it's what the class says, and it rides on the
+                 weapon rather than replacing it. The ability modifier isn't
+                 added twice: the weapon already contributes it. */
+              const dmgMod =
+                abilMod +
+                Number(a.damageBonus || 0) +
+                (bonusDieAddsProf ? profBonus : 0);
               const versatile = (w?.properties || []).includes("Versatile");
 
               return (

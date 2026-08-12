@@ -24,7 +24,7 @@ export function poweredStrikeDie(level) {
 }
 
 export const PARAGON_GENERAL = [
-  {lvl:1, name:"Powered Strike", action:"Attack action", desc:"Your power rides on the weapon rather than replacing it: add 1d6 to your weapon attacks, growing to 1d8 at 5th, 1d10 at 10th, and 1d12 at 17th. Your Attacks list adds the die for you."},
+  {lvl:1, name:"Powered Strike", action:"Attack action", desc:"Your power rides on the weapon rather than replacing it: add 1d6 and your proficiency bonus to your weapon attacks. The die grows to 1d8 at 5th, 1d10 at 10th, and 1d12 at 17th. Your Attacks list folds both in for you."},
   {lvl:1, name:"Hero Archetype", desc:"Choose Streak, The Web, The Weave, The Brick, or The Tempest. The choice is permanent."},
   {lvl:1, name:"Genes Known", desc:"You know 2 Genes at 1st level and one more at every odd level after, to 11 at 19th. Draw from the universal list or your archetype's exclusive list."},
   {lvl:2, name:"Genetic Potential", desc:"Your resource pool for Genes that cost points, equal to your Paragon level plus your Constitution modifier. At-will Genes cost nothing."},
@@ -239,6 +239,11 @@ export const CLASS_PARAGON = {
      weapon attacks can declare one the same way. */
   bonusAttackDie: poweredStrikeDie,
   bonusAttackLabel: "Powered Strike",
+  /* The document says Powered Strike deals its die "plus your ability
+     modifier and your proficiency bonus". Riding on a weapon attack, the
+     ability modifier is already in the weapon's damage — but the
+     proficiency bonus is not, so it is added here. */
+  bonusAttackAddsProf: true,
   subclassLabel: "Hero Archetype",
   subclasses: PARAGON_ARCHETYPES,
   generalFeatures: PARAGON_GENERAL,
