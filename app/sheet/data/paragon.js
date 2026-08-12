@@ -24,7 +24,7 @@ export function poweredStrikeDie(level) {
 }
 
 export const PARAGON_GENERAL = [
-  {lvl:1, name:"Powered Strike", action:"Attack action", desc:"Your basic attack: 1d6 plus your ability modifier and your proficiency bonus. The die grows to 1d8 at 5th, 1d10 at 10th, and 1d12 at 17th."},
+  {lvl:1, name:"Powered Strike", action:"Attack action", desc:"Your power rides on the weapon rather than replacing it: add 1d6 to your weapon attacks, growing to 1d8 at 5th, 1d10 at 10th, and 1d12 at 17th. Your Attacks list adds the die for you."},
   {lvl:1, name:"Hero Archetype", desc:"Choose Streak, The Web, The Weave, The Brick, or The Tempest. The choice is permanent."},
   {lvl:1, name:"Genes Known", desc:"You know 2 Genes at 1st level and one more at every odd level after, to 11 at 19th. Draw from the universal list or your archetype's exclusive list."},
   {lvl:2, name:"Genetic Potential", desc:"Your resource pool for Genes that cost points, equal to your Paragon level plus your Constitution modifier. At-will Genes cost nothing."},
@@ -233,6 +233,12 @@ export const CLASS_PARAGON = {
   resourceRecoveryHint:
     "Equal to your Paragon level plus your Constitution modifier, so it grows as you do. At-will Genes cost nothing.",
   resourceButtons: [{ label: "Long Rest (full)", tag: "refill-full" }],
+  /* Powered Strike rides on the weapon rather than replacing it, so the
+     Attacks list adds this die to every weapon's damage. Read generically by
+     Equipment.js, so any future class that grants a flat bonus die to
+     weapon attacks can declare one the same way. */
+  bonusAttackDie: poweredStrikeDie,
+  bonusAttackLabel: "Powered Strike",
   subclassLabel: "Hero Archetype",
   subclasses: PARAGON_ARCHETYPES,
   generalFeatures: PARAGON_GENERAL,

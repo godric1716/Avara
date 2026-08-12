@@ -747,7 +747,11 @@ export const DOCUMENTS = {
         label: "Resource",
         value: "Genetic Potential — your level plus your CON modifier, +2 from 10th and +4 from 14th",
       },
-      { label: "Powered Strike", value: "1d6, rising to 1d8 at 5th, 1d10 at 10th, 1d12 at 17th" },
+      {
+        label: "Powered Strike",
+        value:
+          "Added to your weapon attacks — 1d6, rising to 1d8 at 5th, 1d10 at 10th, 1d12 at 17th",
+      },
       { label: "Genes Known", value: "2 at 1st, one more at every odd level, to 11 at 19th" },
       { label: "Archetypes", value: "Streak, The Web, The Weave, The Brick, The Tempest" },
       {

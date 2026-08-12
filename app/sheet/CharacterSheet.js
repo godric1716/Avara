@@ -528,6 +528,7 @@ export default function CharacterSheet() {
             <Equipment
               classId={character.classId}
               subclass={character.subclass}
+              level={level}
               abilityMods={abilityMods}
               profBonus={pb}
               attacks={character.attacks}

@@ -5,7 +5,7 @@ import styles from "./sheet.module.css";
 import equipment from "./data/equipment.json";
 import { HOMEBREW_WEAPONS } from "./data/homebrewWeapons";
 import { startingKit } from "./data/startingGear";
-import { fmt } from "./data";
+import { fmt, CLASS_DATA } from "./data";
 
 const WEAPONS = [...equipment.weapons, ...HOMEBREW_WEAPONS].sort((a, b) =>
   a.name.localeCompare(b.name)
@@ -62,6 +62,7 @@ function abilityFor(weapon, classId, abilityMods, override) {
 export default function Equipment({
   classId,
   subclass,
+  level,
   abilityMods,
   profBonus,
   attacks,
@@ -81,6 +82,12 @@ export default function Equipment({
   const armor = ARMOR.find((a) => a.index === armorIndex) || null;
   const dexMod = abilityMods.dex ?? 0;
   const ac = armorClassFor(armorIndex, dexMod, shieldEquipped);
+
+  /* Some classes add a die to every weapon attack rather than granting a
+     separate one. Declared on the class so this stays generic. */
+  const bonusFn = CLASS_DATA[classId]?.bonusAttackDie;
+  const bonusDie = bonusFn ? bonusFn(level) : null;
+  const bonusLabel = CLASS_DATA[classId]?.bonusAttackLabel;
 
   function addAttack(index) {
     const w = WEAPONS.find((x) => x.index === index);
@@ -224,6 +231,13 @@ export default function Equipment({
           </select>
         </div>
 
+        {bonusDie && (
+          <p className={styles.trackerNote}>
+            {bonusLabel} adds <strong>{bonusDie}</strong> to every weapon
+            attack below — it&rsquo;s already included in the damage shown.
+          </p>
+        )}
+
         {attacks.length === 0 ? (
           <p className={styles.empty}>
             No attacks yet. Add a weapon above and the to-hit and damage are
@@ -249,7 +263,12 @@ export default function Equipment({
                       {"  "}
                       <span className={styles.attackDamage}>
                         {w?.damageDice}
-                        {dmgMod !== 0 ? fmt(dmgMod) : ""} {w?.damageType?.toLowerCase()}
+                        {/* A class die that rides on every weapon attack —
+                            the Paragon's Powered Strike. Shown inline so the
+                            number on the sheet is the number you roll. */}
+                        {bonusDie ? ` + ${bonusDie}` : ""}
+                        {dmgMod !== 0 ? ` ${fmt(dmgMod)}` : ""}{" "}
+                        {w?.damageType?.toLowerCase()}
                       </span>
                     </span>
                     <span className={styles.attackMeta}>
