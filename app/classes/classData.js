@@ -695,6 +695,13 @@ export const CLASS_DOCUMENTS = {
   sangreal: [{ label: "Sangreal class document", file: "sangreal.pdf", size: "105 KB" }],
   unbroken: [{ label: "Unbroken class document", file: "unbroken.pdf", size: "106 KB" }],
   paragon: [{ label: "Paragon class document", file: "paragon.pdf", size: "29 KB" }],
+  varra: [
+    {
+      label: "Varra Aeterna sourcebook",
+      file: "varra-aeterna.pdf",
+      size: "77 KB",
+    },
+  ],
   peoples: [
     {
       label: "Peoples & Paths source document",

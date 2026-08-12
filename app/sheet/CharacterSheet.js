@@ -28,7 +28,30 @@ import Techniques from "./Techniques";
 import Portrait from "./Portrait";
 import Roster from "./Roster";
 import Heritage from "./Heritage";
-import { RACES, BACKGROUNDS } from "../peoples/data";
+import { ALL_RACES, ALL_BACKGROUNDS } from "../peoples/data";
+import { VARRA_ITEMS, VARRA_FEATS } from "../varra/data";
+
+/* Varra Aeterna's feats and items are written as general content — not
+   locked to a class or subclass — so they're offered to every character.
+   The source is stamped onto the meta line at merge time rather than in the
+   data, so the sourcebook's own pages stay uncluttered. */
+const EXPANSION_FEATS = VARRA_FEATS.map((f) => ({
+  ...f,
+  meta: `${f.meta} · Varra Aeterna`,
+}));
+const EXPANSION_ITEMS = VARRA_ITEMS.map((i) => ({
+  ...i,
+  meta: `${i.meta} · Varra Aeterna`,
+}));
+
+/* Grouped by book so a player can see which sourcebook they're picking from
+   rather than one flat list of twelve. */
+function groupBySource(entries) {
+  return [
+    { label: "Avara", items: entries.filter((e) => !e.source) },
+    { label: "Varra Aeterna", items: entries.filter((e) => e.source === "varra") },
+  ].filter((g) => g.items.length > 0);
+}
 
 /* Only the two classes that actually cast get a spell tab. The Sovereign is
    explicitly "not a spellcaster" despite its Technique DC, and the
@@ -235,10 +258,14 @@ export default function CharacterSheet() {
               onChange={(e) => update({ race: e.target.value })}
             >
               <option value="">—</option>
-              {RACES.map((r) => (
-                <option key={r.slug} value={r.slug}>
-                  {r.name}
-                </option>
+              {groupBySource(ALL_RACES).map((g) => (
+                <optgroup key={g.label} label={g.label}>
+                  {g.items.map((r) => (
+                    <option key={r.slug} value={r.slug}>
+                      {r.name}
+                    </option>
+                  ))}
+                </optgroup>
               ))}
             </select>
           </label>
@@ -250,10 +277,14 @@ export default function CharacterSheet() {
               onChange={(e) => setBackground(e.target.value)}
             >
               <option value="">—</option>
-              {BACKGROUNDS.map((b) => (
-                <option key={b.slug} value={b.slug}>
-                  {b.name}
-                </option>
+              {groupBySource(ALL_BACKGROUNDS).map((g) => (
+                <optgroup key={g.label} label={g.label}>
+                  {g.items.map((b) => (
+                    <option key={b.slug} value={b.slug}>
+                      {b.name}
+                    </option>
+                  ))}
+                </optgroup>
               ))}
             </select>
           </label>
@@ -521,7 +552,11 @@ export default function CharacterSheet() {
             <div className={styles.columns}>
               <CheckList
                 title="Feats"
-                entries={[...(cls.generalFeats || []), ...((sub && sub.feats) || [])]}
+                entries={[
+                  ...(cls.generalFeats || []),
+                  ...((sub && sub.feats) || []),
+                  ...EXPANSION_FEATS,
+                ]}
                 checked={character.feats}
                 onToggle={(name) => toggleIn("feats", name)}
               />
@@ -539,7 +574,11 @@ export default function CharacterSheet() {
               )}
               <CheckList
                 title="Magic Items"
-                entries={[...(cls.sharedItems || []), ...((sub && sub.items) || [])]}
+                entries={[
+                  ...(cls.sharedItems || []),
+                  ...((sub && sub.items) || []),
+                  ...EXPANSION_ITEMS,
+                ]}
                 checked={character.items}
                 onToggle={(name) => toggleIn("items", name)}
               />
@@ -618,13 +657,21 @@ function clamp(v) {
    currently selected class — a name checked under another class won't match. */
 function collectLoadout(cls, sub, character) {
   const out = [];
+  /* Must match the lists the Reference tab offers, expansion content
+     included — a pinned name that isn't in here resolves to nothing and the
+     Loadout silently drops it. */
   const feats = [
     ...(cls.generalFeats || []),
     ...(cls.instincts || []),
     ...((sub && sub.feats) || []),
     ...((sub && sub.instincts) || []),
+    ...EXPANSION_FEATS,
   ];
-  const items = [...(cls.sharedItems || []), ...((sub && sub.items) || [])];
+  const items = [
+    ...(cls.sharedItems || []),
+    ...((sub && sub.items) || []),
+    ...EXPANSION_ITEMS,
+  ];
   for (const f of feats) {
     if (character.feats[f.name]) out.push({ ...f, bucket: "feats" });
   }

@@ -1,0 +1,495 @@
+/* Varra Aeterna — one expansion, one palette.
+
+   Every page in this section scopes the same two colours: porphyry as the
+   accent and gold as a sparse secondary for rules and numerals. Nothing here
+   varies per entry, which is the whole point — ten subclasses with ten
+   accents would fight each other and the nine class palettes both. */
+
+.book {
+  --varra: #8c4a5f;
+  --varra-gold: #c8a24a;
+  --varra-soft: rgba(140, 74, 95, 0.15);
+}
+
+.lede {
+  max-width: 64ch;
+  margin: 14px auto 0;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text-dim);
+}
+
+.lede strong {
+  color: var(--varra-gold);
+  font-weight: 700;
+}
+
+/* ---------- Counts ---------- */
+
+.counts {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 26px 0 22px;
+}
+
+.counts > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-width: 92px;
+  padding: 13px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--varra);
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.countNum {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--varra-gold);
+}
+
+.countLabel {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* ---------- Source document ---------- */
+
+.docRow {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 38px;
+}
+
+.docLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-dim);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.docLink:hover {
+  border-color: var(--varra);
+  color: var(--varra-gold);
+}
+
+.docMeta {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-faint);
+}
+
+/* ---------- Groups ---------- */
+
+.group {
+  margin-bottom: 46px;
+}
+
+.groupHead {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.groupEyebrow {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--varra-gold);
+}
+
+.groupTitle {
+  margin: 5px 0 8px;
+  font-size: 1.5rem;
+}
+
+.groupBlurb {
+  margin: 0;
+  max-width: 68ch;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+
+/* The gap in coverage is stated rather than left to be counted. */
+.groupNote {
+  margin: 8px 0 0;
+  font-size: 12px;
+  font-style: italic;
+  color: var(--text-faint);
+}
+
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  height: 100%;
+  padding: 15px 17px;
+  text-decoration: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--varra);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.card:hover {
+  border-color: var(--varra-gold);
+  transform: translateY(-2px);
+}
+
+.cardClass {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--varra-gold);
+}
+
+.cardName {
+  font-family: var(--font-cinzel), serif;
+  font-size: 16px;
+  color: var(--text);
+}
+
+.cardType {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.cardTagline {
+  margin-top: 3px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+/* ---------- Gear lists ---------- */
+
+.gearList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 11px;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+}
+
+.gear {
+  padding: 15px 17px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.gearHead {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+
+.gearName {
+  font-family: var(--font-cinzel), serif;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.gearMeta {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--varra-gold);
+}
+
+.gearFlavour {
+  margin: 0 0 7px;
+  font-size: 12.5px;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--text-faint);
+}
+
+.gearDesc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+
+/* ---------- Entry page ---------- */
+
+.back {
+  margin: 0 0 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back a {
+  color: var(--text-faint);
+  text-decoration: none;
+}
+
+.back a:hover {
+  color: var(--varra-gold);
+}
+
+.entryKind {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--varra-gold);
+}
+
+.entryTitle {
+  margin: 6px 0 0;
+  font-size: 2.1rem;
+  line-height: 1.15;
+}
+
+.entryLatin {
+  margin: 5px 0 0;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--text-faint);
+}
+
+.entryTagline {
+  margin: 8px 0 0;
+  max-width: 60ch;
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+.rule {
+  height: 2px;
+  margin: 20px 0 26px;
+  background: linear-gradient(
+    to right,
+    var(--varra),
+    var(--varra-gold) 40%,
+    transparent
+  );
+}
+
+.quote {
+  margin: 0 0 24px;
+  padding-left: 18px;
+  border-left: 2px solid var(--varra);
+  font-size: 17px;
+  line-height: 1.6;
+  font-style: italic;
+  color: var(--text);
+}
+
+.intro {
+  max-width: 68ch;
+  margin-bottom: 30px;
+}
+
+.intro p {
+  margin: 0 0 14px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-dim);
+}
+
+.panel {
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.supportPanel {
+  border-left: 3px solid var(--varra-gold);
+}
+
+.panelTitle {
+  display: flex;
+  align-items: baseline;
+  gap: 11px;
+  flex-wrap: wrap;
+  margin: 0 0 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.featLvl {
+  padding: 2px 9px;
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  border-radius: 999px;
+  color: var(--varra-gold);
+  border: 1px solid var(--varra);
+}
+
+.prose {
+  margin: 0 0 10px;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text-dim);
+}
+
+.prose:last-child {
+  margin-bottom: 0;
+}
+
+.bulletList {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 13px;
+}
+
+.bulletName {
+  display: block;
+  font-family: var(--font-cinzel), serif;
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.req {
+  font-family: inherit;
+  font-size: 11px;
+  font-style: italic;
+  color: var(--text-faint);
+}
+
+.tenetList {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 12px;
+  color: var(--varra-gold);
+}
+
+.tenetName {
+  display: block;
+  font-family: var(--font-cinzel), serif;
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+/* Tables scroll inside their own container so a wide spell list never makes
+   the page itself scroll sideways on a phone. */
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.table th {
+  text-align: left;
+  padding: 7px 12px 7px 0;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--varra-gold);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 8px 12px 8px 0;
+  line-height: 1.6;
+  color: var(--text-dim);
+  border-bottom: 1px dashed var(--border);
+  vertical-align: top;
+}
+
+.table td:first-child {
+  color: var(--varra-gold);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.quickList {
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.quickList > div {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 14px;
+  align-items: baseline;
+}
+
+.quickList dt {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--varra-gold);
+}
+
+.quickList dd {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-dim);
+}
+
+@media (max-width: 620px) {
+  .grid,
+  .gearList {
+    grid-template-columns: 1fr;
+  }
+  .quickList > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .entryTitle {
+    font-size: 1.7rem;
+  }
+}

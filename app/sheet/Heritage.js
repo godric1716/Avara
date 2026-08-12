@@ -95,7 +95,10 @@ export default function Heritage({ race, background, roleplay, onRoleplay }) {
         </section>
       )}
 
-      {bgEntry && (
+      {/* Rhovian backgrounds carry no personality/ideal/bond/flaw tables —
+          the sourcebook doesn't give them — so this whole card only appears
+          for backgrounds that actually have something to pick from. */}
+      {bgEntry?.personality?.length > 0 && (
         <section className={`${styles.card} ${styles.roleplayCard}`}>
           <h2 className={styles.cardTitle}>Who you are</h2>
           <p className={styles.trackerNote}>
@@ -113,22 +116,22 @@ export default function Heritage({ race, background, roleplay, onRoleplay }) {
           <Picker
             label="Ideal"
             die="d4"
-            options={bgEntry.ideals.map((i) => i.text)}
-            tags={bgEntry.ideals.map((i) => i.alignment)}
+            options={(bgEntry.ideals || []).map((i) => i.text)}
+            tags={(bgEntry.ideals || []).map((i) => i.alignment)}
             value={roleplay.ideal}
             onChange={(v) => onRoleplay("ideal", v)}
           />
           <Picker
             label="Bond"
             die="d4"
-            options={bgEntry.bonds}
+            options={bgEntry.bonds || []}
             value={roleplay.bond}
             onChange={(v) => onRoleplay("bond", v)}
           />
           <Picker
             label="Flaw"
             die="d4"
-            options={bgEntry.flaws}
+            options={bgEntry.flaws || []}
             value={roleplay.flaw}
             onChange={(v) => onRoleplay("flaw", v)}
           />

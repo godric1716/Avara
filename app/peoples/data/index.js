@@ -1,15 +1,34 @@
 import { RACES } from "./races.js";
 import { BACKGROUNDS } from "./backgrounds.js";
+import { VARRA_RACES } from "../../varra/data/races.js";
+import { VARRA_BACKGROUNDS } from "../../varra/data/backgrounds.js";
 
 export { RACES, BACKGROUNDS };
+
+/* Everything a character can actually be, across both books. The character
+   sheet picks from these rather than from RACES/BACKGROUNDS alone, so a
+   Rhovian race is selectable without the sheet needing to know which
+   sourcebook it came from.
+
+   Entries carry `source` so the pickers can group them; the Peoples & Paths
+   entries have none, which reads as the base book. */
+export const ALL_RACES = [...RACES, ...VARRA_RACES];
+export const ALL_BACKGROUNDS = [...BACKGROUNDS, ...VARRA_BACKGROUNDS];
 
 /* Races and backgrounds share one URL space — /peoples/<slug> — because they
    share one home. That's only safe while every slug is unique across both,
    which validateEntries() is here to guarantee when the next batch lands. */
 export const ALL_ENTRIES = [...RACES, ...BACKGROUNDS];
 
+/* Looks across both books, because a character's stored race slug may point
+   at either. The /peoples pages still list only ALL_ENTRIES — a Rhovian race
+   lives in its own section, it just has to be findable from the sheet. */
 export function getEntry(slug) {
-  return ALL_ENTRIES.find((e) => e.slug === slug) || null;
+  return (
+    ALL_ENTRIES.find((e) => e.slug === slug) ||
+    [...VARRA_RACES, ...VARRA_BACKGROUNDS].find((e) => e.slug === slug) ||
+    null
+  );
 }
 
 export function entriesOfKind(kind) {
