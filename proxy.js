@@ -1,6 +1,20 @@
 import { NextResponse } from "next/server";
 import { auth } from "./lib/auth";
 import { isAllowed, isDm } from "./lib/allowlist";
+import { isTrackablePath, recordPageView } from "./lib/pageviews";
+
+/* A prefetch is not a visit. Next fetches routes on link hover and on
+   entering the viewport, and those requests arrive here like any other — so
+   hovering the nav bar would otherwise log a visit to every page in it. A
+   real navigation carries RSC without the prefetch header; a full page load
+   carries neither. */
+function isPrefetch(request) {
+  return (
+    request.headers.get("next-router-prefetch") === "1" ||
+    request.headers.get("purpose") === "prefetch" ||
+    request.headers.get("x-middleware-prefetch") === "1"
+  );
+}
 
 /* Pages that carry DM-only spoiler material — hidden from players entirely,
    not just unlinked from navigation. */
@@ -50,6 +64,15 @@ export async function proxy(request) {
     url.pathname = "/";
     url.search = "";
     return NextResponse.redirect(url);
+  }
+
+  /* Logged only for requests that actually reached a page, and only after
+     the gate has passed — a redirected request isn't a visit to the page
+     that was asked for. Awaited rather than fired and forgotten, because a
+     serverless function can be frozen the moment it returns a response and
+     an un-awaited insert would be dropped at random. */
+  if (!isPrefetch(request) && isTrackablePath(pathname)) {
+    await recordPageView(email, pathname);
   }
 
   return NextResponse.next();

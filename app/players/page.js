@@ -3,8 +3,10 @@ import styles from "./players.module.css";
 import sectionStyles from "../section.module.css";
 import Flourish from "../components/Flourish";
 import RequestRow from "./RequestRow";
+import VisitStats from "./VisitStats";
 import { currentUser } from "../../lib/characters";
 import { listAccessRequests } from "../../lib/allowlist";
+import { visitStats, topPaths, totalViews } from "../../lib/pageviews";
 
 export const metadata = { title: "Players · Avara" };
 
@@ -17,6 +19,11 @@ export default async function PlayersPage() {
   if (!user?.dm) redirect("/");
 
   const requests = await listAccessRequests();
+  const [stats, paths, totals] = await Promise.all([
+    visitStats(),
+    topPaths(),
+    totalViews(),
+  ]);
   const pending = requests.filter((r) => r.status === "pending");
   const approved = requests.filter((r) => r.status === "approved");
   const denied = requests.filter((r) => r.status === "denied");
@@ -44,6 +51,8 @@ export default async function PlayersPage() {
       {denied.length > 0 && (
         <Group title={`Turned away (${denied.length})`} rows={denied} />
       )}
+
+      <VisitStats stats={stats} paths={paths} totals={totals} />
 
       <p className={styles.note}>
         Approving lets someone sign in immediately — they don&rsquo;t need to
